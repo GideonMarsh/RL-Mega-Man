@@ -26,7 +26,6 @@ def findBounds(windowName=None):
         hwnd = win32gui.FindWindow(None, windowName)
         if hwnd:
             win32gui.SetForegroundWindow(hwnd)
-            time.sleep(0.1)
             x, y, x1, y1 = win32gui.GetClientRect(hwnd)
             x, y = win32gui.ClientToScreen(hwnd, (x, y))
             x1, y1 = win32gui.ClientToScreen(hwnd, (x1 - x, y1 - y))
@@ -56,6 +55,17 @@ def findBounds(windowName=None):
                     break
 
             return (bx, by, bw, bh)
+        else:
+            print("Window not found!")
+    else:
+        print("Window needs a name!")
+
+def setWindowSize(windowName=None,width=1920, height=1080):
+    if windowName:
+        hwnd = win32gui.FindWindow(None, windowName)
+        if hwnd:
+            win32gui.SetForegroundWindow(hwnd)
+            win32gui.MoveWindow(hwnd, 0, 0, width, height, True)
         else:
             print("Window not found!")
     else:
