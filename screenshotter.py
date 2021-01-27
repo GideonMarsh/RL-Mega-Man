@@ -13,7 +13,6 @@ def takescreenshot(windowName=None, r=None):
             win32gui.SetForegroundWindow(hwnd)
             x, y, x1, y1 = win32gui.GetClientRect(hwnd)
             x, y = win32gui.ClientToScreen(hwnd, (x, y))
-            print(x)
             im = pyautogui.screenshot(region=(r[0] + x,r[1] + y,r[2],r[3]))
             return im
         else:
