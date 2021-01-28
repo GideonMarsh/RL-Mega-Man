@@ -4,9 +4,11 @@
 import screenshotter
 import math
 import time
+from pynput.keyboard import Key, Controller
 
 
 windowName='Mega Man Legacy Collection'
+keyboard = Controller()
 
 # screenRatio = 1.333
 xPixels = 266
@@ -17,8 +19,18 @@ time.sleep(3)
 region = screenshotter.findBounds(windowName)
 if (region[3] < yPixels or region[2] < xPixels):
     print('Screen not large enough')
+startTime = time.time()
+pressflag = True
+releaseflag = True
 while True:
-    previousTime = time.time()
+    if (time.time() > startTime + 2 and pressflag):
+        print('press')
+        keyboard.press(Key.right)
+        pressflag = False
+    if (time.time() > startTime + 5 and releaseflag):
+        keyboard.release(Key.right)
+        print('release')
+        releaseflag = False
     screenshot = screenshotter.takescreenshot(windowName, region)
     if (screenshot):
         grayimg = screenshot.convert('L')
@@ -32,8 +44,6 @@ while True:
         for i in range(xPixels):
             for j in range(yPixels):
                 pix[i,j] = pix[(i * xOffset) + xShift, (j * yOffset) + yShift]
-
-        print(time.time() - previousTime)
 
     #print(grayimg.width)
     #print(grayimg.height)
