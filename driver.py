@@ -27,7 +27,7 @@ while True:
         print('press')
         keyboard.press(Key.right)
         pressflag = False
-    if (time.time() > startTime + 5 and releaseflag):
+    if (time.time() > startTime + 4 and releaseflag):
         keyboard.release(Key.right)
         print('release')
         releaseflag = False
