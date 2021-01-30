@@ -2,8 +2,9 @@
 # github.com/GideonMarsh
 
 import screenshotter
-import math
-import time
+import fitness
+from math import floor
+from time import time, sleep
 from pynput.keyboard import Key, Controller
 
 
@@ -16,24 +17,28 @@ yPixels = 200
 
 # initial setup
 screenshotter.setWindowSize(windowName)
-time.sleep(3)
+sleep(3)
 region = screenshotter.findBounds(windowName)
 if (region[3] < yPixels or region[2] < xPixels):
     print('Screen not large enough')
 '''
-startTime = time.time()
+startTime = time()
 pressflag = True
 releaseflag = True
 '''
+#runTimer = fitness.RunTimer(1)
 
 # program loop
+print('time started')
+#runTimer.startTimer()
 while (not screenshotter.isProgramOver(windowName)):
+    startTime = time()
     '''
-    if (time.time() > startTime + 2 and pressflag):
+    if (time() > startTime + 2 and pressflag):
         print('press')
         keyboard.press(Key.right)
         pressflag = False
-    if (time.time() > startTime + 4 and releaseflag):
+    if (time() > startTime + 4 and releaseflag):
         keyboard.release(Key.right)
         print('release')
         releaseflag = False
@@ -43,10 +48,10 @@ while (not screenshotter.isProgramOver(windowName)):
         grayimg = screenshot.convert('L')
         pix = grayimg.load()
 
-        yOffset = math.floor(grayimg.height / yPixels)
-        xOffset = math.floor(grayimg.width / xPixels)
-        xShift = math.floor((grayimg.width % xPixels) / 2)
-        yShift = math.floor((grayimg.height % yPixels) / 2)
+        yOffset = floor(grayimg.height / yPixels)
+        xOffset = floor(grayimg.width / xPixels)
+        xShift = floor((grayimg.width % xPixels) / 2)
+        yShift = floor((grayimg.height % yPixels) / 2)
 
         for i in range(xPixels):
             for j in range(yPixels):
@@ -56,5 +61,13 @@ while (not screenshotter.isProgramOver(windowName)):
     #print(grayimg.height)
 
     #grayimg.save('testscreenshot.png')
+    '''
+    if (runTimer.isTimeUp()):
+        print('Time Over!')
+    else:
+        print('still going...')
+    '''
+    print(time() - startTime)
 
 # safe shut down
+#runTimer.cancelTimer()

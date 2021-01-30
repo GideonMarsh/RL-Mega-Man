@@ -1,10 +1,14 @@
 # Gideon Marsh
 # github.com/GideonMarsh
 
+#from pyautogui import screenshot
 import pyautogui
 import win32gui
-import time
-import math
+from math import floor
+
+# Failsafe slightly slows speed of screenshotting
+# This program does not utilize mouse movements, so failsafe is unneeded
+pyautogui.FAILSAFE = False
 
 def takescreenshot(windowName=None, r=None):
     if r:
@@ -34,22 +38,22 @@ def findBounds(windowName=None):
             bx = by = bw = bh = 0
             previous = (0,0,0)
             for i in range(x1):
-                if (previous != pix[i,math.floor(y1 / 2)]):
+                if (previous != pix[i,floor(y1 / 2)]):
                     bx = i
                     break
             previous = (0,0,0)
             for i in range(y1):
-                if (previous != pix[math.floor(x1 / 2),i]):
+                if (previous != pix[floor(x1 / 2),i]):
                     by = i
                     break
             previous = (0,0,0)
             for i in range(x1):
-                if (previous != pix[x1 - i - 1,math.floor(y1 / 2)]):
+                if (previous != pix[x1 - i - 1,floor(y1 / 2)]):
                     bw = (x1 - i) - bx
                     break
             previous = (0,0,0)
             for i in range(y1):
-                if (previous != pix[math.floor(x1 / 2),y1 - i - 1]):
+                if (previous != pix[floor(x1 / 2),y1 - i - 1]):
                     bh = (y1 - i) - by
                     break
 
