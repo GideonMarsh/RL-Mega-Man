@@ -14,6 +14,7 @@ keyboard = Controller()
 xPixels = 266
 yPixels = 200
 
+# initial setup
 screenshotter.setWindowSize(windowName)
 time.sleep(3)
 region = screenshotter.findBounds(windowName)
@@ -22,6 +23,8 @@ if (region[3] < yPixels or region[2] < xPixels):
 startTime = time.time()
 pressflag = True
 releaseflag = True
+
+# program loop
 while True:
     if (time.time() > startTime + 2 and pressflag):
         print('press')
@@ -49,3 +52,5 @@ while True:
     #print(grayimg.height)
 
     #grayimg.save('testscreenshot.png')
+
+    # safe shut down
