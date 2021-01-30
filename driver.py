@@ -20,12 +20,15 @@ time.sleep(3)
 region = screenshotter.findBounds(windowName)
 if (region[3] < yPixels or region[2] < xPixels):
     print('Screen not large enough')
+'''
 startTime = time.time()
 pressflag = True
 releaseflag = True
+'''
 
 # program loop
-while True:
+while (not screenshotter.isProgramOver(windowName)):
+    '''
     if (time.time() > startTime + 2 and pressflag):
         print('press')
         keyboard.press(Key.right)
@@ -34,6 +37,7 @@ while True:
         keyboard.release(Key.right)
         print('release')
         releaseflag = False
+    '''
     screenshot = screenshotter.takescreenshot(windowName, region)
     if (screenshot):
         grayimg = screenshot.convert('L')
@@ -53,4 +57,4 @@ while True:
 
     #grayimg.save('testscreenshot.png')
 
-    # safe shut down
+# safe shut down

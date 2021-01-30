@@ -10,7 +10,6 @@ def takescreenshot(windowName=None, r=None):
     if r:
         hwnd = win32gui.FindWindow(None, windowName)
         if hwnd:
-            win32gui.SetForegroundWindow(hwnd)
             x, y, x1, y1 = win32gui.GetClientRect(hwnd)
             x, y = win32gui.ClientToScreen(hwnd, (x, y))
             im = pyautogui.screenshot(region=(r[0] + x,r[1] + y,r[2],r[3]))
@@ -70,3 +69,13 @@ def setWindowSize(windowName=None,width=1920, height=1080):
             print("Window not found!")
     else:
         print("Window needs a name!")
+
+def isProgramOver(windowName=None):
+    if windowName:
+        hwnd = win32gui.FindWindow(None, windowName)
+        hwndCheck = win32gui.GetForegroundWindow()
+        if (hwnd == hwndCheck):
+            return False
+        return True
+    else:
+        return True
