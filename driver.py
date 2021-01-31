@@ -1,64 +1,48 @@
 # Gideon Marsh
 # github.com/GideonMarsh
 
+import constants
 import imagechecker
 import screenshotter
 import fitness
+import controller
 from time import time, sleep
-from pynput.keyboard import Key, Controller
 
-# screenRatio = 1.333
-xPixels = 266
-yPixels = 200
-
-windowName='Mega Man Legacy Collection'
-keyboard = Controller()
-
-# initial setup
-screenshotter.setWindowSize(windowName)
-sleep(3)
-region = screenshotter.findBounds(windowName)
-if (region[3] < yPixels or region[2] < xPixels):
+############################# initial setup #############################
+'''
+Manual steps to take before running program:
+1. Make sure all checkpoint images are saved and ready for comparison
+2. Save the game at the start of the level that is being played with only one life remaining
+3. Navigate to a menu without a black background (stage select works)
+4. Open options menu
+5. Start program
+'''
+screenshotter.setWindowSize(constants.WINDOWNAME)
+sleep(0.2)
+controller.closeMenu()
+sleep(0.1)
+region = screenshotter.findBounds(constants.WINDOWNAME)
+if (region[3] < constants.YPIXELS or region[2] < constants.XPIXELS):
     print('Screen not large enough')
-'''
-startTime = time()
-pressflag = True
-releaseflag = True
-'''
-#runTimer = fitness.RunTimer(1)
+else:
+    print('Screen region acquired')
 
-# program loop
-#runTimer.startTimer()
-grayimg = None
-while (not screenshotter.isProgramOver(windowName)):
-    '''
-    if (time() > startTime + 2 and pressflag):
-        print('press')
-        keyboard.press(Key.right)
-        pressflag = False
-    if (time() > startTime + 4 and releaseflag):
-        keyboard.release(Key.right)
-        print('release')
-        releaseflag = False
-    '''
-    screenshot = screenshotter.takescreenshot(windowName, region)
+fitnessTracker = fitness.FitnessTimer()
+
+runcounter = 1
+
+############################# program loop ##############################
+controller.loadSave()
+fitnessTracker.setStartTime()
+while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
+    screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
     if (screenshot):
         grayimg = screenshot.convert('L')
 
-        if (imagechecker.checkGameOver(grayimg,xPixels,yPixels)):
-            print('Game Over!')
+        if (imagechecker.checkGameOver(grayimg,constants.XPIXELS,constants.YPIXELS)):
+            fitnessTracker.setEndTime()
+            print('Fitness for run ' + str(runcounter) + ': ' + str(fitnessTracker.getFitness()))
+            runcounter = runcounter + 1
+            controller.loadSave()
 
-
-    '''
-    #print(grayimg.width)
-    #print(grayimg.height)
-
-    #grayimg.save('testscreenshot.png')
-    if (runTimer.isTimeUp()):
-        print('Time Over!')
-    else:
-        print('still going...')
-    '''
-
-# safe shut down
-#runTimer.cancelTimer()
+############################# safe shut down ############################

@@ -5,18 +5,28 @@ from time import time
 from threading import Timer
 
 class FitnessTimer:
-    startTime = 0
-    endTime = 0
+    def __init__(self):
+        self.startTime = 0
+        self.endTime = 0
+        self.running = False
 
-    def setStartTime():
-        startTime = time.time()
-        endTime = startTime
+    def setStartTime(self):
+        self.startTime = time()
+        self.endTime = self.startTime
+        self.running = True
 
-    def setEndTime():
-        endTime = time.time()
+    def setEndTime(self):
+        self.endTime = time()
+        self.running = False
 
-    def getTimeElapsed():
-        return endTime - startTime
+    def getFitness(self):
+        if (self.running):
+            return round(time() - self.startTime, 1)
+        else:
+            return round(self.endTime - self.startTime, 1)
+
+    def isRunning(self):
+        return self.running
 
 
 class RunTimer:
