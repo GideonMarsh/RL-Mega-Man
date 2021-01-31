@@ -1,19 +1,18 @@
 # Gideon Marsh
 # github.com/GideonMarsh
 
+import imagechecker
 import screenshotter
 import fitness
-from math import floor
 from time import time, sleep
 from pynput.keyboard import Key, Controller
-
-
-windowName='Mega Man Legacy Collection'
-keyboard = Controller()
 
 # screenRatio = 1.333
 xPixels = 266
 yPixels = 200
+
+windowName='Mega Man Legacy Collection'
+keyboard = Controller()
 
 # initial setup
 screenshotter.setWindowSize(windowName)
@@ -29,10 +28,9 @@ releaseflag = True
 #runTimer = fitness.RunTimer(1)
 
 # program loop
-print('time started')
 #runTimer.startTimer()
+grayimg = None
 while (not screenshotter.isProgramOver(windowName)):
-    startTime = time()
     '''
     if (time() > startTime + 2 and pressflag):
         print('press')
@@ -46,28 +44,21 @@ while (not screenshotter.isProgramOver(windowName)):
     screenshot = screenshotter.takescreenshot(windowName, region)
     if (screenshot):
         grayimg = screenshot.convert('L')
-        pix = grayimg.load()
 
-        yOffset = floor(grayimg.height / yPixels)
-        xOffset = floor(grayimg.width / xPixels)
-        xShift = floor((grayimg.width % xPixels) / 2)
-        yShift = floor((grayimg.height % yPixels) / 2)
+        if (imagechecker.checkGameOver(grayimg,xPixels,yPixels)):
+            print('Game Over!')
 
-        for i in range(xPixels):
-            for j in range(yPixels):
-                pix[i,j] = pix[(i * xOffset) + xShift, (j * yOffset) + yShift]
 
+    '''
     #print(grayimg.width)
     #print(grayimg.height)
 
     #grayimg.save('testscreenshot.png')
-    '''
     if (runTimer.isTimeUp()):
         print('Time Over!')
     else:
         print('still going...')
     '''
-    print(time() - startTime)
 
 # safe shut down
 #runTimer.cancelTimer()
