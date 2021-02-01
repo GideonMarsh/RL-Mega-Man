@@ -29,13 +29,13 @@ class FitnessTimer:
         return self.running
 
 
-def timeUp(e):
+def timeOver(e):
     e.ended = True
 
 class RunTimer:
     def __init__(self,seconds):
         self.ended = False
-        self.t = Timer(seconds, timeUp, [self])
+        self.t = Timer(seconds, timeOver, [self])
 
     def startTimer(self):
         self.t.start()

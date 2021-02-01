@@ -50,6 +50,33 @@ class ImageChecker:
 
         return True
 
+    def checkNoProgress(self, image, xp=266, yp=200, err=0.01):
+        try:
+            check = Image.open('images/last_checkpoint.png')
+
+            pix = image.load()
+
+            checkpix = check.load()
+
+            xOffset = floor(image.width / xp)
+            yOffset = floor(image.height / yp)
+            xShift = floor((image.width % xp) / 2)
+            yShift = floor((image.height % yp) / 2)
+
+            errorMargin = round(xp * yp * err)
+            errorCount = 0
+
+            for i in range(xp):
+                for j in range(yp):
+                    if (pix[(i * xOffset) + xShift, (j * yOffset) + yShift] != checkpix[(i * xOffset) + xShift, (j * yOffset) + yShift]):
+                        errorCount = errorCount + 1
+                    if (errorCount >= errorMargin):
+                        return False
+
+            return True
+        except FileNotFoundError:
+            return False
+
 def checkPixelLoops(p, cp, xo, yo, xs, ys, xp, yp):
     for i in range(xp):
         for j in range(yp):

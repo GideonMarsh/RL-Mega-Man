@@ -44,17 +44,20 @@ runcounter = 0
 
 globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
 inputTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
+progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_WAIT_INTERVAL)
+checkProgress = False
 
 grayimg = None
 
 ### helper functions rely on above variables ###
+
 def on_press(key):
     '''
     print('{0} pressed'.format(
         key))
     '''
     if (key == Key.space):
-        grayimg.save('images/checkpoint.png')
+        grayimg.save('images/last_checkpoint.png')
     if (currentlyPlaying):
         global inputTimer
         inputTimer.cancelTimer()
@@ -76,16 +79,19 @@ def on_release(key):
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer, runcounter, inputTimer, currentlyPlaying
+    global globalTimer, runcounter, inputTimer, currentlyPlaying, progressCheckTimer
     inputTimer.cancelTimer()
     globalTimer.cancelTimer()
+    progressCheckTimer.cancelTimer()
     inputTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
     globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
+    progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_WAIT_INTERVAL)
     runcounter = runcounter + 1
     controller.loadSave()
     fitnessTracker.setStartTime()
     globalTimer.startTimer()
     inputTimer.startTimer()
+    progressCheckTimer.startTimer()
     currentlyPlaying = True
 
 # call this whenever a run completes
@@ -106,10 +112,25 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
     if (screenshot):
         grayimg = screenshot.convert('L')
 
+        if (progressCheckTimer.timeUp()):
+            if (checkProgress):
+                print('waiting')
+                progressCheckTimer.cancelTimer()
+                checkProgress = False
+                grayimg.save('images/last_checkpoint.png')
+                progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_WAIT_INTERVAL)
+                progressCheckTimer.startTimer()
+            else:
+                print('checking progress')
+                progressCheckTimer.cancelTimer()
+                checkProgress = True
+                progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_COMPARE_INTERVAL)
+                progressCheckTimer.startTimer()
+
         ################### Checks for end of run ###################
 
         # program gets a game over
-        if (imageCheck.checkGameOver(grayimg,constants.XPIXELS,constants.YPIXELS) != 0):
+        if (imageCheck.checkGameOver(grayimg,constants.XPIXELS,constants.YPIXELS)):
             endRun()
             fit = fitnessTracker.getFitness()
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
@@ -130,6 +151,11 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
             restartRun()
 
         # program stops making progress
+        if (checkProgress and imageCheck.checkNoProgress(grayimg,constants.XPIXELS,constants.YPIXELS, constants.IMAGE_ACCEPTABLE_ERROR)):
+            endRun()
+            fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_WAIT_INTERVAL
+            print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
+            restartRun()
 
         # program times out
         if (globalTimer.timeUp()):
@@ -143,3 +169,4 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
 keyListener.stop()
 globalTimer.cancelTimer()
 inputTimer.cancelTimer()
+progressCheckTimer.cancelTimer()
