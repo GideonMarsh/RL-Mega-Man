@@ -14,4 +14,4 @@ PROGRESS_CHECK_WAIT_INTERVAL = 58
 PROGRESS_CHECK_COMPARE_INTERVAL = 2
 
 #The percentage of a checkpoint image that is allowed to not match
-IMAGE_ACCEPTABLE_ERROR = 0.008
+IMAGE_ACCEPTABLE_ERROR = 0.01

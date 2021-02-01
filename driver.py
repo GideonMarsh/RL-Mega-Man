@@ -11,7 +11,7 @@ from time import time, sleep
 from pynput.keyboard import Key, Listener
 '''
 NOTE:
-Keyboard listener will pick up user keyboard
+Keyboard listener will pick up user keyboard inputs
 It will NOT pick up controller inputs
 '''
 
