@@ -9,6 +9,11 @@ import controller
 from time import time, sleep
 
 from pynput.keyboard import Key, Listener
+'''
+NOTE:
+Keyboard listener will pick up user keyboard
+It will NOT pick up controller inputs
+'''
 
 ############################# initial setup #############################
 '''
@@ -19,6 +24,7 @@ Manual steps to take before running program:
 4. Open options menu
 5. Start program
 '''
+currentlyPlaying = False
 screenshotter.setWindowSize(constants.WINDOWNAME)
 sleep(0.2)
 controller.closeMenu()
@@ -37,6 +43,7 @@ imageCheck.imageSetup()
 runcounter = 0
 
 globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
+inputTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
 
 grayimg = None
 
@@ -48,6 +55,11 @@ def on_press(key):
     '''
     if (key == Key.space):
         grayimg.save('images/checkpoint.png')
+    if (currentlyPlaying):
+        global inputTimer
+        inputTimer.cancelTimer()
+        inputTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
+        inputTimer.startTimer()
 
 def on_release(key):
     '''
@@ -56,17 +68,31 @@ def on_release(key):
         # Stop listener
         return False
     '''
+    if (currentlyPlaying):
+        global inputTimer
+        inputTimer.cancelTimer()
+        inputTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
+        inputTimer.startTimer()
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer
-    global runcounter
+    global globalTimer, runcounter, inputTimer, currentlyPlaying
+    inputTimer.cancelTimer()
     globalTimer.cancelTimer()
+    inputTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
     globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
     runcounter = runcounter + 1
     controller.loadSave()
     fitnessTracker.setStartTime()
     globalTimer.startTimer()
+    inputTimer.startTimer()
+    currentlyPlaying = True
+
+# call this whenever a run completes
+def endRun():
+    global currentlyPlaying
+    currentlyPlaying = False
+    fitnessTracker.setEndTime()
 
 ### remaining variable setup relies on above helper functions ###
 keyListener = Listener(on_press=on_press,on_release=on_release)
@@ -75,6 +101,7 @@ keyListener.start()
 ############################# program loop ##############################
 restartRun()
 while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
+    #print(fitnessTracker.getFitness())
     screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
     if (screenshot):
         grayimg = screenshot.convert('L')
@@ -83,25 +110,30 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
 
         # program gets a game over
         if (imageCheck.checkGameOver(grayimg,constants.XPIXELS,constants.YPIXELS) != 0):
-            fitnessTracker.setEndTime()
+            endRun()
             fit = fitnessTracker.getFitness()
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
             restartRun()
 
         # program completes the level
         if (imageCheck.checkLevelComplete(grayimg, constants.XPIXELS,constants.YPIXELS)):
-            fitnessTracker.setEndTime()
+            endRun()
             fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
             restartRun()
 
         # program stops changing inputs
+        if (inputTimer.timeUp()):
+            endRun()
+            fit = fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT
+            print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
+            restartRun()
 
         # program stops making progress
 
         # program times out
         if (globalTimer.timeUp()):
-            fitnessTracker.setEndTime()
+            endRun()
             fit = 0
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
             restartRun()
@@ -110,3 +142,4 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
 ############################ safe shut down #############################
 keyListener.stop()
 globalTimer.cancelTimer()
+inputTimer.cancelTimer()
