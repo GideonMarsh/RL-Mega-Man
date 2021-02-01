@@ -10,7 +10,7 @@ from time import time, sleep
 
 from pynput.keyboard import Key, Listener
 
-########################### helper functions ###########################
+##################### Keyboard listener functions #######################
 
 grayimg = None
 
@@ -20,7 +20,7 @@ def on_press(key):
         key))
     '''
     if (key == Key.space):
-        grayimg.save('images/respawn_air_man_3.png')
+        grayimg.save('images/checkpoint_air_man_1.png')
 
 def on_release(key):
     '''
@@ -59,6 +59,8 @@ runcounter = 1
 keyListener = Listener(on_press=on_press,on_release=on_release)
 keyListener.start()
 
+globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
+
 ############################# program loop ##############################
 controller.loadSave()
 fitnessTracker.setStartTime()
@@ -67,12 +69,34 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
     if (screenshot):
         grayimg = screenshot.convert('L')
 
-        if (imageCheck.checkGameOver(grayimg,constants.XPIXELS,constants.YPIXELS)):
+        ################### Checks for end of run ###################
+
+        # program gets a game over
+        if (imageCheck.checkGameOver(grayimg,constants.XPIXELS,constants.YPIXELS) != 0):
             fitnessTracker.setEndTime()
-            print('Fitness for run ' + str(runcounter) + ': ' + str(fitnessTracker.getFitness()))
+            # calculate and set fitness here
+            fit = fitnessTracker.getFitness()
+            print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
             runcounter = runcounter + 1
             fitnessTracker.setStartTime()
             controller.loadSave()
+
+        # program completes the level
+        if (imageCheck.checkLevelComplete(grayimg, constants.XPIXELS,constants.YPIXELS)):
+            fitnessTracker.setEndTime()
+            # calculate, award, and set fitness here
+            fit = (constants.SECTION_TIMEOUT * 2) - fitnessTracker.getFitness()
+            print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
+            runcounter = runcounter + 1
+            fitnessTracker.setStartTime()
+            controller.loadSave()
+
+        # program stops changing inputs
+
+        # program stops making progress
+
+        # program times out
+
 
 ############################ safe shut down #############################
 keyListener.stop()

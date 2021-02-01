@@ -18,7 +18,7 @@ class ImageChecker:
         self.gopix3 = Image.open('images/respawn_air_man_3.png').load()
         self.winpix = Image.open('images/level_complete_normal.png').load()
 
-    def checkGameOver(self, image=None, xp=266, yp=200):
+    def checkGameOver(self, image, xp=266, yp=200):
         pix = image.load()
 
         xOffset = floor(image.width / xp)
@@ -34,3 +34,25 @@ class ImageChecker:
                     return False
 
         return True
+
+    def checkLevelComplete(self, image, xp=266, yp=200):
+        pix = image.load()
+
+        xOffset = floor(image.width / xp)
+        yOffset = floor(image.height / yp)
+        xShift = floor((image.width % xp) / 2)
+        yShift = floor((image.height % yp) / 2)
+
+        for i in range(xp):
+            for j in range(yp):
+                if (pix[(i * xOffset) + xShift, (j * yOffset) + yShift] != self.winpix[(i * xOffset) + xShift, (j * yOffset) + yShift]):
+                    return False
+
+        return True
+
+def checkPixelLoops(p, cp, xo, yo, xs, ys, xp, yp):
+    for i in range(xp):
+        for j in range(yp):
+            if (p[(i * xo) + xs, (j * yo) + ys] != cp[(i * xo) + xs, (j * yo) + ys]):
+                return False
+    return True

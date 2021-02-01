@@ -30,8 +30,8 @@ class FitnessTimer:
 
 
 class RunTimer:
-    def __init__(self,minutes):
-        self.t = Timer(minutes * 60, self.timeUp)
+    def __init__(self,seconds):
+        self.t = Timer(seconds, self.timeUp)
         self.ended = False
 
     def startTimer(self):
