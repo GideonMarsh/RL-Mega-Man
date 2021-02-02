@@ -108,16 +108,17 @@ class Brain:
         return False
 
     # add a new connection between two nodes
+    # takes the inum values of the nodes as input, not the node objects
     def addNewConnection(self, inNode, outNode, weight=0, innovationNumber=None):
         # return false if the end of the connection is an input node
         if (self.nodes[outNode].inum <= INPUT_NODES):
-            raise ValueError('Connections cannot end at an input node')
+            raise ValueError('Connections cannot end at an input node!')
         # return false if the beginning of the connection is an output node
         if (self.nodes[inNode].inum > INPUT_NODES and self.nodes[inNode].inum <= INPUT_NODES + OUTPUT_NODES):
-            raise ValueError('Connections cannot start at an output node')
+            raise ValueError('Connections cannot start at an output node!')
         # return false if this connection will create a cycle
         if (self.isNodeLaterOnPath(outNode, inNode)):
-            raise ValueError('Connections cannot create cycles')
+            raise ValueError('Connections cannot create cycles!')
 
         # create the connection and return true
         newConnection = ConnectionGene(inNode, outNode, weight, innovationNumber)
@@ -136,32 +137,8 @@ class Brain:
         self.addNewConnection(oldConnection.inNode, newNode.inum, oldConnection.weight)
         self.addNewConnection(newNode.inum, oldConnection.outNode, oldConnection.weight)
 
-    # make one random structural mutation to the neural network
-    # if there are no connections, add a connection
-    # otherwise, choose randomly between adding a connection and adding a node
-    def mutateStructure(self):
-        allConnections = list()
-        baseConnections = self.connections.values()
-        if (len(baseConnections) == 0 or random() < 0.5):
-            # add a connection
-            allNodes = self.nodes.values()
-            # pick two nodes at random (without replacement)
-            # verify that a connection between the two nodes would be legal
-            # add the connection
-        else:
-            # add a node
-            while (len(baseConnections) > 0):
-                c = baseConnections.pop(0)
-                allConnections.append(c)
-                while (c.nextConnection):
-                    c = c.nextConnection
-                    allConnections.append(c)
-
-            changeIndex = floor(len(allConnections) * random())
-            # add a new node to replace allConnections[changeIndex] here
-
-    # make one random connection weight in the neural network
-    def mutateWeight(self):
+    # return a list of all connections
+    def getAllConnections(self):
         allConnections = list()
         baseConnections = self.connections.values()
         if (len(baseConnections) == 0):
@@ -172,6 +149,71 @@ class Brain:
             while (c.nextConnection):
                 c = c.nextConnection
                 allConnections.append(c)
+
+        return allConnections
+
+    # make one random structural mutation to the neural network
+    # if there are no connections, add a connection
+    # otherwise, choose randomly between adding a connection and adding a node
+    def mutateStructure(self):
+        allConnections = self.getAllConnections()
+        if (len(allConnections) == 0 or random() < 0.5):
+            # add a connection
+            w = 1      # the weight of the new connection
+            '''
+            A random connection is made as follows:
+            1. pick a node at random to be the start node
+            2. pick a node at random to be the end node (can be same as start node)
+            3. check to see if this connection already exists
+              a. if so, and it is disabled, enable it and return
+              b. if so, and it is already enabled, return to step 2 and pick another end node at random without replacement
+            4. attempt to make a new connection between the two nodes
+              a. if new connection is successful, return
+              b. if not, return to step 2 and pick another end node at random without replacement
+            5. once all end nodes have been tried, return to step 1 and pick a new node without replacement
+
+            Using this system all potential connections between nodes will be tried, even illegal connections
+            Once a valid connection has been found, it will be made and the function will return
+            If there are no valid connections remaining in the structure, function will return
+            '''
+            startNodes = self.nodes.values()
+            while (len(startNodes) > 0):
+                # step 1
+                startIndex = floor(len(startNodes) * random())
+                s = startNodes.pop(startIndex)
+                endNodes = self.nodes.values()
+                while (len(endNodes) > 0):
+                    # step 2
+                    endIndex = floor(len(endNodes) * random())
+                    e = endNodes.pop(endIndex)
+                    try:
+                        # step 3
+                        for c in allConnections:
+                            if (c.inNode == s.inum and c.outNode == e.inum):
+                                if (c.enabled):
+                                    raise ValueError('Connection already exists!')
+                                else:
+                                    # step 3a
+                                    c.enabled = True
+                                    return
+                        # step 4
+                        self.addNewConnection(s.inum, e.inum, w)
+                        # step 4a
+                        return
+                    except ValueError:
+                        # step 3b and 4b
+                        pass
+                # step 5 (back to start of outer while loop)
+            # if code reaches here, all valid connections already exist in this structure
+            return
+        else:
+            # add a node
+            changeIndex = floor(len(allConnections) * random())
+            self.addNewNode(allConnections[changeIndex])
+
+    # make one random connection weight in the neural network
+    def mutateWeight(self):
+        allConnections = self.getAllConnections()
 
         changeIndex = floor(len(allConnections) * random())
         # change the weight of allConnections[changeIndex] here

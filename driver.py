@@ -94,6 +94,7 @@ def restartRun():
     globalTimer.startTimer()
     inputTimer.startTimer()
     progressCheckTimer.startTimer()
+    checkProgress = False
     firstImageTaken = False
     currentlyPlaying = True
 
@@ -152,7 +153,6 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
 
         # program stops changing inputs
         if (inputTimer.timeUp()):
-            print('end by no input')
             endRun()
             fit = fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
@@ -160,7 +160,6 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
 
         # program stops making progress
         if (checkProgress and imageCheck.checkNoProgress(grayimg,constants.XPIXELS,constants.YPIXELS, constants.IMAGE_ACCEPTABLE_ERROR)):
-            print('end by checkpoint')
             endRun()
             fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_WAIT_INTERVAL
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
