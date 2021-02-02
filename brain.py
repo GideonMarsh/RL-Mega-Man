@@ -44,7 +44,7 @@ class ConnectionGene:
         if (self.nextConnection == None):
             self.nextConnection = newConnection
         else:
-            self.nextConection.addNewConnection(newConnection)
+            self.nextConnection.addNewConnection(newConnection)
 
     def calculateValue(self, nodes, futureNodes):
         if (self.enabled):
@@ -73,6 +73,9 @@ class Brain:
 
     # calculate the outputs based on given inputs
     def think(self, inputs):
+        # reset all node values
+        for n in self.nodes.values():
+            n.value = 0
         # set inputs
         nodesToCalculate = list()
         for i in range(INPUT_NODES):
@@ -140,9 +143,9 @@ class Brain:
     # return a list of all connections
     def getAllConnections(self):
         allConnections = list()
-        baseConnections = self.connections.values()
+        baseConnections = list(self.connections.values())
         if (len(baseConnections) == 0):
-            return
+            return allConnections
         while (len(baseConnections) > 0):
             c = baseConnections.pop(0)
             allConnections.append(c)
@@ -159,7 +162,7 @@ class Brain:
         allConnections = self.getAllConnections()
         if (len(allConnections) == 0 or random() < 0.5):
             # add a connection
-            w = 1      # the weight of the new connection
+            w = round(2 * (random() - 0.5), 2)      # the weight of the new connection
             '''
             A random connection is made as follows:
             1. pick a node at random to be the start node
@@ -176,12 +179,12 @@ class Brain:
             Once a valid connection has been found, it will be made and the function will return
             If there are no valid connections remaining in the structure, function will return
             '''
-            startNodes = self.nodes.values()
+            startNodes = list(self.nodes.values())
             while (len(startNodes) > 0):
                 # step 1
                 startIndex = floor(len(startNodes) * random())
                 s = startNodes.pop(startIndex)
-                endNodes = self.nodes.values()
+                endNodes = list(self.nodes.values())
                 while (len(endNodes) > 0):
                     # step 2
                     endIndex = floor(len(endNodes) * random())
@@ -211,20 +214,21 @@ class Brain:
             changeIndex = floor(len(allConnections) * random())
             self.addNewNode(allConnections[changeIndex])
 
-    # make one random connection weight in the neural network
-    def mutateWeight(self):
+    # modify the weights of each connection in the neural network with the given probability
+    def mutateWeights(self, chance=0.01):
         allConnections = self.getAllConnections()
 
-        changeIndex = floor(len(allConnections) * random())
-        # change the weight of allConnections[changeIndex] here
+        for c in allConnections:
+            if (random() < chance):
+                c.weight + round(2 * (random() - 0.5), 2)
 
 
 a = Brain()
 a.initNewBrain()
-a.addNewConnection(1, 4, 0.5)
-a.addNewConnection(1, 5, -2)
-a.addNewConnection(2, 4, 1)
-a.addNewConnection(2, 5, 1)
-a.addNewConnection(3, 4, 2)
-a.addNewConnection(3, 5, -0.5)
+print(len(list(a.nodes.values())))
+print(len(a.getAllConnections()))
+print(a.think((1,2,2)))
+a.mutateStructure()
+print(len(list(a.nodes.values())))
+print(len(a.getAllConnections()))
 print(a.think((1,2,2)))
