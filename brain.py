@@ -71,6 +71,76 @@ class Brain:
     def crossover(self, parentA, parentB):
         pass
 
+    # check how similar this brain is to another
+    def compare(self, otherBrain):
+        # compare the connection genome of both genes using the following function
+        # d = (c1 * E) / N + (c2 * D) / N + c3 * W
+        # c1, c2, c3 = importance coefficients
+        # d = compatibility distance
+        # E = number of excess genes
+        # D = number of disjoint genes
+        # W = average weight differences of matching genes
+        # N = number of genes in the larger genome
+
+        c1 = c2 = c3 = 1
+
+        allGenes1 = self.getAllConnections()
+        allGenes2 = otherBrain.getAllConnections()
+
+        lastGene1 = lastGene2 = 0
+
+        for g in allGenes1:
+            if (g.inum > lastGene1):
+                lastGene1 = g.inum
+
+        for h in allGenes2:
+            if (h.inum > lastGene2):
+                lastGene2 = h.inum
+
+        mismatchedGenes = list()
+        matchedWeights = list()
+
+        N = len(allGenes1)
+        if (len(allGenes2) > N):
+            N = len(allGenes2)
+
+        # for every gene in allGenes1, try to find a match in allGenes2
+        while len(allGenes1) > 0:
+            g = allGenes1.pop(0)
+            for h in allGenes2:
+                if (g.inum == h.inum):
+                    # genes matched
+                    matchedWeights.append(abs(g.weight - h.weight))
+                    allGenes2.remove(h)
+                    break
+            # no matching gene
+            mismatchedGenes.append(g.inum)
+
+        # all remaining genes in allGenes2 have no match in allGenes1
+        for h in allGenes2:
+            mismatchedGenes.append(h.inum)
+
+        W = 0
+        if (len(matchedWeights) > 0):
+            for w in matchedWeights:
+                W = W + w
+            W = W / len(matchedWeights)
+
+        D = 0
+        E = 0
+
+        for m in mismatchedGenes:
+            if (m > lastGene1 or m > lastGene2):
+                E = E + 1
+            else:
+                D = D + 1
+
+        d = (c1 * E) / N + (c2 * D) / N + c3 * W
+        return d
+
+
+
+
     # calculate the outputs based on given inputs
     def think(self, inputs):
         # reset all node values
@@ -224,11 +294,28 @@ class Brain:
 
 
 a = Brain()
+b = Brain()
 a.initNewBrain()
+b.initNewBrain()
+'''
 print(len(list(a.nodes.values())))
 print(len(a.getAllConnections()))
 print(a.think((1,2,2)))
+'''
 a.mutateStructure()
+'''
 print(len(list(a.nodes.values())))
 print(len(a.getAllConnections()))
 print(a.think((1,2,2)))
+'''
+b.mutateStructure()
+a.mutateStructure()
+b.mutateStructure()
+a.mutateStructure()
+b.mutateStructure()
+print(len(list(a.nodes.values())))
+print(len(a.getAllConnections()))
+print(len(list(b.nodes.values())))
+print(len(b.getAllConnections()))
+print('comparison')
+print(a.compare(b))
