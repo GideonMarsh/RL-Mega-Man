@@ -1,6 +1,9 @@
 # Gideon Marsh
 # github.com/GideonMarsh
 
+from random import random
+from math import floor
+
 INPUT_NODES = 3
 OUTPUT_NODES = 2
 
@@ -108,13 +111,13 @@ class Brain:
     def addNewConnection(self, inNode, outNode, weight=0, innovationNumber=None):
         # return false if the end of the connection is an input node
         if (self.nodes[outNode].inum <= INPUT_NODES):
-            return False
+            raise ValueError('Connections cannot end at an input node')
         # return false if the beginning of the connection is an output node
         if (self.nodes[inNode].inum > INPUT_NODES and self.nodes[inNode].inum <= INPUT_NODES + OUTPUT_NODES):
-            return False
+            raise ValueError('Connections cannot start at an output node')
         # return false if this connection will create a cycle
         if (self.isNodeLaterOnPath(outNode, inNode)):
-            return False
+            raise ValueError('Connections cannot create cycles')
 
         # create the connection and return true
         newConnection = ConnectionGene(inNode, outNode, weight, innovationNumber)
@@ -122,7 +125,6 @@ class Brain:
             self.connections[inNode].addNewConnection(newConnection)
         else:
             self.connections[inNode] = newConnection
-        return True
 
     # adds a new node in the middle of an existing connection, modifying connections as necessary
     def addNewNode(self, oldConnection):
@@ -134,6 +136,45 @@ class Brain:
         self.addNewConnection(oldConnection.inNode, newNode.inum, oldConnection.weight)
         self.addNewConnection(newNode.inum, oldConnection.outNode, oldConnection.weight)
 
+    # make one random structural mutation to the neural network
+    # if there are no connections, add a connection
+    # otherwise, choose randomly between adding a connection and adding a node
+    def mutateStructure(self):
+        allConnections = list()
+        baseConnections = self.connections.values()
+        if (len(baseConnections) == 0 or random() < 0.5):
+            # add a connection
+            allNodes = self.nodes.values()
+            # pick two nodes at random (without replacement)
+            # verify that a connection between the two nodes would be legal
+            # add the connection
+        else:
+            # add a node
+            while (len(baseConnections) > 0):
+                c = baseConnections.pop(0)
+                allConnections.append(c)
+                while (c.nextConnection):
+                    c = c.nextConnection
+                    allConnections.append(c)
+
+            changeIndex = floor(len(allConnections) * random())
+            # add a new node to replace allConnections[changeIndex] here
+
+    # make one random connection weight in the neural network
+    def mutateWeight(self):
+        allConnections = list()
+        baseConnections = self.connections.values()
+        if (len(baseConnections) == 0):
+            return
+        while (len(baseConnections) > 0):
+            c = baseConnections.pop(0)
+            allConnections.append(c)
+            while (c.nextConnection):
+                c = c.nextConnection
+                allConnections.append(c)
+
+        changeIndex = floor(len(allConnections) * random())
+        # change the weight of allConnections[changeIndex] here
 
 
 a = Brain()
