@@ -4,19 +4,23 @@
 INPUT_NODES = 3
 OUTPUT_NODES = 2
 
+'''
+Nodes with innovation numbers 1 through INPUT_NODES are the input nodes
+Nodes with innovation numbers 1 + INPUT_NODES through OUTPUT_NODES + INPUT_NODES are the output nodes
+Nodes with any other innovation number are hidden nodes
+'''
+
 nodeCount = INPUT_NODES + OUTPUT_NODES
 connectionCount = 0
 
 class NodeGene:
-    def __init__(self, minLayer, maxLayer, innovationNumber=None):
+    def __init__(self, innovationNumber=None):
         if (innovationNumber):
             self.inum = innovationNumber
         else:
             global nodeCount
             nodeCount = nodeCount + 1
             self.inum = nodeCount
-        self.maxLayer = maxLayer
-        self.minLayer = minLayer
         self.value = 0
 
 class ConnectionGene:
@@ -40,7 +44,8 @@ class ConnectionGene:
             self.nextConection.addNewConnection(newConnection)
 
     def calculateValue(self, nodes, futureNodes):
-        nodes[self.outNode].value = nodes[self.outNode].value + nodes[self.inNode].value * self.weight
+        if (self.enabled):
+            nodes[self.outNode].value = nodes[self.outNode].value + nodes[self.inNode].value * self.weight
         futureNodes.append(self.outNode)
         if (self.nextConnection):
             self.nextConnection.calculateValue(nodes, futureNodes)
@@ -51,17 +56,19 @@ class Brain:
         self.nodes = {}
         self.connections = {}
 
+    # make this brain from scratch, with only input and output nodes and no connections
+    # should only be used when creating the initial population
     def initNewBrain(self):
-        # make this brain from scratch
         for i in range(INPUT_NODES):
-            self.nodes[i + 1] = NodeGene(0, 0, i + 1)
+            self.nodes[i + 1] = NodeGene(i + 1)
         for i in range(OUTPUT_NODES):
-            self.nodes[i + 1 + INPUT_NODES] = NodeGene(1, None, i + 1 + INPUT_NODES)
+            self.nodes[i + 1 + INPUT_NODES] = NodeGene(i + 1 + INPUT_NODES)
 
+    # make this brain the offspring of two parents
     def crossover(self, parentA, parentB):
-        # make this brain the offspring of two parents
         pass
 
+    # calculate the outputs based on given inputs
     def think(self, inputs):
         # set inputs
         nodesToCalculate = list()
@@ -81,18 +88,60 @@ class Brain:
             outputs.append(self.nodes[i + 1 + INPUT_NODES].value)
         return outputs
 
-    def addNewConnection(self, newConnection):
-        if (newConnection.inNode in self.connections):
-            self.connections[newConnection.inNode].addNewConnection(newConnection)
+    # check if a node is later in the tree than the given node
+    def isNodeLaterOnPath(self, startNodeINum, locateINum):
+        q = list()
+        q.append(startNodeINum)
+        while (len(q) > 0):
+            nextNode = q.pop(0)
+            if (nextNode == locateINum):
+                return True
+            if (nextNode in self.connections):
+                q.append(self.connections[nextNode].outNode)
+                currentConnection = self.connections[nextNode]
+                while (currentConnection.nextConnection):
+                    currentConnection = currentConnection.nextConnection
+                    q.append(currentConnection.outNode)
+        return False
+
+    # add a new connection between two nodes
+    def addNewConnection(self, inNode, outNode, weight=0, innovationNumber=None):
+        # return false if the end of the connection is an input node
+        if (self.nodes[outNode].inum <= INPUT_NODES):
+            return False
+        # return false if the beginning of the connection is an output node
+        if (self.nodes[inNode].inum > INPUT_NODES and self.nodes[inNode].inum <= INPUT_NODES + OUTPUT_NODES):
+            return False
+        # return false if this connection will create a cycle
+        if (self.isNodeLaterOnPath(outNode, inNode)):
+            return False
+
+        # create the connection and return true
+        newConnection = ConnectionGene(inNode, outNode, weight, innovationNumber)
+        if (inNode in self.connections):
+            self.connections[inNode].addNewConnection(newConnection)
         else:
-            self.connections[newConnection.inNode] = newConnection
+            self.connections[inNode] = newConnection
+        return True
+
+    # adds a new node in the middle of an existing connection, modifying connections as necessary
+    def addNewNode(self, oldConnection):
+        newNode = NodeGene()
+        self.nodes[newNode.inum] = newNode
+
+        oldConnection.enabled = False
+
+        self.addNewConnection(oldConnection.inNode, newNode.inum, oldConnection.weight)
+        self.addNewConnection(newNode.inum, oldConnection.outNode, oldConnection.weight)
+
+
 
 a = Brain()
 a.initNewBrain()
-a.addNewConnection(ConnectionGene(1, 4, 0.5))
-a.addNewConnection(ConnectionGene(1, 5, -2))
-a.addNewConnection(ConnectionGene(2, 4, 1))
-a.addNewConnection(ConnectionGene(2, 5, 1))
-a.addNewConnection(ConnectionGene(3, 4, 2))
-a.addNewConnection(ConnectionGene(3, 5, -0.5))
+a.addNewConnection(1, 4, 0.5)
+a.addNewConnection(1, 5, -2)
+a.addNewConnection(2, 4, 1)
+a.addNewConnection(2, 5, 1)
+a.addNewConnection(3, 4, 2)
+a.addNewConnection(3, 5, -0.5)
 print(a.think((1,2,2)))
