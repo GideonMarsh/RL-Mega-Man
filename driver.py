@@ -49,6 +49,8 @@ checkProgress = False
 
 grayimg = None
 
+firstImageTaken = False
+
 ### helper functions rely on above variables ###
 
 def on_press(key):
@@ -92,6 +94,7 @@ def restartRun():
     globalTimer.startTimer()
     inputTimer.startTimer()
     progressCheckTimer.startTimer()
+    firstImageTaken = False
     currentlyPlaying = True
 
 # call this whenever a run completes
@@ -111,6 +114,10 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
     screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
     if (screenshot):
         grayimg = screenshot.convert('L')
+
+        if (not firstImageTaken):
+            grayimg.save('images/last_checkpoint.png')
+            firstImageTaken = True
 
         if (progressCheckTimer.timeUp()):
             if (checkProgress):
@@ -145,6 +152,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
 
         # program stops changing inputs
         if (inputTimer.timeUp()):
+            print('end by no input')
             endRun()
             fit = fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
@@ -152,6 +160,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
 
         # program stops making progress
         if (checkProgress and imageCheck.checkNoProgress(grayimg,constants.XPIXELS,constants.YPIXELS, constants.IMAGE_ACCEPTABLE_ERROR)):
+            print('end by checkpoint')
             endRun()
             fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_WAIT_INTERVAL
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
