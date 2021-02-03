@@ -63,10 +63,10 @@ class Brain:
         self.connections = {}
         self.nodeOrder = list()
 
-    # make this brain from scratch, with only input and output nodes and no connections
+    # make this brain from scratch
     # should only be used when creating the initial population
     def initNewBrain(self):
-        pass
+        self.mutateStructure()
 
     # make this brain the offspring of two parents
     def crossover(self, parentA, parentB):

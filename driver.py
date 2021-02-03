@@ -22,7 +22,7 @@ Manual steps to take before running program:
 1. Make sure all checkpoint images are saved and ready for comparison
 2. Save the game at the start of the level that is being played immediately after the word 'READY' stops appearing
 3. Navigate to a menu without a black background (stage select works)
-4. Open options menu
+4. Open options menu (cursor should be on 'SAVE GAME')
 5. Start program
 '''
 currentlyPlaying = False
@@ -46,7 +46,7 @@ imageCheck.imageSetup()
 continueGame = True
 
 globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
-progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_WAIT_INTERVAL)
+progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_INITIAL_WAIT_INTERVAL)
 checkProgress = False
 
 grayimg = None
@@ -81,11 +81,16 @@ def on_release(key):
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress
+    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken
     globalTimer.cancelTimer()
     progressCheckTimer.cancelTimer()
     globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
-    progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_WAIT_INTERVAL)
+    progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_INITIAL_WAIT_INTERVAL)
+
+    if (brains.doneWithGeneration()):
+        brains.makeNextGeneration()
+
+    print('Organism: ' + str(brains.getIndividualInfo()))
     controller.loadSave()
     fitnessTracker.setStartTime()
     globalTimer.startTimer()
@@ -102,7 +107,7 @@ def endRun():
     controller.openMenu()
     fitnessTracker.setEndTime()
 
-### remaining variable setup relies on above helper functions ###x
+### remaining variable setup relies on above helper functions ###
 keyListener = Listener(on_press=on_press,on_release=on_release)
 keyListener.start()
 
@@ -122,14 +127,12 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
 
         if (progressCheckTimer.timeUp()):
             if (checkProgress):
-                print('waiting')
                 progressCheckTimer.cancelTimer()
                 checkProgress = False
                 grayimg.save('images/last_checkpoint.png')
                 progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_WAIT_INTERVAL)
                 progressCheckTimer.startTimer()
             else:
-                print('checking progress')
                 progressCheckTimer.cancelTimer()
                 checkProgress = True
                 progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_COMPARE_INTERVAL)
@@ -157,6 +160,9 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         if (checkProgress and imageCheck.checkNoProgress(grayimg)):
             endRun()
             fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_WAIT_INTERVAL
+            if (fit < 0):
+                fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_INITIAL_WAIT_INTERVAL
+            fit = round(fit * constants.TIMEOUT_PENALTY, 2)
             brains.assignFitness(fit)
             print('Fitness: ' + str(fit))
             restartRun()
