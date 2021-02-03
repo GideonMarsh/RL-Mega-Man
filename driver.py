@@ -43,10 +43,9 @@ fitnessTracker = fitness.FitnessTimer()
 imageCheck = imagechecker.ImageChecker()
 imageCheck.imageSetup()
 
-runcounter = 0
+continueGame = True
 
 globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
-inputTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
 progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_WAIT_INTERVAL)
 checkProgress = False
 
@@ -65,11 +64,6 @@ def on_press(key):
     '''
     if (key == Key.space):
         grayimg.save('images/last_checkpoint.png')
-    if (currentlyPlaying):
-        global inputTimer
-        inputTimer.cancelTimer()
-        inputTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
-        inputTimer.startTimer()
 
 def on_release(key):
     '''
@@ -78,26 +72,23 @@ def on_release(key):
         # Stop listener
         return False
     '''
-    if (currentlyPlaying):
-        global inputTimer
-        inputTimer.cancelTimer()
-        inputTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
-        inputTimer.startTimer()
+    try:
+        if (key.char == 'w'):
+            global continueGame
+            continueGame = False
+    except AttributeError:
+        pass
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer, runcounter, inputTimer, currentlyPlaying, progressCheckTimer, checkProgress
-    inputTimer.cancelTimer()
+    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress
     globalTimer.cancelTimer()
     progressCheckTimer.cancelTimer()
-    inputTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
     globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
     progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_WAIT_INTERVAL)
-    runcounter = runcounter + 1
     controller.loadSave()
     fitnessTracker.setStartTime()
     globalTimer.startTimer()
-    inputTimer.startTimer()
     progressCheckTimer.startTimer()
     checkProgress = False
     firstImageTaken = False
@@ -117,7 +108,7 @@ keyListener.start()
 
 ############################# program loop ##############################
 restartRun()
-while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
+while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
     #print(fitnessTracker.getFitness())
     screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
     if (screenshot):
@@ -151,7 +142,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
             endRun()
             fit = fitnessTracker.getFitness()
             brains.assignFitness(fit)
-            print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
+            print('Fitness: ' + str(fit))
             restartRun()
 
         # program completes the level
@@ -159,15 +150,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
             endRun()
             fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
             brains.assignFitness(fit)
-            print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
-            restartRun()
-
-        # program stops changing inputs
-        if (inputTimer.timeUp()):
-            endRun()
-            fit = fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT
-            brains.assignFitness(fit)
-            print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
+            print('Fitness: ' + str(fit))
             restartRun()
 
         # program stops making progress
@@ -175,7 +158,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
             endRun()
             fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_WAIT_INTERVAL
             brains.assignFitness(fit)
-            print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
+            print('Fitness: ' + str(fit))
             restartRun()
 
         # program times out
@@ -183,7 +166,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
             endRun()
             fit = 0
             brains.assignFitness(fit)
-            print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
+            print('Fitness: ' + str(fit))
             restartRun()
 
 
@@ -191,5 +174,4 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
 controller.cutoffInputs()
 keyListener.stop()
 globalTimer.cancelTimer()
-inputTimer.cancelTimer()
 progressCheckTimer.cancelTimer()
