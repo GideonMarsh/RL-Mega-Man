@@ -17,7 +17,7 @@ nodeCount = INPUT_NODES + OUTPUT_NODES
 connectionCount = 0
 
 class ConnectionGene:
-    def __init__(self, inNode, outNode, weight=0, innovationNumber=None):
+    def __init__(self, inNode, outNode, weight=0, innovationNumber=None, enabled=True):
         if (innovationNumber):
             self.inum = innovationNumber
         else:
@@ -25,7 +25,7 @@ class ConnectionGene:
             connectionCount = connectionCount + 1
             self.inum = connectionCount
         self.weight = weight
-        self.enabled = True
+        self.enabled = enabled
         self.inNode = inNode
         self.outNode = outNode
         self.nextConnection = None
@@ -58,7 +58,45 @@ class Brain:
 
     # make this brain the offspring of two parents
     def crossover(self, parentA, parentB):
-        pass
+
+        def inumSort(i):
+            return i.inum
+
+        parentAGenes = parentA.getAllConnections()
+        parentAGenes.sort(key=inumSort)
+        parentBGenes = parentB.getAllConnections()
+        parentBGenes.sort(key=inumSort)
+
+        ia = ib = 0
+        while (ia < len(parentAGenes) and ib < len(parentBGenes)):
+            if (parentAGenes[ia].inum == parentBGenes[ib].inum):
+                # matching gene, choose randomly between them
+                if (random() < 0.5):
+                    self.addNewConnection(parentAGenes[ia].inNode, parentAGenes[ia].outNode, parentAGenes[ia].weight, parentAGenes[ia].inum, parentAGenes[ia].enabled)
+                else:
+                    self.addNewConnection(parentBGenes[ib].inNode, parentBGenes[ib].outNode, parentBGenes[ib].weight, parentBGenes[ib].inum, parentBGenes[ib].enabled)
+                ia = ia + 1
+                ib = ib + 1
+            else:
+                # not matching gene, carry over the gene with smaller inum
+                if (parentAGenes[ia].inum > parentBGenes[ib].inum):
+                    # carry over parent B gene
+                    self.addNewConnection(parentBGenes[ib].inNode, parentBGenes[ib].outNode, parentBGenes[ib].weight, parentBGenes[ib].inum, parentBGenes[ib].enabled)
+                    ib = ib + 1
+                else:
+                    # carry over parent A gene
+                    self.addNewConnection(parentAGenes[ia].inNode, parentAGenes[ia].outNode, parentAGenes[ia].weight, parentAGenes[ia].inum, parentAGenes[ia].enabled)
+                    ia = ia + 1
+
+        # carry over all remaining unseen genes
+        while (ia < len(parentAGenes)):
+            self.addNewConnection(parentAGenes[ia].inNode, parentAGenes[ia].outNode, parentAGenes[ia].weight, parentAGenes[ia].inum, parentAGenes[ia].enabled)
+            ia = ia + 1
+
+        while (ib < len(parentBGenes)):
+            self.addNewConnection(parentBGenes[ib].inNode, parentBGenes[ib].outNode, parentBGenes[ib].weight, parentBGenes[ib].inum, parentBGenes[ib].enabled)
+            ib = ib + 1
+
 
     # check how similar this brain is to another
     def compare(self, otherBrain):
@@ -170,7 +208,7 @@ class Brain:
 
     # add a new connection between two nodes
     # takes the inum values of the nodes as input, not the node objects
-    def addNewConnection(self, inNode, outNode, weight=0, innovationNumber=None):
+    def addNewConnection(self, inNode, outNode, weight=0, innovationNumber=None, enabled=True):
         # return false if the end of the connection is an input node
         if (outNode <= INPUT_NODES):
             raise ValueError('Connections cannot end at an input node!')
@@ -182,7 +220,7 @@ class Brain:
             raise ValueError('Connections cannot create cycles!')
 
         # create the connection
-        newConnection = ConnectionGene(inNode, outNode, weight, innovationNumber)
+        newConnection = ConnectionGene(inNode, outNode, weight, innovationNumber, enabled)
         if (inNode in self.connections):
             self.connections[inNode].addNewConnection(newConnection)
         else:
@@ -312,11 +350,15 @@ print(a.think((1,2,2)))
 b.mutateStructure()
 a.mutateStructure()
 b.mutateStructure()
-a.mutateStructure()
-b.mutateStructure()
 print(len(a.getAllNodes()))
 print(len(a.getAllConnections()))
 print(len(b.getAllNodes()))
 print(len(b.getAllConnections()))
 print('comparison')
 print(a.compare(b))
+
+c = Brain()
+
+c.crossover(a, b)
+print(len(c.getAllNodes()))
+print(len(c.getAllConnections()))
