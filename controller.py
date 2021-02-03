@@ -8,10 +8,6 @@ keyboard = Controller()
 
 def loadSave():
     sleep(0.06)
-    keyboard.press('`')
-    sleep(0.03)
-    keyboard.release('`')
-    sleep(0.06)
     keyboard.press(Key.down)
     sleep(0.03)
     keyboard.release(Key.down)
@@ -37,10 +33,19 @@ def loadSave():
     keyboard.release(Key.esc)
     sleep(0.06)
 
+def openMenu():
+    sleep(0.01)
+    keyboard.press('`')
+    sleep(0.03)
+    keyboard.release('`')
+    sleep(0.01)
+
 def closeMenu():
+    sleep(0.01)
     keyboard.press(Key.esc)
     sleep(0.03)
     keyboard.release(Key.esc)
+    sleep(0.01)
 
 # game controls are received in a list in the following order:
 # up, right, down, left, jump, shoot

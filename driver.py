@@ -27,6 +27,7 @@ Manual steps to take before running program:
 '''
 currentlyPlaying = False
 screenshotter.setWindowSize(constants.WINDOWNAME)
+controller.cutoffInputs()
 sleep(0.2)
 controller.closeMenu()
 sleep(0.1)
@@ -35,6 +36,7 @@ if (region[3] < constants.YPIXELS or region[2] < constants.XPIXELS):
     print('Screen not large enough')
 else:
     print('Screen region acquired')
+controller.openMenu()
 
 fitnessTracker = fitness.FitnessTimer()
 
@@ -84,7 +86,7 @@ def on_release(key):
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer, runcounter, inputTimer, currentlyPlaying, progressCheckTimer
+    global globalTimer, runcounter, inputTimer, currentlyPlaying, progressCheckTimer, checkProgress
     inputTimer.cancelTimer()
     globalTimer.cancelTimer()
     progressCheckTimer.cancelTimer()
@@ -106,9 +108,10 @@ def endRun():
     global currentlyPlaying
     currentlyPlaying = False
     controller.cutoffInputs()
+    controller.openMenu()
     fitnessTracker.setEndTime()
 
-### remaining variable setup relies on above helper functions ###
+### remaining variable setup relies on above helper functions ###x
 keyListener = Listener(on_press=on_press,on_release=on_release)
 keyListener.start()
 
@@ -147,6 +150,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
         if (imageCheck.checkGameOver(grayimg)):
             endRun()
             fit = fitnessTracker.getFitness()
+            brains.assignFitness(fit)
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
             restartRun()
 
@@ -154,6 +158,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
         if (imageCheck.checkLevelComplete(grayimg)):
             endRun()
             fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
+            brains.assignFitness(fit)
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
             restartRun()
 
@@ -161,6 +166,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
         if (inputTimer.timeUp()):
             endRun()
             fit = fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT
+            brains.assignFitness(fit)
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
             restartRun()
 
@@ -168,6 +174,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
         if (checkProgress and imageCheck.checkNoProgress(grayimg)):
             endRun()
             fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_WAIT_INTERVAL
+            brains.assignFitness(fit)
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
             restartRun()
 
@@ -175,13 +182,14 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
         if (globalTimer.timeUp()):
             endRun()
             fit = 0
+            brains.assignFitness(fit)
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
             restartRun()
 
 
 ############################ safe shut down #############################
+controller.cutoffInputs()
 keyListener.stop()
 globalTimer.cancelTimer()
 inputTimer.cancelTimer()
 progressCheckTimer.cancelTimer()
-controller.cutoffInputs()

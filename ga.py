@@ -34,3 +34,8 @@ class GeneticAlgorithmController:
                 inputs.append(pix[(i * xOffset) + xShift, (j * yOffset) + yShift])
 
         return self.population[self.currentBrain].think(inputs)
+
+    # assign fitness and set current brain to next brain
+    def assignFitness(self, fitness):
+        self.population[self.currentBrain].fitness = fitness
+        self.currentBrain = self.currentBrain + 1
