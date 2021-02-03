@@ -1,19 +1,20 @@
 # Gideon Marsh
 # github.com/GideonMarsh
 
+import constants
 from random import random
 from math import floor
 
-INPUT_NODES = 3
-OUTPUT_NODES = 2
+input_nodes = constants.XPIXELS * constants.YPIXELS
+output_nodes = constants.CONTROLLER_OUTPUTS
 
 '''
-Nodes with innovation numbers 1 through INPUT_NODES are the input nodes
-Nodes with innovation numbers 1 + INPUT_NODES through OUTPUT_NODES + INPUT_NODES are the output nodes
+Nodes with innovation numbers 1 through input_nodes are the input nodes
+Nodes with innovation numbers 1 + input_nodes through output_nodes + input_nodes are the output nodes
 Nodes with any other innovation number are hidden nodes
 '''
 
-nodeCount = INPUT_NODES + OUTPUT_NODES
+nodeCount = input_nodes + output_nodes
 connectionCount = 0
 
 class ConnectionGene:
@@ -171,7 +172,7 @@ class Brain:
         nodes = {}
         # set inputs
         nodesToCalculate = list()
-        for i in range(INPUT_NODES):
+        for i in range(input_nodes):
             nodes[i + 1] = inputs[i]
             nodesToCalculate.append(i + 1)
 
@@ -183,9 +184,9 @@ class Brain:
 
         # return outputs
         outputs = list()
-        for i in range(OUTPUT_NODES):
-            if (i + 1 + INPUT_NODES in nodes):
-                outputs.append(nodes[i + 1 + INPUT_NODES])
+        for i in range(output_nodes):
+            if (i + 1 + input_nodes in nodes):
+                outputs.append(nodes[i + 1 + input_nodes])
             else:
                 outputs.append(0)
         return outputs
@@ -210,10 +211,10 @@ class Brain:
     # takes the inum values of the nodes as input, not the node objects
     def addNewConnection(self, inNode, outNode, weight=0, innovationNumber=None, enabled=True):
         # return false if the end of the connection is an input node
-        if (outNode <= INPUT_NODES):
+        if (outNode <= input_nodes):
             raise ValueError('Connections cannot end at an input node!')
         # return false if the beginning of the connection is an output node
-        if (inNode > INPUT_NODES and inNode <= INPUT_NODES + OUTPUT_NODES):
+        if (inNode > input_nodes and inNode <= input_nodes + output_nodes):
             raise ValueError('Connections cannot start at an output node!')
         # return false if this connection will create a cycle
         if (self.isNodeLaterOnPath(outNode, inNode)):
@@ -255,7 +256,7 @@ class Brain:
     def getAllNodes(self):
         allConnections = self.getAllConnections()
         nodes = list()
-        for i in range(INPUT_NODES + OUTPUT_NODES):
+        for i in range(input_nodes + output_nodes):
             nodes.append(i+1)
         for c in allConnections:
             if c.inNode not in nodes:
@@ -332,6 +333,10 @@ class Brain:
                 c.weight + round(2 * (random() - 0.5), 2)
 
 '''
+inputs = list()
+for i in range(input_nodes):
+    inputs.append(round(random() * 255))
+
 a = Brain()
 b = Brain()
 a.initNewBrain()
@@ -339,13 +344,13 @@ b.initNewBrain()
 
 print(len(a.getAllNodes()))
 print(len(a.getAllConnections()))
-print(a.think((1,2,2)))
+print(a.think(inputs))
 
 a.mutateStructure()
 
 print(len(a.getAllNodes()))
 print(len(a.getAllConnections()))
-print(a.think((1,2,2)))
+print(a.think(inputs))
 
 b.mutateStructure()
 a.mutateStructure()
@@ -363,7 +368,7 @@ c.crossover(a, b)
 print(len(c.getAllNodes()))
 print(len(c.getAllConnections()))
 
-print(a.think((1,2,2)))
-print(b.think((1,2,2)))
-print(c.think((1,2,2)))
+print(a.think(inputs))
+print(b.think(inputs))
+print(c.think(inputs))
 '''

@@ -138,14 +138,14 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
         ################### Checks for end of run ###################
 
         # program gets a game over
-        if (imageCheck.checkGameOver(grayimg,constants.XPIXELS,constants.YPIXELS)):
+        if (imageCheck.checkGameOver(grayimg)):
             endRun()
             fit = fitnessTracker.getFitness()
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
             restartRun()
 
         # program completes the level
-        if (imageCheck.checkLevelComplete(grayimg, constants.XPIXELS,constants.YPIXELS)):
+        if (imageCheck.checkLevelComplete(grayimg)):
             endRun()
             fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))
@@ -159,7 +159,7 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
             restartRun()
 
         # program stops making progress
-        if (checkProgress and imageCheck.checkNoProgress(grayimg,constants.XPIXELS,constants.YPIXELS, constants.IMAGE_ACCEPTABLE_ERROR)):
+        if (checkProgress and imageCheck.checkNoProgress(grayimg)):
             endRun()
             fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_WAIT_INTERVAL
             print('Fitness for run ' + str(runcounter) + ': ' + str(fit))

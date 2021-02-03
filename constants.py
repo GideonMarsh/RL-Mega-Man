@@ -15,3 +15,5 @@ PROGRESS_CHECK_COMPARE_INTERVAL = 4
 
 #The percentage of a checkpoint image that is allowed to not match
 IMAGE_ACCEPTABLE_ERROR = 0.01
+
+CONTROLLER_OUTPUTS = 6
