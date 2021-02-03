@@ -5,7 +5,7 @@ import constants
 from random import random
 from math import floor
 
-input_nodes = constants.XPIXELS * constants.YPIXELS
+input_nodes = 6#constants.XPIXELS * constants.YPIXELS
 output_nodes = constants.CONTROLLER_OUTPUTS
 
 '''
@@ -37,20 +37,31 @@ class ConnectionGene:
         else:
             self.nextConnection.addNewConnection(newConnection)
 
-    def calculateValue(self, nodes, futureNodes):
+    def calculateValue(self, nodes):
         if (self.enabled):
             if (self.outNode in nodes):
                 nodes[self.outNode] = nodes[self.outNode] + nodes[self.inNode] * self.weight
             else:
                 nodes[self.outNode] = nodes[self.inNode] * self.weight
+        if (self.nextConnection):
+            self.nextConnection.calculateValue(nodes)
+
+    def getTopologicalOrder(self, nodeIndex, futureNodes):
+        n = nodeIndex
+        if (self.outNode in futureNodes):
+            if (self.outNode in futureNodes[:nodeIndex]):
+                n = n - 1
+            futureNodes.remove(self.outNode)
         futureNodes.append(self.outNode)
         if (self.nextConnection):
-            self.nextConnection.calculateValue(nodes, futureNodes)
+            n = self.nextConnection.getTopologicalOrder(n, futureNodes)
+        return n
 
 class Brain:
     def __init__(self):
         self.fitness = 0
         self.connections = {}
+        self.nodeOrder = list()
 
     # make this brain from scratch, with only input and output nodes and no connections
     # should only be used when creating the initial population
@@ -171,16 +182,13 @@ class Brain:
 
         nodes = {}
         # set inputs
-        nodesToCalculate = list()
         for i in range(input_nodes):
             nodes[i + 1] = inputs[i]
-            nodesToCalculate.append(i + 1)
 
         # calculate values
-        while (len(nodesToCalculate) > 0):
-            nextNode = nodesToCalculate.pop(0)
-            if (nextNode in self.connections):
-                self.connections[nextNode].calculateValue(nodes, nodesToCalculate)
+        for i in self.nodeOrder:
+            if (i in self.connections):
+                self.connections[i].calculateValue(nodes)
 
         # return outputs
         outputs = list()
@@ -332,6 +340,19 @@ class Brain:
             if (random() < chance):
                 c.weight + round(2 * (random() - 0.5), 2)
 
+    # creates a list of nodes in topological order
+    # this should be called after all modifications to the network structure, but before think()
+    def prepareNodeTopology(self):
+        self.nodeOrder = list()
+        nodeIndex = 0
+        for i in range(input_nodes):
+            self.nodeOrder.append(i + 1)
+
+        while (nodeIndex < len(self.nodeOrder)):
+            if (self.nodeOrder[nodeIndex] in self.connections):
+                nodeIndex = self.connections[self.nodeOrder[nodeIndex]].getTopologicalOrder(nodeIndex, self.nodeOrder)
+            nodeIndex = nodeIndex + 1
+
 '''
 inputs = list()
 for i in range(input_nodes):
@@ -371,4 +392,17 @@ print(len(c.getAllConnections()))
 print(a.think(inputs))
 print(b.think(inputs))
 print(c.think(inputs))
+'''
+'''
+a = Brain()
+a.initNewBrain()
+for i in range(15):
+    a.mutateStructure()
+c = a.getAllConnections()
+for i in c:
+    print(str(i.inNode) + ' ' + str(i.outNode))
+a.prepareNodeTopology()
+print(a.nodeOrder)
+
+print(a.think((1,1,1,1,1,1)))
 '''
