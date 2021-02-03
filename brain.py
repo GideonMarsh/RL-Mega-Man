@@ -331,7 +331,7 @@ class Brain:
             if (random() < chance):
                 c.weight + round(2 * (random() - 0.5), 2)
 
-
+'''
 a = Brain()
 b = Brain()
 a.initNewBrain()
@@ -362,3 +362,8 @@ c = Brain()
 c.crossover(a, b)
 print(len(c.getAllNodes()))
 print(len(c.getAllConnections()))
+
+print(a.think((1,2,2)))
+print(b.think((1,2,2)))
+print(c.think((1,2,2)))
+'''
