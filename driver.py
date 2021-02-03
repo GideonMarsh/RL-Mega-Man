@@ -1,6 +1,7 @@
 # Gideon Marsh
 # github.com/GideonMarsh
 
+import ga
 import constants
 import imagechecker
 import screenshotter
@@ -50,6 +51,8 @@ checkProgress = False
 grayimg = None
 
 firstImageTaken = False
+
+brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, constants.MUTATION_CHANCE, 100)
 
 ### helper functions rely on above variables ###
 
@@ -102,6 +105,7 @@ def restartRun():
 def endRun():
     global currentlyPlaying
     currentlyPlaying = False
+    controller.cutoffInputs()
     fitnessTracker.setEndTime()
 
 ### remaining variable setup relies on above helper functions ###
@@ -115,6 +119,8 @@ while (not screenshotter.isProgramOver(constants.WINDOWNAME)):
     screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
     if (screenshot):
         grayimg = screenshot.convert('L')
+
+        controller.changeInputs(brains.passInputs(grayimg))
 
         if (not firstImageTaken):
             grayimg.save('images/last_checkpoint.png')
@@ -178,3 +184,4 @@ keyListener.stop()
 globalTimer.cancelTimer()
 inputTimer.cancelTimer()
 progressCheckTimer.cancelTimer()
+controller.cutoffInputs()
