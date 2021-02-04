@@ -5,7 +5,7 @@ import constants
 from random import random
 from math import floor
 
-input_nodes = 6#constants.XPIXELS * constants.YPIXELS
+input_nodes = constants.XPIXELS * constants.YPIXELS
 output_nodes = constants.CONTROLLER_OUTPUTS
 
 '''
@@ -108,6 +108,34 @@ class Brain:
         while (ib < len(parentBGenes)):
             self.addNewConnection(parentBGenes[ib].inNode, parentBGenes[ib].outNode, parentBGenes[ib].weight, parentBGenes[ib].inum, parentBGenes[ib].enabled)
             ib = ib + 1
+
+        # check to see if any duplicate connections exist
+        for k in self.connections.keys():
+            c1 = self.connections[k]
+            c1Parent = None
+            matchFound = False
+            while c1 and not matchFound:
+                c2 = c1.nextConnection
+                c2Parent = c1
+                while c2:
+                    if (c1.outNode == c2.outNode):
+                        # duplicate connection
+                        # choose one at random to keep, delete the other
+                        matchFound = True
+                        if (random() < 0.5):
+                            c2Parent.nextConnection = c2.nextConnection
+                            break
+                        else:
+                            if c1Parent:
+                                c1Parent.nextConnection = c1.nextConnection
+                            else:
+                                self.connections[k] = c1.nextConnection
+                            break
+                    c2Parent = c2
+                    c2 = c2.nextConnection
+                c1Parent = c1
+                c1 = c1.nextConnection
+
 
 
     # check how similar this brain is to another
@@ -358,24 +386,31 @@ inputs = list()
 for i in range(input_nodes):
     inputs.append(round(random() * 255))
 
+
 a = Brain()
 b = Brain()
 a.initNewBrain()
+a.prepareNodeTopology()
 b.initNewBrain()
+b.prepareNodeTopology()
 
 print(len(a.getAllNodes()))
 print(len(a.getAllConnections()))
 print(a.think(inputs))
 
 a.mutateStructure()
+a.prepareNodeTopology()
 
 print(len(a.getAllNodes()))
 print(len(a.getAllConnections()))
 print(a.think(inputs))
 
-b.mutateStructure()
-a.mutateStructure()
-b.mutateStructure()
+for i in range(15):
+    a.mutateStructure()
+    b.mutateStructure()
+a.prepareNodeTopology()
+b.prepareNodeTopology()
+
 print(len(a.getAllNodes()))
 print(len(a.getAllConnections()))
 print(len(b.getAllNodes()))
@@ -386,12 +421,17 @@ print(a.compare(b))
 c = Brain()
 
 c.crossover(a, b)
+c.prepareNodeTopology()
 print(len(c.getAllNodes()))
 print(len(c.getAllConnections()))
 
 print(a.think(inputs))
 print(b.think(inputs))
 print(c.think(inputs))
+
+d = c.getAllConnections()
+for i in d:
+    print(str(i.inNode) + ' ' + str(i.outNode))
 '''
 '''
 a = Brain()
