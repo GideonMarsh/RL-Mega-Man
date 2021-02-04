@@ -102,4 +102,4 @@ class GeneticAlgorithmController:
         pass
 
 
-brains = GeneticAlgorithmController(100, 6, constants.MUTATION_CHANCE, 100)
+#brains = GeneticAlgorithmController(100, 6, constants.MUTATION_CHANCE, 100)
