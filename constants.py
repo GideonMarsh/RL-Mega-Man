@@ -21,5 +21,7 @@ CONTROLLER_OUTPUTS = 6
 POPULATION_SIZE = 100
 MUTATION_CHANCE = 0.01
 
+STARTING_DELTA = 2
+
 # when run times out instead of dying/completing the level, fitness is penalized by this percentage
 TIMEOUT_PENALTY = 0.9

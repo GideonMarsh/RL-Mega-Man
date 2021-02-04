@@ -53,7 +53,7 @@ grayimg = None
 
 firstImageTaken = False
 
-brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, constants.MUTATION_CHANCE, 100)
+brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 6, constants.MUTATION_CHANCE, 100)
 
 ### helper functions rely on above variables ###
 
