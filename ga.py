@@ -26,7 +26,7 @@ class GeneticAlgorithmController:
             newBrain.prepareNodeTopology()
             self.population.append(newBrain)
 
-        self.separateIntoSpecies()
+        self.initialSeparateIntoSpecies()
 
     def passInputs(self, image):
         pix = image.load()
@@ -125,8 +125,10 @@ class GeneticAlgorithmController:
         return (self.generation, self.currentBrain)
 
     # separates population into species
-    def separateIntoSpecies(self):
+    def initialSeparateIntoSpecies(self):
         self.species = list()
+        averageDelta = 0
+        deltaNumber = 0
         for g in self.population:
             speciesFound = False
             specie = 0
@@ -144,23 +146,112 @@ class GeneticAlgorithmController:
                         self.species[specie].append(g)
                         speciesFound = True
                     specie = specie + 1
+                    averageDelta = averageDelta + d
+                    deltaNumber = deltaNumber + 1
+
+        averageDelta = averageDelta / deltaNumber
 
         # modify self.delta based on the difference between number of species and desired number of species
         difference = len(self.species) - self.idealSpecies  # keep the sign of this value for addition to delta
-        deltaChange = difference * abs(difference) * 0.01
-        self.delta = max(round(self.delta + deltaChange, 0.01)
+        difference = difference / 1.5
+        d2 = abs(averageDelta - self.delta)
+        self.delta = self.delta + (difference * abs(difference) * d2 * 0.08) #+ (difference * (highestDelta - lowestDelta) * 0.02)
 
+    def separateIntoSpecies(self):
+        oldSpecies = self.species
+        self.species = list()
+        averageDelta = 0
+        deltaNumber = 0
+        for g in self.population:
+            speciesFound = False
+            specie = 0
+            while (not speciesFound):
+                if (len(self.species) <= specie):
+                    # no existing species has accepted g, so add as a new species
+                    self.species.append(list())
+                    self.species[specie].append(g)
+                    speciesFound = True
+                else:
+                    # check if g should be part of this species
+                    i = floor(len(self.species[specie]) * random())
+                    d = g.compare(self.species[specie][i])
+                    if (d <= self.delta):
+                        self.species[specie].append(g)
+                        speciesFound = True
+                    specie = specie + 1
+                    averageDelta = averageDelta + d
+                    deltaNumber = deltaNumber + 1
+
+        for oldSpecie in oldSpecies:
+            for brain in oldSpecie:
+                for specie in self.species:
+                    if brain in specie:
+                        specie.remove(brain)
+                        break
+
+        for specie in self.species:
+            if (len(specie) == 0):
+                self.species.remove(specie)
+
+        averageDelta = averageDelta / deltaNumber
+
+        # modify self.delta based on the difference between number of species and desired number of species
+        difference = len(self.species) - self.idealSpecies  # keep the sign of this value for addition to delta
+        difference = difference / 1.5
+        d2 = abs(averageDelta - self.delta)
+        self.delta = self.delta + (difference * abs(difference) * d2 * 0.08) #+ (difference * (highestDelta - lowestDelta) * 0.02)
+
+
+
+'''
 brains = GeneticAlgorithmController(100, 6, constants.MUTATION_CHANCE)
 
-print(len(brains.population))
+#print(brains.generation)
+#print(len(brains.population))
 print(len(brains.species))
 print(brains.delta)
 
-for i in range(20):
+for i in range(50):
     while not brains.doneWithGeneration():
-        brains.assignFitness(round(random() * 100, 2))
+        image = Image.open('images/respawn_air_man_1.png')
+        outputs = brains.passInputs(image)
+        fit = 0
+        for o in outputs:
+            fit = fit + o
+        brains.assignFitness(fit)
+
+    bestBrain = None
+    for b in brains.population:
+        if (not bestBrain or b.fitness > bestBrain.fitness):
+            bestBrain = b
+
+    print('best:')
+    print(bestBrain.fitness)
+    for c in bestBrain.getAllConnections():
+        print(str(c.inNode) + ' ' + str(c.outNode))
+    print(' ')
 
     brains.makeNextGeneration()
-    print(len(brains.population))
+    #print(brains.generation)
+    #print(len(brains.population))
     print(len(brains.species))
     print(brains.delta)
+
+while not brains.doneWithGeneration():
+    image = Image.open('images/respawn_air_man_1.png')
+    outputs = brains.passInputs(image)
+    fit = 0
+    for o in outputs:
+        fit = fit + o
+    brains.assignFitness(fit)
+
+bestBrain = None
+for b in brains.population:
+    if (not bestBrain or b.fitness > bestBrain.fitness):
+        bestBrain = b
+
+print('best:')
+print(bestBrain.fitness)
+for c in bestBrain.getAllConnections():
+    print(str(c.inNode) + ' ' + str(c.outNode))
+'''

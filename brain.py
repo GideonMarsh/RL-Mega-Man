@@ -144,27 +144,15 @@ class Brain:
         # d = (c1 * E) / N + (c2 * D) / N + c3 * W
         # c1, c2, c3 = importance coefficients
         # d = compatibility distance
-        # E = number of excess genes
-        # D = number of disjoint genes
+        # D = number of excess and disjoint genes
         # W = average weight differences of matching genes
         # N = number of genes in the larger genome
 
-        c1 = 0.8
+        c1 = 5
         c2 = 1
-        c3 = 1.2
 
         allGenes1 = self.getAllConnections()
         allGenes2 = otherBrain.getAllConnections()
-
-        lastGene1 = lastGene2 = 0
-
-        for g in allGenes1:
-            if (g.inum > lastGene1):
-                lastGene1 = g.inum
-
-        for h in allGenes2:
-            if (h.inum > lastGene2):
-                lastGene2 = h.inum
 
         mismatchedGenes = list()
         matchedWeights = list()
@@ -195,16 +183,9 @@ class Brain:
                 W = W + w
             W = W / len(matchedWeights)
 
-        D = 0
-        E = 0
+        D = len(mismatchedGenes)
 
-        for m in mismatchedGenes:
-            if (m > lastGene1 or m > lastGene2):
-                E = E + 1
-            else:
-                D = D + 1
-
-        d = (c1 * E) / N + (c2 * D) / N + c3 * W
+        d = (c1 * D) / N + c2 * W
         return d
 
     # calculate the outputs based on given inputs

@@ -21,7 +21,7 @@ CONTROLLER_OUTPUTS = 6
 POPULATION_SIZE = 100
 MUTATION_CHANCE = 0.01
 
-STARTING_DELTA = 1.8
+STARTING_DELTA = 10
 
 # The best percentage of each species that are qualified to breed
 ACCEPTABLE_PARENTS_PERCENTAGE = 0.4
