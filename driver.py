@@ -162,7 +162,6 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
             fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_WAIT_INTERVAL
             if (fit < 0):
                 fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_INITIAL_WAIT_INTERVAL
-            fit = round(fit * constants.TIMEOUT_PENALTY, 2)
             brains.assignFitness(fit)
             print('Fitness: ' + str(fit))
             restartRun()

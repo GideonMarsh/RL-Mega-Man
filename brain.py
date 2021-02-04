@@ -149,7 +149,9 @@ class Brain:
         # W = average weight differences of matching genes
         # N = number of genes in the larger genome
 
-        c1 = c2 = c3 = 1
+        c1 = 0.8
+        c2 = 1
+        c3 = 1.2
 
         allGenes1 = self.getAllConnections()
         allGenes2 = otherBrain.getAllConnections()
@@ -360,12 +362,14 @@ class Brain:
             changeIndex = floor(len(allConnections) * random())
             self.addNewNode(allConnections[changeIndex])
 
-    # modify the weights of each connection in the neural network with the given probability
-    def mutateWeights(self, chance=0.01):
+    # modify the weights of each connection in the neural network with a certain probability
+    # there is a chance that each connection will be modified equal to 1 / number of connections
+    # this means that if there is only one connection, it is guaranteed to be modified
+    def mutateWeights(self):
         allConnections = self.getAllConnections()
 
         for c in allConnections:
-            if (random() < chance):
+            if (random() * len(allConnections) < 1):
                 c.weight + round(2 * (random() - 0.5), 2)
 
     # creates a list of nodes in topological order

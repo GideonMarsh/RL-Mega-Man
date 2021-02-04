@@ -21,7 +21,7 @@ CONTROLLER_OUTPUTS = 6
 POPULATION_SIZE = 100
 MUTATION_CHANCE = 0.01
 
-STARTING_DELTA = 2
+STARTING_DELTA = 1.8
 
-# when run times out instead of dying/completing the level, fitness is penalized by this percentage
-TIMEOUT_PENALTY = 0.9
+# The best percentage of each species that are qualified to breed
+ACCEPTABLE_PARENTS_PERCENTAGE = 0.4
