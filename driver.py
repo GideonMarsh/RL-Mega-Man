@@ -53,7 +53,7 @@ grayimg = None
 
 firstImageTaken = False
 
-brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 6, constants.MUTATION_CHANCE)
+brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 15, constants.MUTATION_CHANCE)
 
 ### helper functions rely on above variables ###
 
@@ -61,9 +61,10 @@ def on_press(key):
     '''
     print('{0} pressed'.format(
         key))
-    '''
+    
     if (key == Key.space):
         grayimg.save('images/last_checkpoint.png')
+    '''
 
 def on_release(key):
     '''
@@ -89,8 +90,8 @@ def restartRun():
 
     if (brains.doneWithGeneration()):
         brains.makeNextGeneration()
+    print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Player ' + str(brains.getIndividualInfo()[1]))
 
-    print('Organism: ' + str(brains.getIndividualInfo()))
     controller.loadSave()
     fitnessTracker.setStartTime()
     globalTimer.startTimer()
