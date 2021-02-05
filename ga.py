@@ -47,8 +47,12 @@ class GeneticAlgorithmController:
         return self.population[self.currentBrain].think(inputs)
 
     # assign fitness and set current brain to next brain
+    # treat all negative fitness values as 0
     def assignFitness(self, fitness):
-        self.population[self.currentBrain].fitness = fitness
+        if (fitness < 0):
+            self.population[self.currentBrain].fitness = 0
+        else:
+            self.population[self.currentBrain].fitness = fitness
         self.currentBrain = self.currentBrain + 1
 
     def doneWithGeneration(self):
