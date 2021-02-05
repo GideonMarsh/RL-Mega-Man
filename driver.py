@@ -115,11 +115,8 @@ keyListener = Listener(on_press=on_press,on_release=on_release)
 keyListener.start()
 
 ############################# program loop ##############################
-check = time()
 restartRun()
 while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
-    print(time() - check)
-    check = time()
     #print(fitnessTracker.getFitness())
     screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
     if (screenshot):
@@ -173,6 +170,8 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
             fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_TIMEOUT
             if (fit < 0):
                 fit = 0
+            if (imageCheck.checkEarlyOut(grayimg)):
+                fit = 0
             brains.assignFitness(fit)
             print('Fitness: ' + str(fit))
             restartRun()
@@ -181,6 +180,8 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         if (controlTimer.timeUp() and imageCheck.checkNoControl(grayimg)):
             endRun()
             fit = fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT
+            if (imageCheck.checkEarlyOut(grayimg)):
+                fit = 0
             brains.assignFitness(fit)
             print('control timeout')
             print('Fitness: ' + str(fit))
