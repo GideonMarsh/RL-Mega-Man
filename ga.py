@@ -92,10 +92,24 @@ class GeneticAlgorithmController:
             newSizes[key] = round(sumFitness / meanFitness)
             totalPopulation = totalPopulation + round(sumFitness / meanFitness)
 
+        print('total ' + str(totalPopulation))
         excessPopulation = totalPopulation - 100
+        print('excess ' + str(excessPopulation))
         while (excessPopulation > 0):
             # remove one individual from each species in a random order
-            pass
+            for k in newSizes.keys():
+                if (newSizes[k] > 0):
+                    newSizes[k] = newSizes[k] - 1
+                    excessPopulation = excessPopulation - 1
+                    totalPopulation = totalPopulation - 1
+                    if (excessPopulation <= 0):
+                        break
+        print('after total ' + str(totalPopulation))
+
+        newTotal = 0
+        for k in newSizes.keys():
+            newTotal = newTotal + newSizes[k]
+        print('newtotal ' + str(newTotal))
 
 
         # step 3
