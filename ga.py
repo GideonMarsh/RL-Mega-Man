@@ -6,13 +6,16 @@ import constants
 from PIL import Image
 from math import floor
 from random import random
+from time import time
+
+speciesCounter = 0
 
 class GeneticAlgorithmController:
     def __init__(self, popSize, idealSpecies, mutationChance):
         # The whole population in an unordered list
         self.population = list()
         # A 2d list of the population, where the first index is species
-        self.species = list()
+        self.species = {}
         self.mutationChance = mutationChance
         self.generation = 0
         self.currentBrain = 0
@@ -60,6 +63,7 @@ class GeneticAlgorithmController:
 
         2. apportion new species sizes of next generation
         newSpeciesSize = (sum of all adjusted fitnesses) / (mean adjusted fitness of entire population)
+        limit the amount of new organisms to the max population size by randomly but evenly lowering each species size
 
         3. create new generation
         for each species, select the highest r% of the species to breed
@@ -72,19 +76,27 @@ class GeneticAlgorithmController:
 
         # step 1
         meanFitness = 0
-        for s in self.species:
-            for i in s:
-                i.fitness = i.fitness / len(s)
-                meanFitness = meanFitness + i.fitness
+        for specie in self.species.values():
+            for individual in specie:
+                individual.fitness = individual.fitness / len(specie)
+                meanFitness = meanFitness + individual.fitness
         meanFitness = meanFitness / len(self.population)
 
         # step 2
         newSizes = {}
-        for s in range(len(self.species)):
+        totalPopulation = 0
+        for key in self.species.keys():
             sumFitness = 0
-            for i in self.species[s]:
-                sumFitness = sumFitness + i.fitness
-            newSizes[s] = round(sumFitness / meanFitness)
+            for individual in self.species[key]:
+                sumFitness = sumFitness + individual.fitness
+            newSizes[key] = round(sumFitness / meanFitness)
+            totalPopulation = totalPopulation + round(sumFitness / meanFitness)
+
+        excessPopulation = totalPopulation - 100
+        while (excessPopulation > 0):
+            # remove one individual from each species in a random order
+            pass
+
 
         # step 3
         def fitnessSort(i):
@@ -92,13 +104,13 @@ class GeneticAlgorithmController:
 
         newPopulation = list()
 
-        for s in range(len(self.species)):
-            if (newSizes[s] > 0):
-                self.species[s].sort(key=fitnessSort, reverse=True)
+        for key in self.species.keys():
+            if (newSizes[key] > 0):
+                self.species[key].sort(key=fitnessSort, reverse=True)
                 eligibleParents = list()
-                for i in range(max(1, round(len(self.species[s]) * constants.ACCEPTABLE_PARENTS_PERCENTAGE))):
-                    eligibleParents.append(self.species[s][i])
-                for i in range(newSizes[s]):
+                for i in range(max(1, round(len(self.species[key]) * constants.ACCEPTABLE_PARENTS_PERCENTAGE))):
+                    eligibleParents.append(self.species[key][i])
+                for i in range(newSizes[key]):
                     # just choose two from the eligible parents with replacement
                     parent1 = eligibleParents[floor(random() * len(eligibleParents))]
                     parent2 = eligibleParents[floor(random() * len(eligibleParents))]
@@ -126,84 +138,87 @@ class GeneticAlgorithmController:
 
     # separates population into species
     def initialSeparateIntoSpecies(self):
-        self.species = list()
         averageDelta = 0
         deltaNumber = 0
         for g in self.population:
             speciesFound = False
-            specie = 0
-            while (not speciesFound):
-                if (len(self.species) <= specie):
-                    # no existing species has accepted g, so add as a new species
-                    self.species.append(list())
+            # check if g should be part of this species
+            for specie in self.species.keys():
+                i = floor(len(self.species[specie]) * random())
+                d = g.compare(self.species[specie][i])
+                averageDelta = averageDelta + d
+                deltaNumber = deltaNumber + 1
+                if (d <= self.delta):
                     self.species[specie].append(g)
                     speciesFound = True
-                else:
-                    # check if g should be part of this species
-                    i = floor(len(self.species[specie]) * random())
-                    d = g.compare(self.species[specie][i])
-                    if (d <= self.delta):
-                        self.species[specie].append(g)
-                        speciesFound = True
-                    specie = specie + 1
-                    averageDelta = averageDelta + d
-                    deltaNumber = deltaNumber + 1
+                    break
+            # no existing species has accepted g, so add as a new species
+            if not speciesFound:
+                global speciesCounter
+                self.species[speciesCounter] = list()
+                self.species[speciesCounter].append(g)
+                speciesCounter = speciesCounter + 1
 
-        averageDelta = averageDelta / deltaNumber
-
+        '''
         # modify self.delta based on the difference between number of species and desired number of species
-        difference = len(self.species) - self.idealSpecies  # keep the sign of this value for addition to delta
+        difference = len(self.species.values()) - self.idealSpecies  # keep the sign of this value for addition to delta
         difference = difference / 1.5
         d2 = abs(averageDelta - self.delta)
-        self.delta = self.delta + (difference * abs(difference) * d2 * 0.08) #+ (difference * (highestDelta - lowestDelta) * 0.02)
+        self.delta = self.delta + (difference * abs(difference) * d2 * 0.05) #+ (difference * (highestDelta - lowestDelta) * 0.02)
+        '''
+
 
     def separateIntoSpecies(self):
-        oldSpecies = self.species
-        self.species = list()
+        oldSpecies = self.species.copy()
+
+        for s in oldSpecies.keys():
+            oldSpecies[s] = oldSpecies[s].copy()
         averageDelta = 0
         deltaNumber = 0
         for g in self.population:
             speciesFound = False
-            specie = 0
-            while (not speciesFound):
-                if (len(self.species) <= specie):
-                    # no existing species has accepted g, so add as a new species
-                    self.species.append(list())
+            # check if g should be part of this species
+            for specie in self.species.keys():
+                i = floor(len(self.species[specie]) * random())
+                d = g.compare(self.species[specie][i])
+                averageDelta = averageDelta + d
+                deltaNumber = deltaNumber + 1
+                if (d <= self.delta):
                     self.species[specie].append(g)
                     speciesFound = True
-                else:
-                    # check if g should be part of this species
-                    i = floor(len(self.species[specie]) * random())
-                    d = g.compare(self.species[specie][i])
-                    if (d <= self.delta):
-                        self.species[specie].append(g)
-                        speciesFound = True
-                    specie = specie + 1
-                    averageDelta = averageDelta + d
-                    deltaNumber = deltaNumber + 1
+                    break
+            # no existing species has accepted g, so add as a new species
+            if not speciesFound:
+                global speciesCounter
+                self.species[speciesCounter] = list()
+                self.species[speciesCounter].append(g)
+                speciesCounter = speciesCounter + 1
 
-        for oldSpecie in oldSpecies:
+        for oldSpecie in oldSpecies.values():
             for brain in oldSpecie:
-                for specie in self.species:
+                for specie in self.species.values():
                     if brain in specie:
                         specie.remove(brain)
                         break
 
-        for specie in self.species:
-            if (len(specie) == 0):
-                self.species.remove(specie)
+        speciesToRemove = list()
+        for specie in self.species.keys():
+            if (len(self.species[specie]) == 0):
+                speciesToRemove.append(specie)
 
+
+        for i in speciesToRemove:
+            self.species.pop(i)
+        '''
         averageDelta = averageDelta / deltaNumber
 
         # modify self.delta based on the difference between number of species and desired number of species
-        difference = len(self.species) - self.idealSpecies  # keep the sign of this value for addition to delta
+        difference = len(self.species.values()) - self.idealSpecies  # keep the sign of this value for addition to delta
         difference = difference / 1.5
         d2 = abs(averageDelta - self.delta)
-        self.delta = self.delta + (difference * abs(difference) * d2 * 0.08) #+ (difference * (highestDelta - lowestDelta) * 0.02)
+        self.delta = self.delta + (difference * abs(difference) * d2 * 0.05) #+ (difference * (highestDelta - lowestDelta) * 0.02)
+        '''
 
-
-
-'''
 brains = GeneticAlgorithmController(100, 6, constants.MUTATION_CHANCE)
 
 #print(brains.generation)
@@ -221,19 +236,22 @@ for i in range(50):
         brains.assignFitness(fit)
 
     bestBrain = None
-    for b in brains.population:
-        if (not bestBrain or b.fitness > bestBrain.fitness):
-            bestBrain = b
+    bestKey = None
+    for s in brains.species.keys():
+        for b in brains.species[s]:
+            if (not bestBrain or b.fitness > bestBrain.fitness):
+                bestBrain = b
+                bestKey = s
 
-    print('best:')
-    print(bestBrain.fitness)
-    for c in bestBrain.getAllConnections():
-        print(str(c.inNode) + ' ' + str(c.outNode))
+    print('best: ' + str(bestKey) + ' ' + str(bestBrain.fitness))
+    for s in brains.species.keys():
+        print(str(s) + ' ' + str(len(brains.species[s])),end='; ')
+    print(' ')
     print(' ')
 
     brains.makeNextGeneration()
     #print(brains.generation)
-    #print(len(brains.population))
+    print(len(brains.population))
     print(len(brains.species))
     print(brains.delta)
 
@@ -250,8 +268,4 @@ for b in brains.population:
     if (not bestBrain or b.fitness > bestBrain.fitness):
         bestBrain = b
 
-print('best:')
-print(bestBrain.fitness)
-for c in bestBrain.getAllConnections():
-    print(str(c.inNode) + ' ' + str(c.outNode))
-'''
+print('best: ' + str(bestBrain.fitness))

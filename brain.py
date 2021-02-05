@@ -148,8 +148,8 @@ class Brain:
         # W = average weight differences of matching genes
         # N = number of genes in the larger genome
 
-        c1 = 5
-        c2 = 1
+        c1 = 10
+        c2 = 5
 
         allGenes1 = self.getAllConnections()
         allGenes2 = otherBrain.getAllConnections()
@@ -430,4 +430,26 @@ a.prepareNodeTopology()
 print(a.nodeOrder)
 
 print(a.think((1,1,1,1,1,1)))
+'''
+'''
+a = Brain()
+a.initNewBrain()
+
+b = Brain()
+c = Brain()
+b.crossover(a, a)
+c.crossover(a, a)
+
+print(b.compare(c))
+for i in range(10):
+    b.mutateStructure()
+    b.mutateWeights()
+    c.mutateStructure()
+    c.mutateWeights()
+    print(b.compare(c))
+
+for i in range(10):
+    b.mutateStructure()
+    b.mutateWeights()
+    print(b.compare(c))
 '''
