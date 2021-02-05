@@ -19,8 +19,8 @@ class GeneticAlgorithmController:
         self.mutationChance = mutationChance
         self.generation = 0
         self.currentBrain = 0
-        self.delta = constants.STARTING_DELTA
         self.idealSpecies = idealSpecies
+        self.delta = constants.STARTING_DELTA
 
         for i in range(popSize):
             newBrain = brain.Brain()
@@ -72,6 +72,10 @@ class GeneticAlgorithmController:
 
         4. separate the new population into species
         (create new species when necessary)
+
+
+        NOTE: generations will have far too many individuals if any individuals from the previous generation had negative fitness
+        This is not designed to work with negative fitness values
         '''
 
         # step 1
@@ -92,25 +96,15 @@ class GeneticAlgorithmController:
             newSizes[key] = round(sumFitness / meanFitness)
             totalPopulation = totalPopulation + round(sumFitness / meanFitness)
 
-        print('total ' + str(totalPopulation))
         excessPopulation = totalPopulation - 100
-        print('excess ' + str(excessPopulation))
         while (excessPopulation > 0):
             # remove one individual from each species in a random order
             for k in newSizes.keys():
                 if (newSizes[k] > 0):
                     newSizes[k] = newSizes[k] - 1
                     excessPopulation = excessPopulation - 1
-                    totalPopulation = totalPopulation - 1
                     if (excessPopulation <= 0):
                         break
-        print('after total ' + str(totalPopulation))
-
-        newTotal = 0
-        for k in newSizes.keys():
-            newTotal = newTotal + newSizes[k]
-        print('newtotal ' + str(newTotal))
-
 
         # step 3
         def fitnessSort(i):
@@ -124,6 +118,7 @@ class GeneticAlgorithmController:
                 eligibleParents = list()
                 for i in range(max(1, round(len(self.species[key]) * constants.ACCEPTABLE_PARENTS_PERCENTAGE))):
                     eligibleParents.append(self.species[key][i])
+
                 for i in range(newSizes[key]):
                     # just choose two from the eligible parents with replacement
                     parent1 = eligibleParents[floor(random() * len(eligibleParents))]
@@ -152,16 +147,12 @@ class GeneticAlgorithmController:
 
     # separates population into species
     def initialSeparateIntoSpecies(self):
-        averageDelta = 0
-        deltaNumber = 0
         for g in self.population:
             speciesFound = False
             # check if g should be part of this species
             for specie in self.species.keys():
                 i = floor(len(self.species[specie]) * random())
                 d = g.compare(self.species[specie][i])
-                averageDelta = averageDelta + d
-                deltaNumber = deltaNumber + 1
                 if (d <= self.delta):
                     self.species[specie].append(g)
                     speciesFound = True
@@ -173,13 +164,9 @@ class GeneticAlgorithmController:
                 self.species[speciesCounter].append(g)
                 speciesCounter = speciesCounter + 1
 
-        '''
         # modify self.delta based on the difference between number of species and desired number of species
         difference = len(self.species.values()) - self.idealSpecies  # keep the sign of this value for addition to delta
-        difference = difference / 1.5
-        d2 = abs(averageDelta - self.delta)
-        self.delta = self.delta + (difference * abs(difference) * d2 * 0.05) #+ (difference * (highestDelta - lowestDelta) * 0.02)
-        '''
+        self.delta = self.delta + (difference * 0.001)
 
 
     def separateIntoSpecies(self):
@@ -187,16 +174,12 @@ class GeneticAlgorithmController:
 
         for s in oldSpecies.keys():
             oldSpecies[s] = oldSpecies[s].copy()
-        averageDelta = 0
-        deltaNumber = 0
         for g in self.population:
             speciesFound = False
             # check if g should be part of this species
             for specie in self.species.keys():
                 i = floor(len(self.species[specie]) * random())
                 d = g.compare(self.species[specie][i])
-                averageDelta = averageDelta + d
-                deltaNumber = deltaNumber + 1
                 if (d <= self.delta):
                     self.species[specie].append(g)
                     speciesFound = True
@@ -223,20 +206,16 @@ class GeneticAlgorithmController:
 
         for i in speciesToRemove:
             self.species.pop(i)
-        '''
-        averageDelta = averageDelta / deltaNumber
 
         # modify self.delta based on the difference between number of species and desired number of species
         difference = len(self.species.values()) - self.idealSpecies  # keep the sign of this value for addition to delta
-        difference = difference / 1.5
-        d2 = abs(averageDelta - self.delta)
-        self.delta = self.delta + (difference * abs(difference) * d2 * 0.05) #+ (difference * (highestDelta - lowestDelta) * 0.02)
-        '''
+        self.delta = self.delta + (difference * 0.001)
 
-brains = GeneticAlgorithmController(100, 6, constants.MUTATION_CHANCE)
+'''
+brains = GeneticAlgorithmController(100, 15, constants.MUTATION_CHANCE)
 
-#print(brains.generation)
-#print(len(brains.population))
+print(brains.generation)
+print(len(brains.population))
 print(len(brains.species))
 print(brains.delta)
 
@@ -247,6 +226,8 @@ for i in range(50):
         fit = 0
         for o in outputs:
             fit = fit + o
+        if fit < 0:
+            fit = 0
         brains.assignFitness(fit)
 
     bestBrain = None
@@ -264,7 +245,7 @@ for i in range(50):
     print(' ')
 
     brains.makeNextGeneration()
-    #print(brains.generation)
+    print(brains.generation)
     print(len(brains.population))
     print(len(brains.species))
     print(brains.delta)
@@ -283,3 +264,7 @@ for b in brains.population:
         bestBrain = b
 
 print('best: ' + str(bestBrain.fitness))
+for s in brains.species.keys():
+    print(str(s) + ' ' + str(len(brains.species[s])),end='; ')
+print(' ')
+'''
