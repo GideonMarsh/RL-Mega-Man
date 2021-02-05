@@ -24,6 +24,8 @@ Manual steps to take before running program:
 3. Navigate to a menu without a black background (stage select works)
 4. Open options menu (cursor should be on 'SAVE GAME')
 5. Start program
+
+Press 'w' to end the program safely
 '''
 currentlyPlaying = False
 screenshotter.setWindowSize(constants.WINDOWNAME)
@@ -151,9 +153,10 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         # program gets a game over
         if (imageCheck.checkGameOver(grayimg)):
             endRun()
-            fit = fitnessTracker.getFitness()
+            # subtract the number of seconds the game over effect takes
+            fit = fitnessTracker.getFitness() - 4
             brains.assignFitness(fit)
-            print('Fitness: ' + str(fit))
+            print('Fitness: ' + str(fit) + ' (game over)')
             restartRun()
 
         # program completes the level
@@ -161,7 +164,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
             endRun()
             fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
             brains.assignFitness(fit)
-            print('Fitness: ' + str(fit))
+            print('Fitness: ' + str(fit) + ' (level complete)')
             restartRun()
 
         # program stops making progress
@@ -173,7 +176,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
             if (imageCheck.checkEarlyOut(grayimg)):
                 fit = 0
             brains.assignFitness(fit)
-            print('Fitness: ' + str(fit))
+            print('Fitness: ' + str(fit) + ' (no progress)')
             restartRun()
 
         # program stops controlling character
@@ -183,8 +186,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
             if (imageCheck.checkEarlyOut(grayimg)):
                 fit = 0
             brains.assignFitness(fit)
-            print('control timeout')
-            print('Fitness: ' + str(fit))
+            print('Fitness: ' + str(fit) +  + ' (no control)')
             restartRun()
 
         # program times out
@@ -192,7 +194,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
             endRun()
             fit = 0
             brains.assignFitness(fit)
-            print('Fitness: ' + str(fit))
+            print('Fitness: ' + str(fit) + ' (time out)')
             restartRun()
 
 

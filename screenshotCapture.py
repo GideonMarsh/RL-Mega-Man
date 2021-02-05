@@ -6,10 +6,20 @@ import controller
 import constants
 from time import sleep
 from pynput.keyboard import Key, Listener
+from math import floor
 
 '''
 A driver program for capturing screenshots
+
+Start the program the same way as the main driver
+Make sure the name of the screenshot you want to capture is correct
+Press spacebar to capture the screenshot
+Press 'w' or leave the window to end the program
 '''
+
+screenshotName = 'images/sizetest.png'
+xp = 100
+yp = 75
 
 screenshotter.setWindowSize(constants.WINDOWNAME)
 controller.cutoffInputs()
@@ -32,7 +42,19 @@ def on_press(key):
     print('{0} pressed'.format(key))
     '''
     if (key == Key.space):
-        grayimg.save('images/early_out_airman.png')
+        '''
+        pix = grayimg.load()
+
+        xOffset = floor(grayimg.width / xp)
+        yOffset = floor(grayimg.height / yp)
+        xShift = floor((grayimg.width % xp) / 2)
+        yShift = floor((grayimg.height % yp) / 2)
+
+        for i in range(xp):
+            for j in range(yp):
+                pix[i,j] = pix[(i * xOffset) + xShift, (j * yOffset) + yShift]
+        '''
+        grayimg.save(screenshotName)
 
 def on_release(key):
     '''

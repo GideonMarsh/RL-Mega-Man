@@ -42,7 +42,7 @@ class GeneticAlgorithmController:
         inputs = list()
         for i in range(constants.XPIXELS):
             for j in range(constants.YPIXELS):
-                inputs.append(pix[(i * xOffset) + xShift, (j * yOffset) + yShift])
+                inputs.append(pix[(i * xOffset) + xShift, (j * yOffset) + yShift] - 128)
 
         return self.population[self.currentBrain].think(inputs)
 
