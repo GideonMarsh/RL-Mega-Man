@@ -77,6 +77,33 @@ class ImageChecker:
             return True
         except FileNotFoundError:
             return False
+
+    def checkNoControl(self, image):
+        try:
+            check = Image.open('images/control_checkpoint.png')
+
+            pix = image.load()
+
+            checkpix = check.load()
+
+            xOffset = floor(image.width / constants.XPIXELS)
+            yOffset = floor(image.height / constants.YPIXELS)
+            xShift = floor((image.width % constants.XPIXELS) / 2)
+            yShift = floor((image.height % constants.YPIXELS) / 2)
+
+            errorMargin = round(constants.XPIXELS * constants.YPIXELS * constants.IMAGE_ACCEPTABLE_ERROR)
+            errorCount = 0
+
+            for i in range(constants.XPIXELS):
+                for j in range(constants.YPIXELS):
+                    if (pix[(i * xOffset) + xShift, (j * yOffset) + yShift] != checkpix[(i * xOffset) + xShift, (j * yOffset) + yShift]):
+                        errorCount = errorCount + 1
+                    if (errorCount >= errorMargin):
+                        return False
+
+            return True
+        except FileNotFoundError:
+            return False
 '''
 def checkPixelLoops(p, cp, xo, yo, xs, ys, xp, yp):
     for i in range(xp):
