@@ -93,7 +93,7 @@ def restartRun():
 
     if (brains.doneWithGeneration()):
         brains.makeNextGeneration()
-    print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Player ' + str(brains.getIndividualInfo()[1]))
+    print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Species ' + str(brains.getIndividualInfo()[1]) + '; Player ' + str(brains.getIndividualInfo()[2]))
 
     controller.resetInputMemory()
     controller.loadSave()

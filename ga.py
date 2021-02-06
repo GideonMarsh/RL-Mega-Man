@@ -147,7 +147,13 @@ class GeneticAlgorithmController:
         self.generation = self.generation + 1
 
     def getIndividualInfo(self):
-        return (self.generation, self.currentBrain)
+        brain = self.population[self.currentBrain]
+        specie = None
+        for s in self.species.keys():
+            if brain in self.species[s]:
+                specie = s
+                break
+        return (self.generation, s, self.currentBrain)
 
     # separates population into species
     def initialSeparateIntoSpecies(self):
