@@ -95,6 +95,7 @@ def restartRun():
         brains.makeNextGeneration()
     print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Player ' + str(brains.getIndividualInfo()[1]))
 
+    controller.resetInputMemory()
     controller.loadSave()
     fitnessTracker.setStartTime()
     globalTimer.startTimer()
@@ -125,6 +126,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         grayimg = screenshot.convert('L')
 
         if controller.changeInputs(brains.passInputs(grayimg)):
+            #print('control timer restart')
             grayimg.save('images/control_checkpoint.png')
             controlTimer.cancelTimer()
             controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
@@ -154,7 +156,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         if (imageCheck.checkGameOver(grayimg)):
             endRun()
             # subtract the number of seconds the game over effect takes
-            fit = fitnessTracker.getFitness() - 4
+            fit = fitnessTracker.getFitness()
             brains.assignFitness(fit)
             print('Fitness: ' + str(fit) + ' (game over)')
             restartRun()
@@ -186,7 +188,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
             if (imageCheck.checkEarlyOut(grayimg)):
                 fit = 0
             brains.assignFitness(fit)
-            print('Fitness: ' + str(fit) +  + ' (no control)')
+            print('Fitness: ' + str(fit) + ' (no control)')
             restartRun()
 
         # program times out

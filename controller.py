@@ -49,6 +49,10 @@ def closeMenu():
     keyboard.release(Key.esc)
     sleep(0.01)
 
+def resetInputMemory():
+    global keysPressed
+    keysPressed = [0,0,0,0,0,0]
+
 # game controls are received in a list in the following order:
 # up, right, down, left, jump, shoot
 # if input is greater than 0, button is pressed
