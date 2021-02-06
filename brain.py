@@ -141,8 +141,8 @@ class Brain:
     # check how similar this brain is to another
     def compare(self, otherBrain):
         # compare the connection genome of both genes using the following function
-        # d = (c1 * E) / N + (c2 * D) / N + c3 * W
-        # c1, c2, c3 = importance coefficients
+        # d = (c1 * D) / N + c2 * W
+        # c1, c2 = importance coefficients
         # d = compatibility distance
         # D = number of excess and disjoint genes
         # W = average weight differences of matching genes

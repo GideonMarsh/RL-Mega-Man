@@ -50,13 +50,15 @@ continueGame = True
 globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
 progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_EARLY_TIMEOUT)
 controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
+controlImageTimer = fitness.RunTimer(2)
 checkProgress = False
 
 grayimg = None
 
 firstImageTaken = False
+controlImageTaken = False
 
-brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 15, constants.MUTATION_CHANCE)
+brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 25, constants.MUTATION_CHANCE)
 
 ### helper functions rely on above variables ###
 
@@ -83,13 +85,15 @@ def on_release(key):
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer
+    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken
     globalTimer.cancelTimer()
     progressCheckTimer.cancelTimer()
     controlTimer.cancelTimer()
+    controlImageTimer.cancelTimer()
     globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
     progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_EARLY_TIMEOUT)
     controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
+    controlImageTimer = fitness.RunTimer(2)
 
     if (brains.doneWithGeneration()):
         brains.makeNextGeneration()
@@ -101,8 +105,10 @@ def restartRun():
     globalTimer.startTimer()
     progressCheckTimer.startTimer()
     controlTimer.startTimer()
+    controlImageTimer.startTimer()
     checkProgress = False
     firstImageTaken = False
+    controlImageTaken = False
     currentlyPlaying = True
 
 # call this whenever a run completes
@@ -126,12 +132,20 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         grayimg = screenshot.convert('L')
 
         if controller.changeInputs(brains.passInputs(grayimg)):
-            #print('control timer restart')
-            grayimg.save('images/control_checkpoint.png')
+            print('control timer restart')
             controlTimer.cancelTimer()
             controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
             controlTimer.startTimer()
 
+            controlImageTimer.cancelTimer()
+            controlImageTimer = fitness.RunTimer(2)
+            controlImageTimer.startTimer()
+            controlImageTaken = False
+
+        if (controlImageTimer.timeUp() and not controlImageTaken):
+            grayimg.save('images/control_checkpoint.png')
+            controlImageTaken = True
+            print('control image taken')
 
         if (not firstImageTaken):
             grayimg.save('images/last_checkpoint.png')
@@ -206,3 +220,4 @@ keyListener.stop()
 globalTimer.cancelTimer()
 progressCheckTimer.cancelTimer()
 controlTimer.cancelTimer()
+controlImageTimer.cancelTimer()

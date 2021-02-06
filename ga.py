@@ -21,6 +21,7 @@ class GeneticAlgorithmController:
         self.currentBrain = 0
         self.idealSpecies = idealSpecies
         self.delta = constants.STARTING_DELTA
+        self.bestBrain = None
 
         for i in range(popSize):
             newBrain = brain.Brain()
@@ -53,6 +54,8 @@ class GeneticAlgorithmController:
             self.population[self.currentBrain].fitness = 0
         else:
             self.population[self.currentBrain].fitness = fitness
+        if (not self.bestBrain or self.bestBrain.fitness < fitness):
+            self.bestBrain = self.population[self.currentBrain]
         self.currentBrain = self.currentBrain + 1
 
     def doneWithGeneration(self):
@@ -100,15 +103,39 @@ class GeneticAlgorithmController:
             newSizes[key] = round(sumFitness / meanFitness)
             totalPopulation = totalPopulation + round(sumFitness / meanFitness)
 
+        # add or remove to the species' sizes to make the population exactly 100
         excessPopulation = totalPopulation - 100
+
         while (excessPopulation > 0):
-            # remove one individual from each species in a random order
-            for k in newSizes.keys():
+            # remove one individual from each species, starting with the most populous ones
+            ns = list(newSizes.keys())
+            ns.sort(reverse = True)
+            for k in ns:
                 if (newSizes[k] > 0):
                     newSizes[k] = newSizes[k] - 1
                     excessPopulation = excessPopulation - 1
                     if (excessPopulation <= 0):
                         break
+
+        while (excessPopulation < 0):
+            # add one individual to each species, starting with the smallest ones
+            ns = list(newSizes.keys())
+            ns.sort()
+            for k in ns:
+                if (newSizes[k] > 0):
+                    newSizes[k] = newSizes[k] + 1
+                    excessPopulation = excessPopulation + 1
+                    if excessPopulation >= 0:
+                        break
+
+        # remove 1 from the species containing the best brain, to make room for the best brain to carry over
+        specie = None
+        for s in self.species.keys():
+            if self.bestBrain in self.species[s]:
+                specie = s
+                break
+
+        newSizes[specie] = newSizes[specie] - 1
 
         # step 3
         def fitnessSort(i):
@@ -153,7 +180,15 @@ class GeneticAlgorithmController:
             if brain in self.species[s]:
                 specie = s
                 break
-        return (self.generation, s, self.currentBrain)
+        return (self.generation, specie, self.currentBrain)
+
+    def getBestInfo(self):
+        specie = None
+        for s in self.species.keys():
+            if self.bestBrain in self.species[s]:
+                specie = s
+                break
+        return (specie, self.bestBrain.fitness)
 
     # separates population into species
     def initialSeparateIntoSpecies(self):
@@ -173,11 +208,11 @@ class GeneticAlgorithmController:
                 self.species[speciesCounter] = list()
                 self.species[speciesCounter].append(g)
                 speciesCounter = speciesCounter + 1
-
+        '''
         # modify self.delta based on the difference between number of species and desired number of species
         difference = len(self.species.values()) - self.idealSpecies  # keep the sign of this value for addition to delta
         self.delta = self.delta + (difference * 0.001)
-
+        '''
 
     def separateIntoSpecies(self):
         oldSpecies = self.species.copy()
@@ -201,12 +236,16 @@ class GeneticAlgorithmController:
                 self.species[speciesCounter].append(g)
                 speciesCounter = speciesCounter + 1
 
+        # remove the old population from the species list except for the best brain
         for oldSpecie in oldSpecies.values():
             for brain in oldSpecie:
-                for specie in self.species.values():
-                    if brain in specie:
-                        specie.remove(brain)
-                        break
+                if (not brain == self.bestBrain):
+                    for specie in self.species.values():
+                        if brain in specie:
+                            specie.remove(brain)
+                            break
+
+        self.population.append(self.bestBrain)
 
         speciesToRemove = list()
         for specie in self.species.keys():
@@ -219,17 +258,21 @@ class GeneticAlgorithmController:
 
         # modify self.delta based on the difference between number of species and desired number of species
         difference = len(self.species.values()) - self.idealSpecies  # keep the sign of this value for addition to delta
-        self.delta = self.delta + (difference * 0.001)
+        difference = difference * abs(difference)
+        if difference < 0:
+            difference = difference * 2
+        self.delta = self.delta + (difference * 0.0001)
 
-'''
-brains = GeneticAlgorithmController(100, 15, constants.MUTATION_CHANCE)
+
+
+brains = GeneticAlgorithmController(100, 25, constants.MUTATION_CHANCE)
 
 print(brains.generation)
 print(len(brains.population))
 print(len(brains.species))
 print(brains.delta)
 
-for i in range(50):
+for i in range(100):
     while not brains.doneWithGeneration():
         image = Image.open('images/respawn_air_man_1.png')
         outputs = brains.passInputs(image)
@@ -240,15 +283,7 @@ for i in range(50):
             fit = 0
         brains.assignFitness(fit)
 
-    bestBrain = None
-    bestKey = None
-    for s in brains.species.keys():
-        for b in brains.species[s]:
-            if (not bestBrain or b.fitness > bestBrain.fitness):
-                bestBrain = b
-                bestKey = s
-
-    print('best: ' + str(bestKey) + ' ' + str(bestBrain.fitness))
+    print('best: ' + str(brains.getBestInfo()[0]) + ' ' + str(brains.getBestInfo()[1]))
     for s in brains.species.keys():
         print(str(s) + ' ' + str(len(brains.species[s])),end='; ')
     print(' ')
@@ -268,13 +303,7 @@ while not brains.doneWithGeneration():
         fit = fit + o
     brains.assignFitness(fit)
 
-bestBrain = None
-for b in brains.population:
-    if (not bestBrain or b.fitness > bestBrain.fitness):
-        bestBrain = b
-
-print('best: ' + str(bestBrain.fitness))
+print('best: ' + str(brains.getBestInfo()[0]) + ' ' + str(brains.getBestInfo()[1]))
 for s in brains.species.keys():
     print(str(s) + ' ' + str(len(brains.species[s])),end='; ')
 print(' ')
-'''
