@@ -7,6 +7,8 @@ YPIXELS = 75
 
 WINDOWNAME = 'Mega Man Legacy Collection'
 
+SAVE_FILE_NAME = 'air_man.pkl'
+
 #Time is measured in seconds
 TOTAL_TIMEOUT = 60
 PROGRESS_CHECK_EARLY_TIMEOUT = 3

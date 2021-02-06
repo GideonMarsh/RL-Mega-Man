@@ -8,6 +8,8 @@ import screenshotter
 import fitness
 import controller
 from time import time, sleep
+import pickle
+from os import path
 
 from pynput.keyboard import Key, Listener
 '''
@@ -20,7 +22,7 @@ It will NOT pick up controller inputs
 '''
 Manual steps to take before running program:
 1. Make sure all checkpoint images are saved and ready for comparison
-2. Save the game at the start of the level that is being played immediately after the word 'READY' stops appearing
+2. Save the game at the start of the level that is being played immediately after Mega Man becomes controllable
 3. Navigate to a menu without a black background (stage select works)
 4. Open options menu (cursor should be on 'SAVE GAME')
 5. Start program
@@ -58,7 +60,17 @@ grayimg = None
 firstImageTaken = False
 controlImageTaken = False
 
-brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 25, constants.MUTATION_CHANCE)
+
+# check if saved population exists and load it
+# if none exists, create new population from the beginning
+brains = None
+if path.exists(constants.SAVE_FILE_NAME):
+    with open(constants.SAVE_FILE_NAME, 'rb') as input:
+        brains = pickle.load(input)
+        print('Population loaded')
+else:
+    brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 25, constants.MUTATION_CHANCE)
+    print('No saved population found - creating population from scratch')
 
 ### helper functions rely on above variables ###
 
@@ -132,7 +144,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         grayimg = screenshot.convert('L')
 
         if controller.changeInputs(brains.passInputs(grayimg)):
-            print('control timer restart')
+            #print('control timer restart')
             controlTimer.cancelTimer()
             controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
             controlTimer.startTimer()
@@ -145,7 +157,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         if (controlImageTimer.timeUp() and not controlImageTaken):
             grayimg.save('images/control_checkpoint.png')
             controlImageTaken = True
-            print('control image taken')
+            #print('control image taken')
 
         if (not firstImageTaken):
             grayimg.save('images/last_checkpoint.png')
@@ -221,3 +233,7 @@ globalTimer.cancelTimer()
 progressCheckTimer.cancelTimer()
 controlTimer.cancelTimer()
 controlImageTimer.cancelTimer()
+
+with open(constants.SAVE_FILE_NAME, 'wb') as output:
+    pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
+    print('Population saved')
