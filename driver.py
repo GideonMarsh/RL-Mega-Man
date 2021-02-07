@@ -27,7 +27,8 @@ Manual steps to take before running program:
 4. Open options menu (cursor should be on 'SAVE GAME')
 5. Start program
 
-Press 'w' to end the program safely
+Press 'w' to save progress and end the program safely
+Press 't' to end without saving progress
 '''
 currentlyPlaying = False
 screenshotter.setWindowSize(constants.WINDOWNAME)
@@ -48,6 +49,7 @@ imageCheck = imagechecker.ImageChecker()
 imageCheck.imageSetup()
 
 continueGame = True
+saveProgress = True
 
 globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
 progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_EARLY_TIMEOUT)
@@ -89,9 +91,12 @@ def on_release(key):
         return False
     '''
     try:
+        global continueGame, saveProgress
         if (key.char == 'w'):
-            global continueGame
             continueGame = False
+        if (key.char == 't'):
+            continueGame = False
+            saveProgress = False
     except AttributeError:
         pass
 
@@ -110,6 +115,8 @@ def restartRun():
     if (brains.doneWithGeneration()):
         brains.makeNextGeneration()
     print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Species ' + str(brains.getIndividualInfo()[1]) + '; Player ' + str(brains.getIndividualInfo()[2]))
+    if (brains.getIndividualInfo()[1] == -1):
+        raise AttributeError('-1 is not a species')
 
     controller.resetInputMemory()
     controller.loadSave()
@@ -198,7 +205,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         # program stops making progress
         if (checkProgress and imageCheck.checkNoProgress(grayimg)):
             endRun()
-            fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_TIMEOUT
+            fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_TIMEOUT - constants.PROGRESS_CHECK_EARLY_TIMEOUT
             if (fit < 0):
                 fit = 0
             if (imageCheck.checkEarlyOut(grayimg)):
@@ -234,6 +241,7 @@ progressCheckTimer.cancelTimer()
 controlTimer.cancelTimer()
 controlImageTimer.cancelTimer()
 
-with open(constants.SAVE_FILE_NAME, 'wb') as output:
-    pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
-    print('Population saved')
+if saveProgress:
+    with open(constants.SAVE_FILE_NAME, 'wb') as output:
+        pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
+        print('Population saved')

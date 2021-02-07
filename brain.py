@@ -62,6 +62,7 @@ class Brain:
         self.fitness = 0
         self.connections = {}
         self.nodeOrder = list()
+        self.species = -1
 
     # make this brain from scratch
     # should only be used when creating the initial population

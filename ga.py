@@ -175,20 +175,11 @@ class GeneticAlgorithmController:
 
     def getIndividualInfo(self):
         brain = self.population[self.currentBrain]
-        specie = None
-        for s in self.species.keys():
-            if brain in self.species[s]:
-                specie = s
-                break
-        return (self.generation, specie, self.currentBrain)
+        return (self.generation, brain.species, self.currentBrain)
+
 
     def getBestInfo(self):
-        specie = None
-        for s in self.species.keys():
-            if self.bestBrain in self.species[s]:
-                specie = s
-                break
-        return (specie, self.bestBrain.fitness)
+        return (self.bestBrain.species, self.bestBrain.fitness)
 
     # separates population into species
     def initialSeparateIntoSpecies(self):
@@ -200,6 +191,7 @@ class GeneticAlgorithmController:
                 d = g.compare(self.species[specie][i])
                 if (d <= self.delta):
                     self.species[specie].append(g)
+                    g.species = specie
                     speciesFound = True
                     break
             # no existing species has accepted g, so add as a new species
@@ -207,6 +199,7 @@ class GeneticAlgorithmController:
                 global speciesCounter
                 self.species[speciesCounter] = list()
                 self.species[speciesCounter].append(g)
+                g.species = speciesCounter
                 speciesCounter = speciesCounter + 1
         '''
         # modify self.delta based on the difference between number of species and desired number of species
@@ -227,6 +220,7 @@ class GeneticAlgorithmController:
                 d = g.compare(self.species[specie][i])
                 if (d <= self.delta):
                     self.species[specie].append(g)
+                    g.species = specie
                     speciesFound = True
                     break
             # no existing species has accepted g, so add as a new species
@@ -234,6 +228,7 @@ class GeneticAlgorithmController:
                 global speciesCounter
                 self.species[speciesCounter] = list()
                 self.species[speciesCounter].append(g)
+                g.species = speciesCounter
                 speciesCounter = speciesCounter + 1
 
         # remove the old population from the species list except for the best brain
