@@ -259,7 +259,7 @@ class GeneticAlgorithmController:
         self.delta = self.delta + (difference * 0.0001)
 
 
-'''
+
 brains = GeneticAlgorithmController(100, 25, constants.MUTATION_CHANCE)
 
 print(brains.generation)
@@ -302,4 +302,3 @@ print('best: ' + str(brains.getBestInfo()[0]) + ' ' + str(brains.getBestInfo()[1
 for s in brains.species.keys():
     print(str(s) + ' ' + str(len(brains.species[s])),end='; ')
 print(' ')
-'''

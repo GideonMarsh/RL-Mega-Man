@@ -5,6 +5,8 @@ import constants
 from random import random
 from math import floor
 
+from time import time
+
 input_nodes = constants.XPIXELS * constants.YPIXELS
 output_nodes = constants.CONTROLLER_OUTPUTS
 
@@ -92,13 +94,16 @@ class Brain:
                 ib = ib + 1
             else:
                 # not matching gene, carry over the gene with smaller inum
+                # do not carry it over if it creates a cycle
                 if (parentAGenes[ia].inum > parentBGenes[ib].inum):
                     # carry over parent B gene
-                    self.addNewConnection(parentBGenes[ib].inNode, parentBGenes[ib].outNode, parentBGenes[ib].weight, parentBGenes[ib].inum, parentBGenes[ib].enabled)
+                    if (not self.isNodeLaterOnPath(parentBGenes[ib].outNode, parentBGenes[ib].inNode)):
+                        self.addNewConnection(parentBGenes[ib].inNode, parentBGenes[ib].outNode, parentBGenes[ib].weight, parentBGenes[ib].inum, parentBGenes[ib].enabled)
                     ib = ib + 1
                 else:
                     # carry over parent A gene
-                    self.addNewConnection(parentAGenes[ia].inNode, parentAGenes[ia].outNode, parentAGenes[ia].weight, parentAGenes[ia].inum, parentAGenes[ia].enabled)
+                    if (not self.isNodeLaterOnPath(parentAGenes[ia].outNode, parentAGenes[ia].inNode)):
+                        self.addNewConnection(parentAGenes[ia].inNode, parentAGenes[ia].outNode, parentAGenes[ia].weight, parentAGenes[ia].inum, parentAGenes[ia].enabled)
                     ia = ia + 1
 
         # carry over all remaining unseen genes
@@ -341,8 +346,16 @@ class Brain:
             return
         else:
             # add a node
-            changeIndex = floor(len(allConnections) * random())
-            self.addNewNode(allConnections[changeIndex])
+            iList = list()
+            for i in range(len(allConnections)):
+                iList.append(i)
+            while len(iList) > 0:
+                changeIndex = floor(len(iList) * random())
+                if (allConnections[changeIndex].enabled):
+                    self.addNewNode(allConnections[changeIndex])
+                    break
+                else:
+                    iList.pop(changeIndex)
 
     # modify the weights of each connection in the neural network with a certain probability
     # there is a chance that each connection will be modified equal to 1 / number of connections
