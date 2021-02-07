@@ -114,6 +114,9 @@ def restartRun():
 
     if (brains.doneWithGeneration()):
         brains.makeNextGeneration()
+        with open(constants.SAVE_FILE_NAME, 'wb') as output:
+            pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
+            print('Population saved')
     print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Species ' + str(brains.getIndividualInfo()[1]) + '; Player ' + str(brains.getIndividualInfo()[2]))
     if (brains.getIndividualInfo()[1] == -1):
         raise AttributeError('-1 is not a species')

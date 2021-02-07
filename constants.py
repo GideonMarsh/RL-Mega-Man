@@ -12,8 +12,8 @@ SAVE_FILE_NAME = 'air_man.pkl'
 #Time is measured in seconds
 TOTAL_TIMEOUT = 60
 PROGRESS_CHECK_EARLY_TIMEOUT = 3
-PROGRESS_CHECK_TIMEOUT = 8
-PROGRESS_CHECK_COMPARE_INTERVAL = 2
+PROGRESS_CHECK_TIMEOUT = 7
+PROGRESS_CHECK_COMPARE_INTERVAL = 3
 CONTROL_TIMEOUT = 6
 
 #The percentage of a checkpoint image that is allowed to not match
