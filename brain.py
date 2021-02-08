@@ -5,7 +5,7 @@ import constants
 from random import random
 from math import floor
 
-from time import time
+#from time import time
 
 input_nodes = constants.XPIXELS * constants.YPIXELS
 output_nodes = constants.CONTROLLER_OUTPUTS
@@ -259,8 +259,15 @@ class Brain:
 
         oldConnection.enabled = False
 
-        self.addNewConnection(oldConnection.inNode, nodeCount, oldConnection.weight)
-        self.addNewConnection(nodeCount, oldConnection.outNode, oldConnection.weight)
+        try:
+            self.addNewConnection(oldConnection.inNode, nodeCount, oldConnection.weight)
+            self.addNewConnection(nodeCount, oldConnection.outNode, oldConnection.weight)
+        except ValueError:
+            for c in self.getAllConnections():
+                print(str(c.inum) + ': ' + str(c.inNode) + ' ' + str(c.outNode), end='; ')
+            print('')
+            print('Trying to make node ' + str(nodeCount) + ' at ' + str(oldConnection.inum) + ': ' + str(oldConnection.inNode) + ' ' + str(oldConnection.outNode))
+            raise
 
     # returns a list of all connections
     def getAllConnections(self):

@@ -2,12 +2,12 @@
 # github.com/GideonMarsh
 
 # SCREENRATIO = 1.333
-XPIXELS = 100
-YPIXELS = 75
+XPIXELS = 60
+YPIXELS = 45
 
 WINDOWNAME = 'Mega Man Legacy Collection'
 
-SAVE_FILE_NAME = 'air_man.pkl'
+SAVE_FILE_NAME = 'saves/air_man.pkl'
 
 #Time is measured in seconds
 TOTAL_TIMEOUT = 60
