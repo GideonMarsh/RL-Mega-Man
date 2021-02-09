@@ -10,6 +10,7 @@ import controller
 from time import time, sleep
 import pickle
 from os import path
+import log
 
 from pynput.keyboard import Key, Listener
 '''
@@ -113,6 +114,7 @@ def restartRun():
     controlImageTimer = fitness.RunTimer(2)
 
     if (brains.doneWithGeneration()):
+        log.writeToLog(brains)
         brains.makeNextGeneration()
         with open(constants.SAVE_FILE_NAME, 'wb') as output:
             pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
@@ -146,103 +148,105 @@ keyListener = Listener(on_press=on_press,on_release=on_release)
 keyListener.start()
 
 ############################# program loop ##############################
-restartRun()
-while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
-    #print(fitnessTracker.getFitness())
-    screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
-    if (screenshot):
-        grayimg = screenshot.convert('L')
+try:
+    restartRun()
+    while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
+        #print(fitnessTracker.getFitness())
+        screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
+        if (screenshot):
+            grayimg = screenshot.convert('L')
 
-        if controller.changeInputs(brains.passInputs(grayimg)):
-            #print('control timer restart')
-            controlTimer.cancelTimer()
-            controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
-            controlTimer.startTimer()
+            if controller.changeInputs(brains.passInputs(grayimg)):
+                #print('control timer restart')
+                controlTimer.cancelTimer()
+                controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
+                controlTimer.startTimer()
 
-            controlImageTimer.cancelTimer()
-            controlImageTimer = fitness.RunTimer(2)
-            controlImageTimer.startTimer()
-            controlImageTaken = False
+                controlImageTimer.cancelTimer()
+                controlImageTimer = fitness.RunTimer(2)
+                controlImageTimer.startTimer()
+                controlImageTaken = False
 
-        if (controlImageTimer.timeUp() and not controlImageTaken):
-            grayimg.save('images/control_checkpoint.png')
-            controlImageTaken = True
-            #print('control image taken')
+            if (controlImageTimer.timeUp() and not controlImageTaken):
+                grayimg.save('images/control_checkpoint.png')
+                controlImageTaken = True
+                #print('control image taken')
 
-        if (not firstImageTaken):
-            grayimg.save('images/last_checkpoint.png')
-            firstImageTaken = True
-
-        if (progressCheckTimer.timeUp()):
-            if (checkProgress):
-                progressCheckTimer.cancelTimer()
-                checkProgress = False
+            if (not firstImageTaken):
                 grayimg.save('images/last_checkpoint.png')
-                progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_TIMEOUT)
-                progressCheckTimer.startTimer()
-            else:
-                progressCheckTimer.cancelTimer()
-                checkProgress = True
-                progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_COMPARE_INTERVAL)
-                progressCheckTimer.startTimer()
+                firstImageTaken = True
 
-        ################### Checks for end of run ###################
+            if (progressCheckTimer.timeUp()):
+                if (checkProgress):
+                    progressCheckTimer.cancelTimer()
+                    checkProgress = False
+                    grayimg.save('images/last_checkpoint.png')
+                    progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_TIMEOUT)
+                    progressCheckTimer.startTimer()
+                else:
+                    progressCheckTimer.cancelTimer()
+                    checkProgress = True
+                    progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_COMPARE_INTERVAL)
+                    progressCheckTimer.startTimer()
 
-        # program gets a game over
-        if (imageCheck.checkGameOver(grayimg)):
-            endRun()
-            # subtract the number of seconds the game over effect takes
-            fit = fitnessTracker.getFitness()
-            brains.assignFitness(fit)
-            print('Fitness: ' + str(fit) + ' (game over)')
-            restartRun()
+            ################### Checks for end of run ###################
 
-        # program completes the level
-        if (imageCheck.checkLevelComplete(grayimg)):
-            endRun()
-            fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
-            brains.assignFitness(fit)
-            print('Fitness: ' + str(fit) + ' (level complete)')
-            restartRun()
+            # program gets a game over
+            if (imageCheck.checkGameOver(grayimg)):
+                endRun()
+                # subtract the number of seconds the game over effect takes
+                fit = fitnessTracker.getFitness()
+                brains.assignFitness(fit)
+                print('Fitness: ' + str(fit) + ' (game over)')
+                restartRun()
 
-        # program stops making progress
-        if (checkProgress and imageCheck.checkNoProgress(grayimg)):
-            endRun()
-            fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_TIMEOUT - constants.PROGRESS_CHECK_EARLY_TIMEOUT
-            if (fit < 0):
+            # program completes the level
+            if (imageCheck.checkLevelComplete(grayimg)):
+                endRun()
+                fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
+                brains.assignFitness(fit)
+                print('Fitness: ' + str(fit) + ' (level complete)')
+                restartRun()
+
+            # program stops making progress
+            if (checkProgress and imageCheck.checkNoProgress(grayimg)):
+                endRun()
+                fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_TIMEOUT - constants.PROGRESS_CHECK_EARLY_TIMEOUT
+                if (fit < 0):
+                    fit = 0
+                if (imageCheck.checkEarlyOut(grayimg)):
+                    fit = 0
+                brains.assignFitness(fit)
+                print('Fitness: ' + str(fit) + ' (no progress)')
+                restartRun()
+
+            # program stops controlling character
+            if (controlTimer.timeUp() and imageCheck.checkNoControl(grayimg)):
+                endRun()
+                fit = fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT
+                if (imageCheck.checkEarlyOut(grayimg)):
+                    fit = 0
+                brains.assignFitness(fit)
+                print('Fitness: ' + str(fit) + ' (no control)')
+                restartRun()
+
+            # program times out
+            if (globalTimer.timeUp()):
+                endRun()
                 fit = 0
-            if (imageCheck.checkEarlyOut(grayimg)):
-                fit = 0
-            brains.assignFitness(fit)
-            print('Fitness: ' + str(fit) + ' (no progress)')
-            restartRun()
-
-        # program stops controlling character
-        if (controlTimer.timeUp() and imageCheck.checkNoControl(grayimg)):
-            endRun()
-            fit = fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT
-            if (imageCheck.checkEarlyOut(grayimg)):
-                fit = 0
-            brains.assignFitness(fit)
-            print('Fitness: ' + str(fit) + ' (no control)')
-            restartRun()
-
-        # program times out
-        if (globalTimer.timeUp()):
-            endRun()
-            fit = 0
-            brains.assignFitness(fit)
-            print('Fitness: ' + str(fit) + ' (time out)')
-            restartRun()
+                brains.assignFitness(fit)
+                print('Fitness: ' + str(fit) + ' (time out)')
+                restartRun()
 
 
 ############################ safe shut down #############################
-controller.cutoffInputs()
-keyListener.stop()
-globalTimer.cancelTimer()
-progressCheckTimer.cancelTimer()
-controlTimer.cancelTimer()
-controlImageTimer.cancelTimer()
+finally:
+    controller.cutoffInputs()
+    keyListener.stop()
+    globalTimer.cancelTimer()
+    progressCheckTimer.cancelTimer()
+    controlTimer.cancelTimer()
+    controlImageTimer.cancelTimer()
 
 if saveProgress:
     with open(constants.SAVE_FILE_NAME, 'wb') as output:
