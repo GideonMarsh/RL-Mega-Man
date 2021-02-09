@@ -387,6 +387,38 @@ class Brain:
                 nodeIndex = self.connections[self.nodeOrder[nodeIndex]].getTopologicalOrder(nodeIndex, self.nodeOrder)
             nodeIndex = nodeIndex + 1
 
+    # splits node topology into 2d list where each list only contains nodes connected to nodes from the previous list or earlier
+    # used for displaying topology
+    def getNodeLayers(self):
+        nodeLayers = list()
+        nodeLayers.append(self.nodeOrder.copy())
+        layerIndex = 0
+        usedOutputNodes = list()
+
+        while layerIndex < len(nodeLayers):
+            i = 0
+            while i < len(nodeLayers[layerIndex]):
+                if nodeLayers[layerIndex][i] in self.connections:
+                    c = self.connections[nodeLayers[layerIndex][i]]
+                    while c:
+                        for j in range(layerIndex + 1):
+                            if c.outNode in nodeLayers[j]:
+                                nodeLayers[j].remove(c.outNode)
+                        if (layerIndex == len(nodeLayers) - 1):
+                            nodeLayers.append(list())
+                        if c.outNode not in nodeLayers[layerIndex + 1] and c.outNode not in usedOutputNodes:
+                            nodeLayers[layerIndex + 1].append(c.outNode)
+                        c = c.nextConnection
+                    i = i + 1
+                else:
+                    if nodeLayers[layerIndex][i] > input_nodes and nodeLayers[layerIndex][i] <= input_nodes + output_nodes:
+                        usedOutputNodes.append(nodeLayers[layerIndex][i])
+                    nodeLayers[layerIndex].remove(nodeLayers[layerIndex][i])
+            layerIndex = layerIndex + 1
+        nodeLayers[-1] = usedOutputNodes
+        return nodeLayers
+
+
 '''
 inputs = list()
 for i in range(input_nodes):
@@ -473,4 +505,19 @@ for i in range(10):
     b.mutateStructure()
     b.mutateWeights()
     print(b.compare(c))
+'''
+'''
+a = Brain()
+a.initNewBrain()
+for i in range(3):
+    a.mutateStructure()
+a.prepareNodeTopology()
+for c in a.getAllConnections():
+    print(str(c.inNode) + ' ' + str(c.outNode), end='; ')
+print('')
+l = a.getNodeLayers()
+for c in l:
+    for n in c:
+        print(str(n), end=' ')
+    print('')
 '''

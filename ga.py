@@ -129,13 +129,7 @@ class GeneticAlgorithmController:
                         break
 
         # remove 1 from the species containing the best brain, to make room for the best brain to carry over
-        specie = None
-        for s in self.species.keys():
-            if self.bestBrain in self.species[s]:
-                specie = s
-                break
-
-        newSizes[specie] = newSizes[specie] - 1
+        newSizes[self.bestBrain.species] = newSizes[self.bestBrain.species] - 1
 
         # step 3
         def fitnessSort(i):
