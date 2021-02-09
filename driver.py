@@ -72,7 +72,7 @@ if path.exists(constants.SAVE_FILE_NAME):
         brains = pickle.load(input)
         print('Population loaded')
 else:
-    brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 25, constants.MUTATION_CHANCE)
+    brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 25)
     print('No saved population found - creating population from scratch')
 
 ### helper functions rely on above variables ###

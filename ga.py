@@ -11,12 +11,11 @@ from time import time
 speciesCounter = 0
 
 class GeneticAlgorithmController:
-    def __init__(self, popSize, idealSpecies, mutationChance):
+    def __init__(self, popSize, idealSpecies):
         # The whole population in an unordered list
         self.population = list()
         # A 2d list of the population, where the first index is species
         self.species = {}
-        self.mutationChance = mutationChance
         self.generation = 0
         self.currentBrain = 0
         self.idealSpecies = idealSpecies
@@ -153,9 +152,9 @@ class GeneticAlgorithmController:
                     newPopulation.append(newBrain)
 
         for p in newPopulation:
-            if (random() < self.mutationChance):
+            if (random() < constants.STRUCTURAL_MUTATION_CHANCE):
                 p.mutateStructure()
-            if (random() < self.mutationChance):
+            if (random() < constants.WEIGHT_MUTATION_CHANCE):
                 p.mutateWeights()
             p.prepareNodeTopology()
 
@@ -253,7 +252,7 @@ class GeneticAlgorithmController:
         self.delta = self.delta + (difference * 0.0001)
 
 '''
-brains = GeneticAlgorithmController(100, 25, constants.MUTATION_CHANCE)
+brains = GeneticAlgorithmController(100, 25)
 
 print(brains.generation)
 print(len(brains.population))
