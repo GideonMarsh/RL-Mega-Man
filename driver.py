@@ -2,6 +2,7 @@
 # github.com/GideonMarsh
 
 import ga
+import brain
 import constants
 import imagechecker
 import screenshotter
@@ -71,6 +72,9 @@ brains = None
 if path.exists(constants.SAVE_FILE_NAME):
     with open(constants.SAVE_FILE_NAME, 'rb') as input:
         brains = pickle.load(input)
+        c = pickle.load(input)
+        brain.nodeCount = c[0]
+        brain.connectionCount = c[1]
         print('Population loaded')
 else:
     brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 25)
@@ -120,7 +124,10 @@ def restartRun():
         brains.makeNextGeneration()
         with open(constants.SAVE_FILE_NAME, 'wb') as output:
             pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
+            c = [brain.nodeCount, brain.connectionCount]
+            pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
             print('Population saved')
+
     print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Species ' + str(brains.getIndividualInfo()[1]) + '; Player ' + str(brains.getIndividualInfo()[2]))
     if (brains.getIndividualInfo()[1] == -1):
         raise AttributeError('-1 is not a species')
@@ -256,4 +263,6 @@ finally:
 if saveProgress:
     with open(constants.SAVE_FILE_NAME, 'wb') as output:
         pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
+        c = [brain.nodeCount, brain.connectionCount]
+        pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
         print('Population saved')

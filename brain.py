@@ -19,22 +19,14 @@ Nodes with any other innovation number are hidden nodes
 nodeCount = input_nodes + output_nodes
 connectionCount = 0
 
-def getNextNodeCount():
-    global nodeCount
-    nodeCount = nodeCount + 1
-    return nodeCount
-
-def getNextConnectionCount():
-    global connectionCount
-    connectionCount = connectionCount + 1
-    return connectionCount
-
 class ConnectionGene:
     def __init__(self, inNode, outNode, weight=0, innovationNumber=None, enabled=True):
         if (innovationNumber):
             self.inum = innovationNumber
         else:
-            self.inum = getNextConnectionCount()
+            global connectionCount
+            connectionCount = connectionCount + 1
+            self.inum = connectionCount
         self.weight = weight
         self.enabled = enabled
         self.inNode = inNode
@@ -262,18 +254,19 @@ class Brain:
 
     # adds a new node in the middle of an existing connection, modifying connections as necessary
     def addNewNode(self, oldConnection):
-        newNodeInum = getNextNodeCount()
+        global nodeCount
+        nodeCount = nodeCount + 1
 
         oldConnection.enabled = False
 
         try:
-            self.addNewConnection(oldConnection.inNode, newNodeInum, oldConnection.weight)
-            self.addNewConnection(newNodeInum, oldConnection.outNode, oldConnection.weight)
+            self.addNewConnection(oldConnection.inNode, nodeCount, oldConnection.weight)
+            self.addNewConnection(nodeCount, oldConnection.outNode, oldConnection.weight)
         except ValueError:
             for c in self.getAllConnections():
                 print(str(c.inum) + ': ' + str(c.inNode) + ' ' + str(c.outNode), end='; ')
             print('')
-            print('Trying to make node ' + str(newNodeInum) + ' at ' + str(oldConnection.inum) + ': ' + str(oldConnection.inNode) + ' ' + str(oldConnection.outNode))
+            print('Trying to make node ' + str(nodeCount) + ' at ' + str(oldConnection.inum) + ': ' + str(oldConnection.inNode) + ' ' + str(oldConnection.outNode))
             raise
 
     # returns a list of all connections
