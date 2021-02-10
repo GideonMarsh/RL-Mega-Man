@@ -6,6 +6,8 @@
 from matplotlib import pyplot
 from math import cos, sin, atan
 import brain
+import constants
+import pickle
 
 neuron_radius = 0.5
 
@@ -128,24 +130,31 @@ class DrawNN():
             network.add_layer(layers[l], self.layers[l])
         network.draw(self.connections)
 
+'''
 b = brain.Brain()
 b.initNewBrain()
 for i in range(5):
     b.mutateStructure()
 b.prepareNodeTopology()
+'''
+with open(constants.SAVE_FILE_NAME, 'rb') as input:
+    brains = pickle.load(input)
 
-for c in b.getAllConnections():
-    if c.enabled:
-        print(str(c.inNode) + ' ' + str(c.outNode), end='; ')
-print('')
-for c in b.getAllConnections():
-    if not c.enabled:
-        print(str(c.inNode) + ' ' + str(c.outNode), end='; ')
-print('')
-nl = b.getNodeLayers()
-for l in nl:
-    for n in l:
-        print(str(n), end=' ')
+for b in brains.population:
+    for c in b.getAllConnections():
+        if c.enabled:
+            print(str(c.inNode) + ' ' + str(c.outNode), end='; ')
     print('')
-network = DrawNN( b )
-network.draw()
+    for c in b.getAllConnections():
+        if not c.enabled:
+            print(str(c.inNode) + ' ' + str(c.outNode), end='; ')
+    print('')
+    nl = b.getNodeLayers()
+    for l in nl:
+        for n in l:
+            print(str(n), end=' ')
+        print('')
+    network = DrawNN( b )
+    network.draw()
+    print('')
+    print('')

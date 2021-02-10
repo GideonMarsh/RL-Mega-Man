@@ -199,7 +199,7 @@ try:
                 endRun()
                 # subtract the number of seconds the game over effect takes
                 fit = fitnessTracker.getFitness()
-                fit = fit - fitnessPenalty
+                fit = max(fit - fitnessPenalty, 0)
                 brains.assignFitness(fit)
                 print('Fitness: ' + str(fit) + ' (game over)')
                 restartRun()
@@ -208,7 +208,7 @@ try:
             if (imageCheck.checkLevelComplete(grayimg)):
                 endRun()
                 fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
-                fit = fit - fitnessPenalty
+                fit = max(fit - fitnessPenalty, 0)
                 brains.assignFitness(fit)
                 print('Fitness: ' + str(fit) + ' (level complete)')
                 restartRun()
@@ -216,10 +216,8 @@ try:
             # program stops making progress
             if (checkProgress and imageCheck.checkNoProgress(grayimg)):
                 endRun()
-                fit = fitnessTracker.getFitness() - constants.PROGRESS_CHECK_TIMEOUT - constants.PROGRESS_CHECK_EARLY_TIMEOUT
-                fit = fit - fitnessPenalty
-                if (fit < 0):
-                    fit = 0
+                fit = fitnessTracker.getFitness() - (constants.PROGRESS_CHECK_TIMEOUT * 1.5)
+                fit = max(fit - fitnessPenalty, 0)
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
                 brains.assignFitness(fit)
@@ -230,7 +228,7 @@ try:
             if (controlTimer.timeUp() and imageCheck.checkNoControl(grayimg)):
                 endRun()
                 fit = fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT
-                fit = fit - fitnessPenalty
+                fit = max(fit - fitnessPenalty, 0)
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
                 brains.assignFitness(fit)

@@ -19,14 +19,22 @@ Nodes with any other innovation number are hidden nodes
 nodeCount = input_nodes + output_nodes
 connectionCount = 0
 
+def getNextNodeCount():
+    global nodeCount
+    nodeCount = nodeCount + 1
+    return nodeCount
+
+def getNextConnectionCount():
+    global connectionCount
+    connectionCount = connectionCount + 1
+    return connectionCount
+
 class ConnectionGene:
     def __init__(self, inNode, outNode, weight=0, innovationNumber=None, enabled=True):
         if (innovationNumber):
             self.inum = innovationNumber
         else:
-            global connectionCount
-            connectionCount = connectionCount + 1
-            self.inum = connectionCount
+            self.inum = getNextConnectionCount()
         self.weight = weight
         self.enabled = enabled
         self.inNode = inNode
@@ -254,19 +262,18 @@ class Brain:
 
     # adds a new node in the middle of an existing connection, modifying connections as necessary
     def addNewNode(self, oldConnection):
-        global nodeCount
-        nodeCount = nodeCount + 1
+        newNodeInum = getNextNodeCount()
 
         oldConnection.enabled = False
 
         try:
-            self.addNewConnection(oldConnection.inNode, nodeCount, oldConnection.weight)
-            self.addNewConnection(nodeCount, oldConnection.outNode, oldConnection.weight)
+            self.addNewConnection(oldConnection.inNode, newNodeInum, oldConnection.weight)
+            self.addNewConnection(newNodeInum, oldConnection.outNode, oldConnection.weight)
         except ValueError:
             for c in self.getAllConnections():
                 print(str(c.inum) + ': ' + str(c.inNode) + ' ' + str(c.outNode), end='; ')
             print('')
-            print('Trying to make node ' + str(nodeCount) + ' at ' + str(oldConnection.inum) + ': ' + str(oldConnection.inNode) + ' ' + str(oldConnection.outNode))
+            print('Trying to make node ' + str(newNodeInum) + ' at ' + str(oldConnection.inum) + ': ' + str(oldConnection.inNode) + ' ' + str(oldConnection.outNode))
             raise
 
     # returns a list of all connections
@@ -365,13 +372,13 @@ class Brain:
                     iList.pop(changeIndex)
 
     # modify the weights of each connection in the neural network with a certain probability
-    # there is a chance that each connection will be modified equal to 1 / number of connections
+    # there is a chance that each connection will be modified equal to 1 / number of connections or 1%, whichever is higher
     # this means that if there is only one connection, it is guaranteed to be modified
     def mutateWeights(self):
         allConnections = self.getAllConnections()
 
         for c in allConnections:
-            if (random() * len(allConnections) < 1):
+            if (random() * min(len(allConnections), 100) < 1):
                 c.weight + round(2 * (random() - 0.5), 2)
 
     # creates a list of nodes in topological order

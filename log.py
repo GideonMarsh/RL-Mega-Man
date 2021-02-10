@@ -46,22 +46,33 @@ def writeToLog(brains):
                 if excessPopulation >= 0:
                     break
 
-    l = ['Generation ' + str(brains.generation),'','Number of species: ' + str(len(brains.species.keys()))]
+    l = ['Generation ' + str(brains.generation),'','Number of species: ' + str(len(brains.species.keys())),'']
+    aveTotalFitness = 0
+    for p in brains.population:
+        aveTotalFitness = aveTotalFitness + p.fitness
+    aveTotalFitness = aveTotalFitness / len(brains.population)
+    s = 'Average fitness of this generation: {f:.1f}'
+    l.append(s.format(f=aveTotalFitness))
+    s = 'Highest fitness: {f:.1f} (species ' + str(brains.bestBrain.species) + ')'
+    l.append(s.format(f=brains.bestBrain.fitness))
 
     for k in brains.species.keys():
         l.append('')
         aveFitness = 0
         for i in brains.species[k]:
-            sumFitness = sumFitness + i.fitness
+            aveFitness = aveFitness + i.fitness
         aveFitness = aveFitness / len(brains.species[k])
-        l.append('Species ' + str(k) + '    Species size: ' + str(len(brains.species[k])) + '    Average fitness: ' + str(aveFitness))
+        s = 'Species ' + str(k) + '    Species size: ' + str(len(brains.species[k])) + '    Average fitness: {f:.1f}'
+        l.append(s.format(f=aveFitness))
         newLine = 0
         for i in range(len(brains.population)):
             if brains.population[i].species == k:
                 if newLine == 0:
-                    l.append(str(i) + ' ' + str(brains.population[i].fitness))
+                    s = str(i) + ' {f:.1f}'
+                    l.append(s.format(f=brains.population[i].fitness))
                 else:
-                    l[-1] = l[-1] + '     ' + str(i) + ' ' + str(brains.population[i].fitness)
+                    s = '     ' + str(i) + ' {f:.1f}'
+                    l[-1] = l[-1] + s.format(f=brains.population[i].fitness)
                 newLine = (newLine + 1) % 5
         l.append('Number of new children: ' + str(newSizes[k]))
 
