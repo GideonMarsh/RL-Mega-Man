@@ -123,7 +123,7 @@ class ImageChecker:
             xShift = floor((image.width % constants.XPIXELS) / 2)
             yShift = floor((image.height % constants.YPIXELS) / 2)
 
-            errorMargin = round(constants.XPIXELS * constants.YPIXELS * constants.IMAGE_ACCEPTABLE_ERROR * 3)
+            errorMargin = round(constants.XPIXELS * constants.YPIXELS * constants.IMAGE_ACCEPTABLE_ERROR * 4)
             errorCount = 0
 
             for i in range(constants.XPIXELS):

@@ -302,7 +302,7 @@ class Brain:
     # otherwise, choose randomly between adding a connection and adding a node
     def mutateStructure(self):
         allConnections = self.getAllConnections()
-        if (len(allConnections) == 0 or random() < 0.6):
+        if (len(allConnections) == 0 or random() < 0.7):
             # add a connection
             w = round(2 * (random() - 0.5), 2)      # the weight of the new connection
             '''

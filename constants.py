@@ -7,7 +7,8 @@ YPIXELS = 45
 
 WINDOWNAME = 'Mega Man Legacy Collection'
 
-SAVE_FILE_NAME = 'saves/air_man.pkl'
+SAVE_FILE_NAME = 'saves/recent.pkl'
+SAVE_FOLDER = 'saves/air_man/'
 
 #Time is measured in seconds
 TOTAL_TIMEOUT = 60
@@ -25,9 +26,9 @@ POPULATION_SIZE = 100
 WEIGHT_MUTATION_CHANCE = 0.4
 STRUCTURAL_MUTATION_CHANCE = 0.2
 
-STARTING_DELTA = 11
+STARTING_DELTA = 10
 
 # The best percentage of each species that are qualified to breed
 ACCEPTABLE_PARENTS_PERCENTAGE = 0.4
 
-LOG_FILE_NAME = 'Generation_Log.txt'
+LOG_FILE_NAME = 'logs/Generation_Log.txt'

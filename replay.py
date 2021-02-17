@@ -20,6 +20,10 @@ Keyboard listener will pick up user keyboard inputs
 It will NOT pick up controller inputs
 '''
 
+stage = 'air_man'
+onlyBests = False
+generation = 0
+
 ############################# initial setup #############################
 '''
 Manual steps to take before running program:
@@ -29,8 +33,7 @@ Manual steps to take before running program:
 4. Open options menu (cursor should be on 'SAVE GAME')
 5. Start program
 
-Press 'w' to save progress and end the program safely
-Press 't' to end without saving progress
+Press 'w' or 't' to end program
 '''
 currentlyPlaying = False
 screenshotter.setWindowSize(constants.WINDOWNAME)
@@ -52,7 +55,6 @@ imageCheck = imagechecker.ImageChecker()
 imageCheck.imageSetup()
 
 continueGame = True
-saveProgress = True
 
 globalTimer = fitness.RunTimer(constants.TOTAL_TIMEOUT)
 progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_EARLY_TIMEOUT)
@@ -65,20 +67,23 @@ grayimg = None
 firstImageTaken = False
 controlImageTaken = False
 
+if onlyBests:
+    generation = 0
+saveName = 'saves/' + stage + '/Generation_' + str(generation) + '.pkl'
 
 # check if saved population exists and load it
 # if none exists, create new population from the beginning
 brains = None
-if path.exists(constants.SAVE_FILE_NAME):
-    with open(constants.SAVE_FILE_NAME, 'rb') as input:
+if path.exists(saveName):
+    with open(saveName, 'rb') as input:
         brains = pickle.load(input)
+        brains.currentBrain = 0
         c = pickle.load(input)
         brain.nodeCount = c[0]
         brain.connectionCount = c[1]
         print('Population loaded')
 else:
-    brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 25)
-    print('No saved population found - creating population from scratch')
+    print('No saved population found')
 
 ### helper functions rely on above variables ###
 
@@ -102,7 +107,6 @@ def on_release(key):
             continueGame = False
         if (key.char == 't'):
             continueGame = False
-            saveProgress = False
     except AttributeError:
         pass
 
@@ -120,19 +124,23 @@ def restartRun():
     fitnessPenalty = 0
 
     if (brains.doneWithGeneration()):
-        log.writeToLog(brains)
-        f = constants.SAVE_FOLDER + 'Generation_' + str(brains.generation) + '.pkl'
-        with open(f, 'wb') as output:
-            pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
-            c = [brain.nodeCount, brain.connectionCount]
-            pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
-            print('Generation ' + str(brains.generation) + ' saved')
-        brains.makeNextGeneration()
-        with open(constants.SAVE_FILE_NAME, 'wb') as output:
-            pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
-            c = [brain.nodeCount, brain.connectionCount]
-            pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
-            print('Population saved')
+        if onlyBests:
+            generation = generation + 1
+            saveName = 'saves/' + stage + '/Generation_' + str(generation) + '.pkl'
+            if path.exists(saveName):
+                with open(saveName, 'rb') as input:
+                    brains = pickle.load(input)
+                    c = pickle.load(input)
+                    brain.nodeCount = c[0]
+                    brain.connectionCount = c[1]
+                    print('Population loaded')
+            else:
+                continueGame = False
+                print('All Populations Played')
+        else:
+            brains.currentBrain = brains.currentBrain + 1
+            if brains.currentBrain >= constants.POPULATION_SIZE:
+                continueGame = False
 
     print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Species ' + str(brains.getIndividualInfo()[1]) + '; Player ' + str(brains.getIndividualInfo()[2]))
     if (brains.getIndividualInfo()[1] == -1):
@@ -265,10 +273,3 @@ finally:
     progressCheckTimer.cancelTimer()
     controlTimer.cancelTimer()
     controlImageTimer.cancelTimer()
-
-if saveProgress:
-    with open(constants.SAVE_FILE_NAME, 'wb') as output:
-        pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
-        c = [brain.nodeCount, brain.connectionCount]
-        pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
-        print('Population saved')
