@@ -75,6 +75,7 @@ if path.exists(constants.SAVE_FILE_NAME):
         c = pickle.load(input)
         brain.nodeCount = c[0]
         brain.connectionCount = c[1]
+        ga.speciesCounter = c[2]
         print('Population loaded')
 else:
     brains = ga.GeneticAlgorithmController(constants.POPULATION_SIZE, 25)
@@ -124,13 +125,13 @@ def restartRun():
         f = constants.SAVE_FOLDER + 'Generation_' + str(brains.generation) + '.pkl'
         with open(f, 'wb') as output:
             pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
-            c = [brain.nodeCount, brain.connectionCount]
+            c = [brain.nodeCount, brain.connectionCount, ga.speciesCounter]
             pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
             print('Generation ' + str(brains.generation) + ' saved')
         brains.makeNextGeneration()
         with open(constants.SAVE_FILE_NAME, 'wb') as output:
             pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
-            c = [brain.nodeCount, brain.connectionCount]
+            c = [brain.nodeCount, brain.connectionCount, ga.speciesCounter]
             pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
             print('Population saved')
 
@@ -269,6 +270,6 @@ finally:
 if saveProgress:
     with open(constants.SAVE_FILE_NAME, 'wb') as output:
         pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
-        c = [brain.nodeCount, brain.connectionCount]
+        c = [brain.nodeCount, brain.connectionCount, ga.speciesCounter]
         pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
         print('Population saved')
