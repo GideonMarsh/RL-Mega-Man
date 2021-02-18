@@ -21,7 +21,7 @@ It will NOT pick up controller inputs
 '''
 
 stage = 'air_man'
-onlyBests = False
+onlyBests = True
 generation = 0
 
 ############################# initial setup #############################
@@ -67,6 +67,8 @@ grayimg = None
 firstImageTaken = False
 controlImageTaken = False
 
+firstRunDone = False
+
 if onlyBests:
     generation = 0
 saveName = 'saves/' + stage + '/Generation_' + str(generation) + '.pkl'
@@ -81,6 +83,7 @@ if path.exists(saveName):
         c = pickle.load(input)
         brain.nodeCount = c[0]
         brain.connectionCount = c[1]
+        ga.speciesCounter = c[2]
         print('Population loaded')
 else:
     print('No saved population found')
@@ -112,7 +115,7 @@ def on_release(key):
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken, fitnessPenalty
+    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken, fitnessPenalty, brains, generation, firstRunDone
     globalTimer.cancelTimer()
     progressCheckTimer.cancelTimer()
     controlTimer.cancelTimer()
@@ -123,16 +126,18 @@ def restartRun():
     controlImageTimer = fitness.RunTimer(2)
     fitnessPenalty = 0
 
-    if (brains.doneWithGeneration()):
+    if firstRunDone:
         if onlyBests:
             generation = generation + 1
             saveName = 'saves/' + stage + '/Generation_' + str(generation) + '.pkl'
             if path.exists(saveName):
                 with open(saveName, 'rb') as input:
                     brains = pickle.load(input)
+                    brains.currentBrain = 0
                     c = pickle.load(input)
                     brain.nodeCount = c[0]
                     brain.connectionCount = c[1]
+                    ga.speciesCounter = c[2]
                     print('Population loaded')
             else:
                 continueGame = False
@@ -141,8 +146,13 @@ def restartRun():
             brains.currentBrain = brains.currentBrain + 1
             if brains.currentBrain >= constants.POPULATION_SIZE:
                 continueGame = False
+    else:
+        firstRunDone = True
 
-    print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Species ' + str(brains.getIndividualInfo()[1]) + '; Player ' + str(brains.getIndividualInfo()[2]))
+    if onlyBests:
+        print('Generation ' + str(brains.getIndividualInfo()[0]) + ' Best Performer; Species ' + str(brains.bestBrain.species))
+    else:
+        print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Species ' + str(brains.getIndividualInfo()[1]) + '; Player ' + str(brains.getIndividualInfo()[2]))
     if (brains.getIndividualInfo()[1] == -1):
         raise AttributeError('-1 is not a species')
 
@@ -179,7 +189,12 @@ try:
         if (screenshot):
             grayimg = screenshot.convert('L')
 
-            if controller.changeInputs(brains.passInputs(grayimg)):
+            if onlyBests:
+                outputChange = controller.changeInputs(brains.passInputs(grayimg, brains.bestBrain))
+            else:
+                outputChange = controller.changeInputs(brains.passInputs(grayimg))
+
+            if outputChange:
                 fitnessPenalty = fitnessPenalty + 0.1
                 #print('control timer restart')
                 controlTimer.cancelTimer()
@@ -221,8 +236,13 @@ try:
                 # subtract the number of seconds the game over effect takes
                 fit = fitnessTracker.getFitness()
                 fit = max(fit - fitnessPenalty, 0)
-                brains.assignFitness(fit)
                 print('Fitness: ' + str(fit) + ' (game over)')
+                if onlyBests:
+                    if (fit != brains.bestBrain.fitness):
+                        print('Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
+                else:
+                    if (fit != brains.population[brains.currentBrain].fitness):
+                        print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
 
             # program completes the level
@@ -230,8 +250,13 @@ try:
                 endRun()
                 fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
                 fit = max(fit - fitnessPenalty, 0)
-                brains.assignFitness(fit)
                 print('Fitness: ' + str(fit) + ' (level complete)')
+                if onlyBests:
+                    if (fit != brains.bestBrain.fitness):
+                        print('Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
+                else:
+                    if (fit != brains.population[brains.currentBrain].fitness):
+                        print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
 
             # program stops making progress
@@ -241,8 +266,13 @@ try:
                 fit = max(fit - fitnessPenalty, 0)
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
-                brains.assignFitness(fit)
                 print('Fitness: ' + str(fit) + ' (no progress)')
+                if onlyBests:
+                    if (fit != brains.bestBrain.fitness):
+                        print('Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
+                else:
+                    if (fit != brains.population[brains.currentBrain].fitness):
+                        print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
 
             # program stops controlling character
@@ -252,16 +282,26 @@ try:
                 fit = max(fit - fitnessPenalty, 0)
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
-                brains.assignFitness(fit)
                 print('Fitness: ' + str(fit) + ' (no control)')
+                if onlyBests:
+                    if (fit != brains.bestBrain.fitness):
+                        print('Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
+                else:
+                    if (fit != brains.population[brains.currentBrain].fitness):
+                        print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
 
             # program times out
             if (globalTimer.timeUp()):
                 endRun()
                 fit = 0
-                brains.assignFitness(fit)
                 print('Fitness: ' + str(fit) + ' (time out)')
+                if onlyBests:
+                    if (fit != brains.bestBrain.fitness):
+                        print('Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
+                else:
+                    if (fit != brains.population[brains.currentBrain].fitness):
+                        print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
 
 

@@ -31,7 +31,7 @@ class GeneticAlgorithmController:
 
         self.initialSeparateIntoSpecies()
 
-    def passInputs(self, image):
+    def passInputs(self, image, brain=None):
         pix = image.load()
 
         xOffset = floor(image.width / constants.XPIXELS)
@@ -44,7 +44,10 @@ class GeneticAlgorithmController:
             for j in range(constants.YPIXELS):
                 inputs.append(pix[(i * xOffset) + xShift, (j * yOffset) + yShift] - 128)
 
-        return self.population[self.currentBrain].think(inputs)
+        if brain:
+            return brain.think(inputs)
+        else :
+            return self.population[self.currentBrain].think(inputs)
 
     # assign fitness and set current brain to next brain
     # treat all negative fitness values as 0

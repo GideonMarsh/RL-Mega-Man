@@ -3,6 +3,7 @@
 
 from time import time
 from threading import Timer
+from math import floor
 
 class FitnessTimer:
     def __init__(self):
@@ -21,9 +22,11 @@ class FitnessTimer:
 
     def getFitness(self):
         if (self.running):
-            return round(time() - self.startTime, 1)
+            #return round(time() - self.startTime, 1)
+            return floor((time() - self.startTime) * 10) / 10.0
         else:
-            return round(self.endTime - self.startTime, 1)
+            #return round(self.endTime - self.startTime, 1)
+            return floor((self.endTime - self.startTime) * 10) / 10.0
 
     def isRunning(self):
         return self.running
