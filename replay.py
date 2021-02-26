@@ -9,6 +9,7 @@ import screenshotter
 import fitness
 import controller
 from time import time, sleep
+from datetime import datetime, timedelta
 import pickle
 from os import path
 import log
@@ -115,7 +116,7 @@ def on_release(key):
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken, fitnessPenalty, brains, generation, firstRunDone
+    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken, fitnessPenalty, brains, generation, firstRunDone, nextTick
     globalTimer.cancelTimer()
     progressCheckTimer.cancelTimer()
     controlTimer.cancelTimer()
@@ -167,6 +168,7 @@ def restartRun():
     firstImageTaken = False
     controlImageTaken = False
     currentlyPlaying = True
+    nextTick = datetime.now() + timedelta(microseconds=100000)
 
 # call this whenever a run completes
 def endRun():
@@ -184,8 +186,14 @@ keyListener.start()
 try:
     restartRun()
     while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
-        #print(fitnessTracker.getFitness())
+        # wait for the next tick
+        while (datetime.now() < nextTick):
+            pass
         screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
+
+        now = datetime.now().microsecond
+        print(str(now) + ' ' + str(nextTick))
+
         if (screenshot):
             grayimg = screenshot.convert('L')
 
@@ -303,6 +311,8 @@ try:
                     if (fit != brains.population[brains.currentBrain].fitness):
                         print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
+            
+        nextTick = nextTick + timedelta(microseconds=100000)
 
 
 ############################ safe shut down #############################
