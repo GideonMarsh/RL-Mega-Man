@@ -247,12 +247,6 @@ try:
                 fit = fitnessTracker.getFitness()
                 fit = max(fit - fitnessPenalty, 0)
                 print('Fitness: ' + str(fit) + ' (game over)')
-                if onlyBests:
-                    if (fit != brains.bestBrain.fitness):
-                        print('Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
-                else:
-                    if (fit != brains.population[brains.currentBrain].fitness):
-                        print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
 
             # program completes the level
@@ -261,12 +255,6 @@ try:
                 fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
                 fit = max(fit - fitnessPenalty, 0)
                 print('Fitness: ' + str(fit) + ' (level complete)')
-                if onlyBests:
-                    if (fit != brains.bestBrain.fitness):
-                        print('Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
-                else:
-                    if (fit != brains.population[brains.currentBrain].fitness):
-                        print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
 
             # program stops making progress
@@ -277,12 +265,6 @@ try:
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
                 print('Fitness: ' + str(fit) + ' (no progress)')
-                if onlyBests:
-                    if (fit != brains.bestBrain.fitness):
-                        print('Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
-                else:
-                    if (fit != brains.population[brains.currentBrain].fitness):
-                        print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
 
             # program stops controlling character
@@ -293,12 +275,6 @@ try:
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
                 print('Fitness: ' + str(fit) + ' (no control)')
-                if onlyBests:
-                    if (fit != brains.bestBrain.fitness):
-                        print('Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
-                else:
-                    if (fit != brains.population[brains.currentBrain].fitness):
-                        print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
 
             # program times out
@@ -306,13 +282,18 @@ try:
                 endRun()
                 fit = 0
                 print('Fitness: ' + str(fit) + ' (time out)')
-                if onlyBests:
-                    if (fit != brains.bestBrain.fitness):
-                        print('Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
-                else:
-                    if (fit != brains.population[brains.currentBrain].fitness):
-                        print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
+
+            if onlyBests:
+                if (fit < brains.bestBrain.fitness):
+                    print('Major Fitness mismatch! Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit))
+                if (fit > brains.bestBrain.fitness):
+                    print('Minor mismatch (Original: ' + str(brains.bestBrain.fitness) + ' New: ' + str(fit) + ')')
+            else:
+                if (fit < brains.population[brains.currentBrain].fitness):
+                    print('Major Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
+                if (fit > brains.population[brains.currentBrain].fitness):
+                    print('Minor mismatch (Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit) + ')')
 
         nextTick = nextTick + timedelta(microseconds=100000)
 
