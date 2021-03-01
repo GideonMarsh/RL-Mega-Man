@@ -191,8 +191,10 @@ try:
             pass
         screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
 
+        '''
         now = datetime.now().microsecond
         print(str(now) + ' ' + str(nextTick))
+        '''
 
         if (screenshot):
             grayimg = screenshot.convert('L')
@@ -311,7 +313,7 @@ try:
                     if (fit != brains.population[brains.currentBrain].fitness):
                         print('Fitness mismatch! Original: ' + brains.population[brains.currentBrain].fitness + ' New: ' + str(fit))
                 restartRun()
-            
+
         nextTick = nextTick + timedelta(microseconds=100000)
 
 

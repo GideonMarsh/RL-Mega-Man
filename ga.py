@@ -52,16 +52,24 @@ class GeneticAlgorithmController:
     # assign fitness and set current brain to next brain
     # treat all negative fitness values as 0
     def assignFitness(self, fitness):
-        if (fitness < 0):
-            self.population[self.currentBrain].fitness = 0
-        else:
-            self.population[self.currentBrain].fitness = fitness
-        if (not self.bestBrain or self.bestBrain.fitness < fitness):
-            self.bestBrain = self.population[self.currentBrain]
+        if (self.population[self.currentBrain].fitness < 0 or fitness < self.population[self.currentBrain].fitness):
+            if (fitness < 0):
+                self.population[self.currentBrain].fitness = 0
+            else:
+                self.population[self.currentBrain].fitness = fitness
         self.currentBrain = self.currentBrain + 1
 
     def doneWithGeneration(self):
         return self.currentBrain >= len(self.population)
+
+    # finds the brain with the highest fitness and sets it as self.bestBrain
+    def setBestBrain(self):
+        best = self.population[0]
+        for b in self.population:
+            if b.fitness > best.fitness:
+                best = b
+        self.bestBrain = best
+
 
     def makeNextGeneration(self):
         '''
@@ -172,10 +180,6 @@ class GeneticAlgorithmController:
     def getIndividualInfo(self):
         brain = self.population[self.currentBrain]
         return (self.generation, brain.species, self.currentBrain)
-
-
-    def getBestInfo(self):
-        return (self.bestBrain.species, self.bestBrain.fitness)
 
     # separates population into species
     def initialSeparateIntoSpecies(self):

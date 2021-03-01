@@ -66,6 +66,8 @@ grayimg = None
 firstImageTaken = False
 controlImageTaken = False
 
+runNumber = 1
+
 # check if saved population exists and load it
 # if none exists, create new population from the beginning
 brains = None
@@ -109,7 +111,7 @@ def on_release(key):
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken, fitnessPenalty, nextTick
+    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken, fitnessPenalty, nextTick, runNumber
     globalTimer.cancelTimer()
     progressCheckTimer.cancelTimer()
     controlTimer.cancelTimer()
@@ -121,21 +123,27 @@ def restartRun():
     fitnessPenalty = 0
 
     if (brains.doneWithGeneration()):
-        log.writeToLog(brains)
-        f = constants.SAVE_FOLDER + 'Generation_' + str(brains.generation) + '.pkl'
-        with open(f, 'wb') as output:
-            pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
-            c = [brain.nodeCount, brain.connectionCount, ga.speciesCounter]
-            pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
-            print('Generation ' + str(brains.generation) + ' saved')
-        brains.makeNextGeneration()
-        with open(constants.SAVE_FILE_NAME, 'wb') as output:
-            pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
-            c = [brain.nodeCount, brain.connectionCount, ga.speciesCounter]
-            pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
-            print('Population saved')
+        if (runNumber == 3):
+            runNumber = 1
+            brains.setBestBrain()
+            log.writeToLog(brains)
+            f = constants.SAVE_FOLDER + 'Generation_' + str(brains.generation) + '.pkl'
+            with open(f, 'wb') as output:
+                pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
+                c = [brain.nodeCount, brain.connectionCount, ga.speciesCounter]
+                pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
+                print('Generation ' + str(brains.generation) + ' saved')
+            brains.makeNextGeneration()
+            with open(constants.SAVE_FILE_NAME, 'wb') as output:
+                pickle.dump(brains, output, pickle.HIGHEST_PROTOCOL)
+                c = [brain.nodeCount, brain.connectionCount, ga.speciesCounter]
+                pickle.dump(c,output,pickle.HIGHEST_PROTOCOL)
+                print('Population saved')
+        else:
+            runNumber = runNumber + 1
+            brains.currentBrain = 0
 
-    print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Species ' + str(brains.getIndividualInfo()[1]) + '; Player ' + str(brains.getIndividualInfo()[2]))
+    print('Generation ' + str(brains.getIndividualInfo()[0]) + '; Species ' + str(brains.getIndividualInfo()[1]) + '; Player ' + str(brains.getIndividualInfo()[2]) + '; Run ' + str(runNumber))
     if (brains.getIndividualInfo()[1] == -1):
         raise AttributeError('-1 is not a species')
 
@@ -181,9 +189,11 @@ try:
             pass
         screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
 
+        '''
         now = datetime.now().microsecond
         print(str(now) + ' ' + str(nextTick))
         timeList.append(now % 100000)
+        '''
 
         if (screenshot):
             grayimg = screenshot.convert('L')
@@ -285,12 +295,13 @@ finally:
     controlTimer.cancelTimer()
     controlImageTimer.cancelTimer()
 
-
+    '''
     timeAve = 0
     for t in range(len(timeList) - 1):
         diff = abs(timeList[t] - timeList[t + 1])
         timeAve = timeAve + diff
     print('ave time diff: ' + str(timeAve/(len(timeList) - 1)))
+    '''
 
 
 if saveProgress:

@@ -61,7 +61,7 @@ class ConnectionGene:
 
 class Brain:
     def __init__(self):
-        self.fitness = 0
+        self.fitness = -1
         self.connections = {}
         self.nodeOrder = list()
         self.species = -1
