@@ -205,7 +205,7 @@ try:
                 outputChange = controller.changeInputs(brains.passInputs(grayimg))
 
             if outputChange:
-                fitnessPenalty = fitnessPenalty + 0.1
+                fitnessPenalty = fitnessPenalty + constants.CONTROL_FITNESS_PENALTY
                 #print('control timer restart')
                 controlTimer.cancelTimer()
                 controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)

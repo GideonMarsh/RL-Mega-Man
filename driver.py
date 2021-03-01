@@ -199,7 +199,7 @@ try:
             grayimg = screenshot.convert('L')
 
             if controller.changeInputs(brains.passInputs(grayimg)):
-                fitnessPenalty = fitnessPenalty + 0.1
+                fitnessPenalty = fitnessPenalty + constants.CONTROL_FITNESS_PENALTY
                 #print('control timer restart')
                 controlTimer.cancelTimer()
                 controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
