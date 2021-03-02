@@ -45,14 +45,19 @@ def on_press(key):
 
         pix = grayimg.load()
 
-        xOffset = floor(grayimg.width / xp)
-        yOffset = floor(grayimg.height / yp)
-        xShift = floor((grayimg.width % xp) / 2)
-        yShift = floor((grayimg.height % yp) / 2)
+        xShift = 120
+        ycoords = [68,75,83,91,98,107,114,122,130,137,145,152,160,168,176,183,191,198,205,214,222,229,237,245,253,260,268,275]
 
-        for i in range(xp):
-            for j in range(yp):
-                pix[i,j] = pix[(i * xOffset) + xShift, (j * yOffset) + yShift]
+        for i in range(20):
+            for j in range(28):
+                pix[i + 140,ycoords[j]] = pix[i + xShift,ycoords[j]]
+
+        hp = 0
+        for c in ycoords:
+            if pix[120,c] > 5:
+                hp = hp + 1
+
+        print(hp)
 
         grayimg.save(screenshotName)
 

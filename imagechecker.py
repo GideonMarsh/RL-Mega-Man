@@ -136,6 +136,21 @@ class ImageChecker:
             return True
         except FileNotFoundError:
             return False
+
+    def checkHP(self, image):
+        pix = image.load()
+
+        xShift = 120
+        ycoords = [68,75,83,91,98,107,114,122,130,137,145,152,160,168,176,183,191,198,205,214,222,229,237,245,253,260,268,275]
+
+        hp = 28
+        for c in ycoords:
+            if pix[xShift,c] < 5:
+                hp = hp - 1
+            else:
+                break
+        
+        return hp
 '''
 def checkPixelLoops(p, cp, xo, yo, xs, ys, xp, yp):
     for i in range(xp):

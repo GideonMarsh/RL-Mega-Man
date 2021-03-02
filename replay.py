@@ -50,7 +50,8 @@ else:
 controller.openMenu()
 
 fitnessTracker = fitness.FitnessTimer()
-fitnessPenalty = 0
+fitnessPenaltySub = 0
+fitnessPenaltyMult = 1
 
 imageCheck = imagechecker.ImageChecker()
 imageCheck.imageSetup()
@@ -116,7 +117,7 @@ def on_release(key):
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken, fitnessPenalty, brains, generation, firstRunDone, nextTick
+    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken, fitnessPenaltySub, fitnessPenaltyMult, brains, generation, firstRunDone, nextTick
     globalTimer.cancelTimer()
     progressCheckTimer.cancelTimer()
     controlTimer.cancelTimer()
@@ -125,7 +126,8 @@ def restartRun():
     progressCheckTimer = fitness.RunTimer(constants.PROGRESS_CHECK_EARLY_TIMEOUT)
     controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
     controlImageTimer = fitness.RunTimer(2)
-    fitnessPenalty = 0
+    fitnessPenaltySub = 0
+    fitnessPenaltyMult = 1
 
     if firstRunDone:
         if onlyBests:
@@ -199,13 +201,16 @@ try:
         if (screenshot):
             grayimg = screenshot.convert('L')
 
+            newHPmod = (imageCheck.checkHP(grayimg) + 2) / 30
+            fitnessPenaltyMult = min(fitnessPenaltyMult,newHPmod)
+
             if onlyBests:
                 outputChange = controller.changeInputs(brains.passInputs(grayimg, brains.bestBrain))
             else:
                 outputChange = controller.changeInputs(brains.passInputs(grayimg))
 
             if outputChange:
-                fitnessPenalty = fitnessPenalty + constants.CONTROL_FITNESS_PENALTY
+                fitnessPenaltySub = fitnessPenaltySub + constants.CONTROL_FITNESS_PENALTY
                 #print('control timer restart')
                 controlTimer.cancelTimer()
                 controlTimer = fitness.RunTimer(constants.CONTROL_TIMEOUT)
@@ -244,8 +249,8 @@ try:
             if (imageCheck.checkGameOver(grayimg)):
                 endRun()
                 # subtract the number of seconds the game over effect takes
-                fit = fitnessTracker.getFitness()
-                fit = max(fit - fitnessPenalty, 0) * 2
+                fit = fitnessTracker.getFitness() * 2
+                fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
                 print('Fitness: ' + str(fit) + ' (game over)')
                 if onlyBests:
                     if (fit < brains.bestBrain.fitness):
@@ -262,8 +267,8 @@ try:
             # program completes the level
             if (imageCheck.checkLevelComplete(grayimg)):
                 endRun()
-                fit = (constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()
-                fit = max(fit - fitnessPenalty, 0) * 2
+                fit = ((constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()) * 2
+                fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
                 print('Fitness: ' + str(fit) + ' (level complete)')
                 if onlyBests:
                     if (fit < brains.bestBrain.fitness):
@@ -280,8 +285,8 @@ try:
             # program stops making progress
             if (checkProgress and imageCheck.checkNoProgress(grayimg)):
                 endRun()
-                fit = fitnessTracker.getFitness() - (constants.PROGRESS_CHECK_TIMEOUT * 1.5)
-                fit = max(fit - fitnessPenalty, 0) * 2
+                fit = (fitnessTracker.getFitness() - (constants.PROGRESS_CHECK_TIMEOUT * 1.5)) * 2
+                fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
                 print('Fitness: ' + str(fit) + ' (no progress)')
@@ -300,8 +305,8 @@ try:
             # program stops controlling character
             if (controlTimer.timeUp() and imageCheck.checkNoControl(grayimg)):
                 endRun()
-                fit = fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT
-                fit = max(fit - fitnessPenalty, 0) * 2
+                fit = (fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT) * 2
+                fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
                 print('Fitness: ' + str(fit) + ' (no control)')
