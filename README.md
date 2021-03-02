@@ -13,6 +13,7 @@ The program controls the game using keyboard inputs. These are simulated using t
 The process of reinforcement learning is handled by the NEAT algorithm. A population of 100 "brains" are created and allowed to play the game. After a given brain's run terminates, the fitness of that run is determined and the next brain is selected to play. After all 100 brains are done playing, a new population of 100 brains is created using the previous generation as the parents. This program follows the implementation of the NEAT algorithm as specified in the original NEAT paper, which can be found here: (http://nn.cs.utexas.edu/downloads/papers/stanley.cec02.pdf). Please read this paper for additional details that are not covered below.
 
 *Brains*
+
 Each brain consists of a collection of nodes and connections that form a simple neural network. The number of input nodes is set at the number of pixels read from the input screenshots, and the number of output nodes is set at the number of controller outputs. Each brain stores its connections and determines its nodes implicitely from the connections. Each connection has a real number weight which is determined at its creation (but can be modified by mutation).
 
 Calculating the output of the brains follows these steps. First, the values of the input nodes are set based on the inputs screenshots. Each node has an associated pixel position on the screenshot (which is greyscale), and the node is set to the pixel value - 128. The values are then propogated forward using the connections. The order of the calcuations is determined by topological order (calculations are performed only after all prerequisite calculations are complete). Each connection takes the value of its input node, multiplies that value by the weight of the connection, then adds the resulting value to the output node. After these calculations are complete, the values of the output nodes are used to determine the controller inputs to the game. If the value of a node is greater than 0, the associated button is pressed. If the value is 0 or less, the button is not pressed (or released). Using this method, the brains can programmatically control the game using only the visual information of the game is input.
@@ -23,9 +24,11 @@ New nodes and connections are added by mutation, and new brains are created usin
 * Reproduction is the combining of two brains to create a new brain. The connections of both brains are examined to determine if they should be included in the new brain (nodes don't need to be considered since they are implicit). If the connection exists in one brain but not the other, the connection is added (unless it creates a cycle). If it exists in both brains, the connection is added and uses the weight from the brain with the higher fitness.
 
 *Species*
+
 The population of brains is split into categories called species based on their similarities to each other (see the NEAT paper for more information). The species are used to preserve innovation among the population, allowing for lots of different strategies to be considered.
 
 *Fitness*
+
 The fitness of each brain is determined primarily by time survived (tracked down to a tenth of a second), with several caveats. There are 5 situations that cause a brain's run to end, each with different fitness calculations.
 * If the brain completes the level fitness is awarded based on completion time, with lower times providing higher values. These values dominate the fitness function, such that completing the level with the slowest possible time still results in higher fitness than any run that does not complete the level. 
 * If the brain loses a life, fitness is awarded based on the time survived.
