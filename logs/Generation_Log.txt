@@ -1,0 +1,2675 @@
+Generation 0
+
+Number of species: 100
+
+Average fitness of this generation: 0.5
+Highest fitness: 6.3 (species 15)
+
+Species 0    Species size: 1    Average fitness: 0.0
+0 0.0
+Number of new children: 0
+
+Species 1    Species size: 1    Average fitness: 0.0
+1 0.0
+Number of new children: 0
+
+Species 2    Species size: 1    Average fitness: 0.0
+2 0.0
+Number of new children: 0
+
+Species 3    Species size: 1    Average fitness: 0.0
+3 0.0
+Number of new children: 0
+
+Species 4    Species size: 1    Average fitness: 0.0
+4 0.0
+Number of new children: 0
+
+Species 5    Species size: 1    Average fitness: 0.0
+5 0.0
+Number of new children: 0
+
+Species 6    Species size: 1    Average fitness: 0.0
+6 0.0
+Number of new children: 0
+
+Species 7    Species size: 1    Average fitness: 0.0
+7 0.0
+Number of new children: 0
+
+Species 8    Species size: 1    Average fitness: 0.0
+8 0.0
+Number of new children: 0
+
+Species 9    Species size: 1    Average fitness: 0.0
+9 0.0
+Number of new children: 0
+
+Species 10    Species size: 1    Average fitness: 0.0
+10 0.0
+Number of new children: 0
+
+Species 11    Species size: 1    Average fitness: 0.0
+11 0.0
+Number of new children: 0
+
+Species 12    Species size: 1    Average fitness: 0.0
+12 0.0
+Number of new children: 0
+
+Species 13    Species size: 1    Average fitness: 0.0
+13 0.0
+Number of new children: 0
+
+Species 14    Species size: 1    Average fitness: 0.0
+14 0.0
+Number of new children: 0
+
+Species 15    Species size: 1    Average fitness: 6.3
+15 6.3
+Number of new children: 14
+
+Species 16    Species size: 1    Average fitness: 6.1
+16 6.1
+Number of new children: 13
+
+Species 17    Species size: 1    Average fitness: 0.0
+17 0.0
+Number of new children: 0
+
+Species 18    Species size: 1    Average fitness: 0.0
+18 0.0
+Number of new children: 0
+
+Species 19    Species size: 1    Average fitness: 0.0
+19 0.0
+Number of new children: 0
+
+Species 20    Species size: 1    Average fitness: 0.0
+20 0.0
+Number of new children: 0
+
+Species 21    Species size: 1    Average fitness: 0.0
+21 0.0
+Number of new children: 0
+
+Species 22    Species size: 1    Average fitness: 0.0
+22 0.0
+Number of new children: 0
+
+Species 23    Species size: 1    Average fitness: 0.0
+23 0.0
+Number of new children: 0
+
+Species 24    Species size: 1    Average fitness: 0.0
+24 0.0
+Number of new children: 0
+
+Species 25    Species size: 1    Average fitness: 0.0
+25 0.0
+Number of new children: 0
+
+Species 26    Species size: 1    Average fitness: 0.0
+26 0.0
+Number of new children: 0
+
+Species 27    Species size: 1    Average fitness: 0.0
+27 0.0
+Number of new children: 0
+
+Species 28    Species size: 1    Average fitness: 0.0
+28 0.0
+Number of new children: 0
+
+Species 29    Species size: 1    Average fitness: 0.0
+29 0.0
+Number of new children: 0
+
+Species 30    Species size: 1    Average fitness: 6.3
+30 6.3
+Number of new children: 13
+
+Species 31    Species size: 1    Average fitness: 0.0
+31 0.0
+Number of new children: 0
+
+Species 32    Species size: 1    Average fitness: 0.0
+32 0.0
+Number of new children: 0
+
+Species 33    Species size: 1    Average fitness: 0.0
+33 0.0
+Number of new children: 0
+
+Species 34    Species size: 1    Average fitness: 0.0
+34 0.0
+Number of new children: 0
+
+Species 35    Species size: 1    Average fitness: 6.2
+35 6.2
+Number of new children: 13
+
+Species 36    Species size: 1    Average fitness: 0.0
+36 0.0
+Number of new children: 0
+
+Species 37    Species size: 1    Average fitness: 0.0
+37 0.0
+Number of new children: 0
+
+Species 38    Species size: 1    Average fitness: 0.0
+38 0.0
+Number of new children: 0
+
+Species 39    Species size: 1    Average fitness: 0.0
+39 0.0
+Number of new children: 0
+
+Species 40    Species size: 1    Average fitness: 0.0
+40 0.0
+Number of new children: 0
+
+Species 41    Species size: 1    Average fitness: 0.0
+41 0.0
+Number of new children: 0
+
+Species 42    Species size: 1    Average fitness: 0.0
+42 0.0
+Number of new children: 0
+
+Species 43    Species size: 1    Average fitness: 0.0
+43 0.0
+Number of new children: 0
+
+Species 44    Species size: 1    Average fitness: 0.0
+44 0.0
+Number of new children: 0
+
+Species 45    Species size: 1    Average fitness: 0.0
+45 0.0
+Number of new children: 0
+
+Species 46    Species size: 1    Average fitness: 0.0
+46 0.0
+Number of new children: 0
+
+Species 47    Species size: 1    Average fitness: 0.0
+47 0.0
+Number of new children: 0
+
+Species 48    Species size: 1    Average fitness: 0.0
+48 0.0
+Number of new children: 0
+
+Species 49    Species size: 1    Average fitness: 0.0
+49 0.0
+Number of new children: 0
+
+Species 50    Species size: 1    Average fitness: 0.0
+50 0.0
+Number of new children: 0
+
+Species 51    Species size: 1    Average fitness: 0.0
+51 0.0
+Number of new children: 0
+
+Species 52    Species size: 1    Average fitness: 0.0
+52 0.0
+Number of new children: 0
+
+Species 53    Species size: 1    Average fitness: 0.0
+53 0.0
+Number of new children: 0
+
+Species 54    Species size: 1    Average fitness: 0.0
+54 0.0
+Number of new children: 0
+
+Species 55    Species size: 1    Average fitness: 0.0
+55 0.0
+Number of new children: 0
+
+Species 56    Species size: 1    Average fitness: 0.0
+56 0.0
+Number of new children: 0
+
+Species 57    Species size: 1    Average fitness: 0.0
+57 0.0
+Number of new children: 0
+
+Species 58    Species size: 1    Average fitness: 0.0
+58 0.0
+Number of new children: 0
+
+Species 59    Species size: 1    Average fitness: 5.9
+59 5.9
+Number of new children: 12
+
+Species 60    Species size: 1    Average fitness: 0.0
+60 0.0
+Number of new children: 0
+
+Species 61    Species size: 1    Average fitness: 0.0
+61 0.0
+Number of new children: 0
+
+Species 62    Species size: 1    Average fitness: 0.0
+62 0.0
+Number of new children: 0
+
+Species 63    Species size: 1    Average fitness: 0.0
+63 0.0
+Number of new children: 0
+
+Species 64    Species size: 1    Average fitness: 0.0
+64 0.0
+Number of new children: 0
+
+Species 65    Species size: 1    Average fitness: 0.0
+65 0.0
+Number of new children: 0
+
+Species 66    Species size: 1    Average fitness: 0.0
+66 0.0
+Number of new children: 0
+
+Species 67    Species size: 1    Average fitness: 0.0
+67 0.0
+Number of new children: 0
+
+Species 68    Species size: 1    Average fitness: 0.0
+68 0.0
+Number of new children: 0
+
+Species 69    Species size: 1    Average fitness: 0.0
+69 0.0
+Number of new children: 0
+
+Species 70    Species size: 1    Average fitness: 0.0
+70 0.0
+Number of new children: 0
+
+Species 71    Species size: 1    Average fitness: 0.0
+71 0.0
+Number of new children: 0
+
+Species 72    Species size: 1    Average fitness: 6.2
+72 6.2
+Number of new children: 13
+
+Species 73    Species size: 1    Average fitness: 0.0
+73 0.0
+Number of new children: 0
+
+Species 74    Species size: 1    Average fitness: 0.0
+74 0.0
+Number of new children: 0
+
+Species 75    Species size: 1    Average fitness: 0.0
+75 0.0
+Number of new children: 0
+
+Species 76    Species size: 1    Average fitness: 0.0
+76 0.0
+Number of new children: 0
+
+Species 77    Species size: 1    Average fitness: 0.0
+77 0.0
+Number of new children: 0
+
+Species 78    Species size: 1    Average fitness: 0.0
+78 0.0
+Number of new children: 0
+
+Species 79    Species size: 1    Average fitness: 0.0
+79 0.0
+Number of new children: 0
+
+Species 80    Species size: 1    Average fitness: 0.0
+80 0.0
+Number of new children: 0
+
+Species 81    Species size: 1    Average fitness: 0.0
+81 0.0
+Number of new children: 0
+
+Species 82    Species size: 1    Average fitness: 6.2
+82 6.2
+Number of new children: 13
+
+Species 83    Species size: 1    Average fitness: 0.0
+83 0.0
+Number of new children: 0
+
+Species 84    Species size: 1    Average fitness: 0.0
+84 0.0
+Number of new children: 0
+
+Species 85    Species size: 1    Average fitness: 0.0
+85 0.0
+Number of new children: 0
+
+Species 86    Species size: 1    Average fitness: 0.0
+86 0.0
+Number of new children: 0
+
+Species 87    Species size: 1    Average fitness: 0.0
+87 0.0
+Number of new children: 0
+
+Species 88    Species size: 1    Average fitness: 0.0
+88 0.0
+Number of new children: 0
+
+Species 89    Species size: 1    Average fitness: 0.0
+89 0.0
+Number of new children: 0
+
+Species 90    Species size: 1    Average fitness: 0.0
+90 0.0
+Number of new children: 0
+
+Species 91    Species size: 1    Average fitness: 0.0
+91 0.0
+Number of new children: 0
+
+Species 92    Species size: 1    Average fitness: 0.0
+92 0.0
+Number of new children: 0
+
+Species 93    Species size: 1    Average fitness: 0.0
+93 0.0
+Number of new children: 0
+
+Species 94    Species size: 1    Average fitness: 0.0
+94 0.0
+Number of new children: 0
+
+Species 95    Species size: 1    Average fitness: 4.4
+95 4.4
+Number of new children: 9
+
+Species 96    Species size: 1    Average fitness: 0.0
+96 0.0
+Number of new children: 0
+
+Species 97    Species size: 1    Average fitness: 0.0
+97 0.0
+Number of new children: 0
+
+Species 98    Species size: 1    Average fitness: 0.0
+98 0.0
+Number of new children: 0
+
+Species 99    Species size: 1    Average fitness: 0.0
+99 0.0
+Number of new children: 0
+
+
+Generation 1
+
+Number of species: 12
+
+Average fitness of this generation: 6.0
+Highest fitness: 6.3 (species 15)
+
+Species 15    Species size: 14    Average fitness: 6.2
+0 6.3     1 6.3     2 6.2     3 6.3     4 6.2
+5 6.2     6 6.3     7 6.1     8 6.2     9 6.2
+10 6.2     11 6.2     12 6.2     99 6.2
+Number of new children: 9
+
+Species 16    Species size: 13    Average fitness: 6.2
+13 6.2     14 6.2     15 6.2     16 6.3     17 6.3
+18 6.2     19 6.2     20 6.2     21 6.2     22 6.3
+23 6.3     24 6.2     25 6.2
+Number of new children: 9
+
+Species 30    Species size: 12    Average fitness: 6.2
+26 6.2     27 6.2     28 6.3     29 6.3     30 6.2
+31 6.2     32 6.2     33 6.2     34 6.2     35 6.2
+36 6.3     37 6.3
+Number of new children: 9
+
+Species 35    Species size: 12    Average fitness: 6.2
+39 6.2     40 6.3     41 6.3     42 6.2     44 6.3
+45 6.2     46 6.2     47 6.2     48 6.2     49 6.2
+50 6.3     51 6.2
+Number of new children: 9
+
+Species 59    Species size: 12    Average fitness: 5.8
+52 5.9     53 5.8     54 5.8     55 5.8     56 5.8
+57 5.8     58 5.8     59 5.8     60 5.8     61 5.9
+62 5.7     63 5.8
+Number of new children: 8
+
+Species 72    Species size: 13    Average fitness: 6.2
+64 6.2     65 6.1     66 6.2     67 6.2     68 6.2
+69 6.3     70 6.2     71 6.2     72 6.2     73 6.2
+74 6.2     75 6.2     76 6.2
+Number of new children: 9
+
+Species 82    Species size: 12    Average fitness: 6.2
+77 6.2     79 6.2     80 6.3     81 6.3     82 6.3
+83 6.2     84 6.1     85 6.2     86 6.3     87 6.2
+88 6.3     89 6.2
+Number of new children: 9
+
+Species 95    Species size: 8    Average fitness: 4.4
+90 4.4     91 4.4     93 4.4     94 4.3     95 4.4
+96 4.4     97 4.4     98 4.4
+Number of new children: 6
+
+Species 100    Species size: 1    Average fitness: 6.2
+38 6.2
+Number of new children: 9
+
+Species 101    Species size: 1    Average fitness: 5.7
+43 5.7
+Number of new children: 8
+
+Species 102    Species size: 1    Average fitness: 6.2
+78 6.2
+Number of new children: 9
+
+Species 103    Species size: 1    Average fitness: 4.0
+92 4.0
+Number of new children: 6
+
+
+Generation 2
+
+Number of species: 100
+
+Average fitness of this generation: 5.7
+Highest fitness: 7.7 (species 140)
+
+Species 15    Species size: 1    Average fitness: 0.5
+99 0.5
+Number of new children: 0
+
+Species 104    Species size: 1    Average fitness: 6.1
+0 6.1
+Number of new children: 2
+
+Species 105    Species size: 1    Average fitness: 6.2
+1 6.2
+Number of new children: 2
+
+Species 106    Species size: 1    Average fitness: 6.1
+2 6.1
+Number of new children: 2
+
+Species 107    Species size: 1    Average fitness: 6.2
+3 6.2
+Number of new children: 1
+
+Species 108    Species size: 1    Average fitness: 6.2
+4 6.2
+Number of new children: 1
+
+Species 109    Species size: 1    Average fitness: 6.2
+5 6.2
+Number of new children: 1
+
+Species 110    Species size: 1    Average fitness: 6.3
+6 6.3
+Number of new children: 1
+
+Species 111    Species size: 1    Average fitness: 6.2
+7 6.2
+Number of new children: 1
+
+Species 112    Species size: 1    Average fitness: 6.1
+8 6.1
+Number of new children: 1
+
+Species 113    Species size: 1    Average fitness: 6.2
+9 6.2
+Number of new children: 1
+
+Species 114    Species size: 1    Average fitness: 6.2
+10 6.2
+Number of new children: 1
+
+Species 115    Species size: 1    Average fitness: 6.2
+11 6.2
+Number of new children: 1
+
+Species 116    Species size: 1    Average fitness: 6.2
+12 6.2
+Number of new children: 1
+
+Species 117    Species size: 1    Average fitness: 6.2
+13 6.2
+Number of new children: 1
+
+Species 118    Species size: 1    Average fitness: 6.2
+14 6.2
+Number of new children: 1
+
+Species 119    Species size: 1    Average fitness: 6.2
+15 6.2
+Number of new children: 1
+
+Species 120    Species size: 1    Average fitness: 6.2
+16 6.2
+Number of new children: 1
+
+Species 121    Species size: 1    Average fitness: 6.2
+17 6.2
+Number of new children: 1
+
+Species 122    Species size: 1    Average fitness: 6.2
+18 6.2
+Number of new children: 1
+
+Species 123    Species size: 1    Average fitness: 6.2
+19 6.2
+Number of new children: 1
+
+Species 124    Species size: 1    Average fitness: 6.2
+20 6.2
+Number of new children: 1
+
+Species 125    Species size: 1    Average fitness: 6.3
+21 6.3
+Number of new children: 1
+
+Species 126    Species size: 1    Average fitness: 6.1
+22 6.1
+Number of new children: 1
+
+Species 127    Species size: 1    Average fitness: 6.2
+23 6.2
+Number of new children: 1
+
+Species 128    Species size: 1    Average fitness: 6.2
+24 6.2
+Number of new children: 1
+
+Species 129    Species size: 1    Average fitness: 6.2
+25 6.2
+Number of new children: 1
+
+Species 130    Species size: 1    Average fitness: 6.2
+26 6.2
+Number of new children: 1
+
+Species 131    Species size: 1    Average fitness: 6.2
+27 6.2
+Number of new children: 1
+
+Species 132    Species size: 1    Average fitness: 6.2
+28 6.2
+Number of new children: 1
+
+Species 133    Species size: 1    Average fitness: 6.2
+29 6.2
+Number of new children: 1
+
+Species 134    Species size: 1    Average fitness: 6.3
+30 6.3
+Number of new children: 1
+
+Species 135    Species size: 1    Average fitness: 6.2
+31 6.2
+Number of new children: 1
+
+Species 136    Species size: 1    Average fitness: 6.1
+32 6.1
+Number of new children: 1
+
+Species 137    Species size: 1    Average fitness: 6.2
+33 6.2
+Number of new children: 1
+
+Species 138    Species size: 1    Average fitness: 6.3
+34 6.3
+Number of new children: 1
+
+Species 139    Species size: 1    Average fitness: 5.9
+35 5.9
+Number of new children: 1
+
+Species 140    Species size: 1    Average fitness: 7.7
+36 7.7
+Number of new children: 1
+
+Species 141    Species size: 1    Average fitness: 5.8
+37 5.8
+Number of new children: 1
+
+Species 142    Species size: 1    Average fitness: 5.8
+38 5.8
+Number of new children: 1
+
+Species 143    Species size: 1    Average fitness: 5.9
+39 5.9
+Number of new children: 1
+
+Species 144    Species size: 1    Average fitness: 5.8
+40 5.8
+Number of new children: 1
+
+Species 145    Species size: 1    Average fitness: 4.1
+41 4.1
+Number of new children: 1
+
+Species 146    Species size: 1    Average fitness: 5.8
+42 5.8
+Number of new children: 1
+
+Species 147    Species size: 1    Average fitness: 6.1
+43 6.1
+Number of new children: 1
+
+Species 148    Species size: 1    Average fitness: 6.3
+44 6.3
+Number of new children: 1
+
+Species 149    Species size: 1    Average fitness: 6.2
+45 6.2
+Number of new children: 1
+
+Species 150    Species size: 1    Average fitness: 6.3
+46 6.3
+Number of new children: 1
+
+Species 151    Species size: 1    Average fitness: 6.1
+47 6.1
+Number of new children: 1
+
+Species 152    Species size: 1    Average fitness: 6.2
+48 6.2
+Number of new children: 1
+
+Species 153    Species size: 1    Average fitness: 6.2
+49 6.2
+Number of new children: 1
+
+Species 154    Species size: 1    Average fitness: 0.0
+50 0.0
+Number of new children: 0
+
+Species 155    Species size: 1    Average fitness: 6.2
+51 6.2
+Number of new children: 1
+
+Species 156    Species size: 1    Average fitness: 6.2
+52 6.2
+Number of new children: 1
+
+Species 157    Species size: 1    Average fitness: 6.2
+53 6.2
+Number of new children: 1
+
+Species 158    Species size: 1    Average fitness: 6.1
+54 6.1
+Number of new children: 1
+
+Species 159    Species size: 1    Average fitness: 6.2
+55 6.2
+Number of new children: 1
+
+Species 160    Species size: 1    Average fitness: 6.1
+56 6.1
+Number of new children: 1
+
+Species 161    Species size: 1    Average fitness: 5.8
+57 5.8
+Number of new children: 1
+
+Species 162    Species size: 1    Average fitness: 6.1
+58 6.1
+Number of new children: 1
+
+Species 163    Species size: 1    Average fitness: 6.2
+59 6.2
+Number of new children: 1
+
+Species 164    Species size: 1    Average fitness: 6.3
+60 6.3
+Number of new children: 1
+
+Species 165    Species size: 1    Average fitness: 4.4
+61 4.4
+Number of new children: 1
+
+Species 166    Species size: 1    Average fitness: 4.3
+62 4.3
+Number of new children: 1
+
+Species 167    Species size: 1    Average fitness: 4.4
+63 4.4
+Number of new children: 1
+
+Species 168    Species size: 1    Average fitness: 4.3
+64 4.3
+Number of new children: 1
+
+Species 169    Species size: 1    Average fitness: 4.3
+65 4.3
+Number of new children: 1
+
+Species 170    Species size: 1    Average fitness: 4.4
+66 4.4
+Number of new children: 1
+
+Species 171    Species size: 1    Average fitness: 6.2
+67 6.2
+Number of new children: 1
+
+Species 172    Species size: 1    Average fitness: 6.2
+68 6.2
+Number of new children: 1
+
+Species 173    Species size: 1    Average fitness: 6.1
+69 6.1
+Number of new children: 1
+
+Species 174    Species size: 1    Average fitness: 6.2
+70 6.2
+Number of new children: 1
+
+Species 175    Species size: 1    Average fitness: 6.1
+71 6.1
+Number of new children: 1
+
+Species 176    Species size: 1    Average fitness: 6.2
+72 6.2
+Number of new children: 1
+
+Species 177    Species size: 1    Average fitness: 0.0
+73 0.0
+Number of new children: 0
+
+Species 178    Species size: 1    Average fitness: 6.2
+74 6.2
+Number of new children: 1
+
+Species 179    Species size: 1    Average fitness: 6.2
+75 6.2
+Number of new children: 1
+
+Species 180    Species size: 1    Average fitness: 5.8
+76 5.8
+Number of new children: 1
+
+Species 181    Species size: 1    Average fitness: 5.8
+77 5.8
+Number of new children: 1
+
+Species 182    Species size: 1    Average fitness: 6.0
+78 6.0
+Number of new children: 1
+
+Species 183    Species size: 1    Average fitness: 5.8
+79 5.8
+Number of new children: 1
+
+Species 184    Species size: 1    Average fitness: 5.8
+80 5.8
+Number of new children: 1
+
+Species 185    Species size: 1    Average fitness: 5.8
+81 5.8
+Number of new children: 1
+
+Species 186    Species size: 1    Average fitness: 5.7
+82 5.7
+Number of new children: 1
+
+Species 187    Species size: 1    Average fitness: 5.8
+83 5.8
+Number of new children: 1
+
+Species 188    Species size: 1    Average fitness: 6.2
+84 6.2
+Number of new children: 1
+
+Species 189    Species size: 1    Average fitness: 6.2
+85 6.2
+Number of new children: 1
+
+Species 190    Species size: 1    Average fitness: 6.2
+86 6.2
+Number of new children: 1
+
+Species 191    Species size: 1    Average fitness: 6.2
+87 6.2
+Number of new children: 1
+
+Species 192    Species size: 1    Average fitness: 6.2
+88 6.2
+Number of new children: 1
+
+Species 193    Species size: 1    Average fitness: 6.2
+89 6.2
+Number of new children: 1
+
+Species 194    Species size: 1    Average fitness: 6.2
+90 6.2
+Number of new children: 1
+
+Species 195    Species size: 1    Average fitness: 6.3
+91 6.3
+Number of new children: 1
+
+Species 196    Species size: 1    Average fitness: 6.3
+92 6.3
+Number of new children: 1
+
+Species 197    Species size: 1    Average fitness: 4.0
+93 4.0
+Number of new children: 1
+
+Species 198    Species size: 1    Average fitness: 4.0
+94 4.0
+Number of new children: 1
+
+Species 199    Species size: 1    Average fitness: 4.0
+95 4.0
+Number of new children: 1
+
+Species 200    Species size: 1    Average fitness: 4.0
+96 4.0
+Number of new children: 1
+
+Species 201    Species size: 1    Average fitness: 4.2
+97 4.2
+Number of new children: 1
+
+Species 202    Species size: 1    Average fitness: 4.0
+98 4.0
+Number of new children: 1
+
+
+Generation 3
+
+Number of species: 19
+
+Average fitness of this generation: 5.7
+Highest fitness: 7.7 (species 140)
+
+Species 15    Species size: 10    Average fitness: 6.2
+0 6.2     1 6.3     2 6.3     3 6.2     4 6.2
+5 6.3     6 5.8     7 6.2     9 6.2     10 6.2
+Number of new children: 6
+
+Species 104    Species size: 1    Average fitness: 6.1
+8 6.1
+Number of new children: 6
+
+Species 112    Species size: 9    Average fitness: 6.2
+11 6.2     12 6.2     13 6.3     14 6.2     15 6.2
+16 6.2     17 6.3     18 6.2     19 6.2
+Number of new children: 6
+
+Species 121    Species size: 9    Average fitness: 6.2
+20 6.3     21 6.3     22 6.2     23 6.2     25 6.2
+26 6.2     27 6.2     73 6.2     74 6.3
+Number of new children: 6
+
+Species 122    Species size: 3    Average fitness: 3.7
+24 0.0     70 6.2     72 5.0
+Number of new children: 3
+
+Species 123    Species size: 3    Average fitness: 6.2
+28 6.3     71 6.2     75 6.2
+Number of new children: 6
+
+Species 124    Species size: 2    Average fitness: 6.2
+68 6.2     69 6.2
+Number of new children: 6
+
+Species 130    Species size: 12    Average fitness: 5.6
+29 6.2     31 6.2     32 6.2     33 6.2     34 6.3
+35 6.2     36 6.1     37 6.2     76 0.0     80 5.8
+81 5.8     83 5.7
+Number of new children: 5
+
+Species 131    Species size: 4    Average fitness: 5.9
+30 6.2     78 6.0     79 5.7     82 5.8
+Number of new children: 6
+
+Species 132    Species size: 1    Average fitness: 5.8
+77 5.8
+Number of new children: 5
+
+Species 139    Species size: 3    Average fitness: 6.0
+38 6.3     41 5.8     42 5.8
+Number of new children: 6
+
+Species 140    Species size: 1    Average fitness: 7.7
+99 7.7
+Number of new children: 7
+
+Species 141    Species size: 1    Average fitness: 5.8
+39 5.8
+Number of new children: 5
+
+Species 142    Species size: 3    Average fitness: 3.3
+40 0.0     43 4.2     44 5.8
+Number of new children: 3
+
+Species 147    Species size: 8    Average fitness: 6.2
+45 6.2     46 6.2     47 6.2     48 6.2     49 6.2
+50 6.3     51 6.2     52 6.2
+Number of new children: 6
+
+Species 156    Species size: 17    Average fitness: 6.2
+53 6.2     54 6.2     55 6.2     56 6.2     57 6.3
+59 6.2     60 6.2     61 6.2     84 6.2     85 6.2
+86 6.2     87 6.2     88 6.2     89 6.2     90 6.2
+91 6.2     92 6.2
+Number of new children: 6
+
+Species 157    Species size: 1    Average fitness: 5.8
+58 5.8
+Number of new children: 5
+
+Species 165    Species size: 11    Average fitness: 4.2
+62 4.4     63 4.3     64 4.4     65 4.3     66 4.4
+67 4.4     93 4.0     95 4.2     96 3.9     97 4.2
+98 4.2
+Number of new children: 4
+
+Species 167    Species size: 1    Average fitness: 4.0
+94 4.0
+Number of new children: 3
+
+
+Generation 4
+
+Number of species: 21
+
+Average fitness of this generation: 5.9
+Highest fitness: 7.7 (species 140)
+
+Species 15    Species size: 12    Average fitness: 6.1
+0 6.3     1 6.2     2 6.2     3 6.2     4 6.2
+5 6.2     6 6.2     7 6.2     8 5.3     9 6.2
+10 6.2     11 6.2
+Number of new children: 6
+
+Species 112    Species size: 6    Average fitness: 6.2
+12 6.3     13 6.2     14 6.2     15 6.3     16 6.3
+17 6.1
+Number of new children: 6
+
+Species 121    Species size: 13    Average fitness: 6.2
+18 6.2     19 6.2     20 6.2     21 6.3     22 6.1
+23 6.2     25 6.2     26 6.2     27 6.2     30 6.2
+34 6.2     36 6.3     38 6.2
+Number of new children: 6
+
+Species 122    Species size: 4    Average fitness: 6.2
+24 6.2     33 6.2     35 6.3     37 6.2
+Number of new children: 6
+
+Species 123    Species size: 3    Average fitness: 6.2
+29 6.2     31 6.2     32 6.2
+Number of new children: 5
+
+Species 130    Species size: 11    Average fitness: 6.0
+39 6.2     40 6.2     42 6.2     43 6.2     44 5.9
+46 6.0     49 6.2     50 5.8     51 5.8     52 5.8
+54 5.8
+Number of new children: 5
+
+Species 131    Species size: 3    Average fitness: 5.9
+45 6.0     48 6.0     53 5.8
+Number of new children: 5
+
+Species 139    Species size: 10    Average fitness: 6.6
+55 6.3     56 5.8     57 5.8     58 5.8     59 6.2
+60 5.8     62 7.7     63 7.6     65 7.6     66 7.7
+Number of new children: 6
+
+Species 140    Species size: 3    Average fitness: 7.7
+61 7.7     64 7.7     99 7.7
+Number of new children: 7
+
+Species 141    Species size: 5    Average fitness: 5.7
+67 5.5     68 5.8     69 5.8     70 5.8     71 5.8
+Number of new children: 5
+
+Species 147    Species size: 6    Average fitness: 6.2
+75 6.2     76 6.2     77 6.3     78 6.3     79 6.2
+80 6.3
+Number of new children: 5
+
+Species 156    Species size: 5    Average fitness: 6.1
+82 6.2     83 6.2     84 6.2     85 6.2     88 5.8
+Number of new children: 5
+
+Species 157    Species size: 4    Average fitness: 5.8
+87 5.8     89 5.7     90 5.8     91 5.7
+Number of new children: 5
+
+Species 165    Species size: 5    Average fitness: 4.3
+92 4.4     93 4.3     94 4.3     95 4.4     98 4.0
+Number of new children: 4
+
+Species 167    Species size: 2    Average fitness: 3.9
+96 4.0     97 3.9
+Number of new children: 3
+
+Species 203    Species size: 1    Average fitness: 0.0
+28 0.0
+Number of new children: 0
+
+Species 204    Species size: 1    Average fitness: 6.2
+41 6.2
+Number of new children: 5
+
+Species 205    Species size: 1    Average fitness: 0.0
+47 0.0
+Number of new children: 0
+
+Species 206    Species size: 3    Average fitness: 5.8
+72 5.8     73 5.8     74 5.8
+Number of new children: 5
+
+Species 207    Species size: 1    Average fitness: 6.3
+81 6.3
+Number of new children: 6
+
+Species 208    Species size: 1    Average fitness: 6.2
+86 6.2
+Number of new children: 5
+
+
+Generation 5
+
+Number of species: 27
+
+Average fitness of this generation: 6.0
+Highest fitness: 7.7 (species 140)
+
+Species 15    Species size: 4    Average fitness: 6.2
+0 6.3     2 6.2     4 6.2     5 6.3
+Number of new children: 4
+
+Species 112    Species size: 6    Average fitness: 6.2
+6 6.2     7 6.2     8 6.2     9 6.2     10 6.2
+11 6.3
+Number of new children: 4
+
+Species 121    Species size: 9    Average fitness: 6.2
+13 6.1     14 6.2     15 6.2     17 6.2     19 6.2
+20 6.2     21 6.2     24 6.2     28 6.3
+Number of new children: 4
+
+Species 122    Species size: 3    Average fitness: 5.7
+16 6.2     22 4.6     23 6.2
+Number of new children: 4
+
+Species 123    Species size: 3    Average fitness: 4.3
+25 6.2     26 0.5     27 6.2
+Number of new children: 3
+
+Species 130    Species size: 5    Average fitness: 6.2
+29 6.3     33 6.2     35 6.0     36 6.4     38 6.0
+Number of new children: 4
+
+Species 131    Species size: 2    Average fitness: 6.0
+34 6.0     37 5.9
+Number of new children: 4
+
+Species 139    Species size: 5    Average fitness: 7.2
+39 7.6     41 7.7     44 7.7     45 7.4     48 5.6
+Number of new children: 5
+
+Species 140    Species size: 8    Average fitness: 7.0
+40 7.7     42 7.6     43 7.7     46 7.7     47 7.7
+49 7.7     50 7.7     99 2.6
+Number of new children: 4
+
+Species 141    Species size: 5    Average fitness: 5.8
+51 5.8     52 5.8     53 5.8     54 5.9     55 5.8
+Number of new children: 4
+
+Species 147    Species size: 5    Average fitness: 6.3
+56 6.3     57 6.2     58 6.2     59 6.3     60 6.3
+Number of new children: 4
+
+Species 156    Species size: 11    Average fitness: 6.1
+61 6.3     62 6.2     63 6.2     64 6.2     65 6.1
+66 5.8     69 5.8     93 6.2     94 6.2     97 6.2
+98 6.3
+Number of new children: 4
+
+Species 157    Species size: 2    Average fitness: 5.8
+67 5.8     70 5.7
+Number of new children: 4
+
+Species 165    Species size: 7    Average fitness: 4.2
+71 4.3     72 4.4     73 4.7     74 4.3     75 4.0
+76 4.0     77 4.0
+Number of new children: 3
+
+Species 204    Species size: 5    Average fitness: 6.2
+78 6.2     79 6.3     80 6.2     81 6.2     82 6.3
+Number of new children: 4
+
+Species 206    Species size: 4    Average fitness: 5.8
+83 5.8     84 5.8     85 5.8     87 5.7
+Number of new children: 4
+
+Species 207    Species size: 4    Average fitness: 6.2
+88 6.2     90 6.2     91 6.2     92 6.2
+Number of new children: 4
+
+Species 208    Species size: 1    Average fitness: 6.2
+95 6.2
+Number of new children: 4
+
+Species 209    Species size: 1    Average fitness: 6.3
+1 6.3
+Number of new children: 4
+
+Species 210    Species size: 1    Average fitness: 6.3
+3 6.3
+Number of new children: 4
+
+Species 211    Species size: 1    Average fitness: 6.2
+12 6.2
+Number of new children: 4
+
+Species 212    Species size: 1    Average fitness: 6.2
+18 6.2
+Number of new children: 4
+
+Species 213    Species size: 3    Average fitness: 6.2
+30 6.3     31 6.2     32 6.2
+Number of new children: 4
+
+Species 214    Species size: 1    Average fitness: 5.8
+68 5.8
+Number of new children: 3
+
+Species 215    Species size: 1    Average fitness: 5.8
+86 5.8
+Number of new children: 3
+
+Species 216    Species size: 1    Average fitness: 6.2
+89 6.2
+Number of new children: 3
+
+Species 217    Species size: 1    Average fitness: 0.0
+96 0.0
+Number of new children: 0
+
+
+Generation 6
+
+Number of species: 30
+
+Average fitness of this generation: 5.7
+Highest fitness: 7.7 (species 139)
+
+Species 15    Species size: 12    Average fitness: 5.7
+0 6.3     1 6.3     2 6.2     3 6.2     70 6.2
+71 6.2     72 0.0     73 6.2     74 6.2     75 6.2
+76 6.2     77 6.2
+Number of new children: 4
+
+Species 112    Species size: 4    Average fitness: 6.2
+4 5.9     5 6.2     6 6.3     7 6.3
+Number of new children: 4
+
+Species 121    Species size: 5    Average fitness: 6.2
+9 6.2     12 6.2     15 6.2     78 6.2     81 6.1
+Number of new children: 4
+
+Species 122    Species size: 2    Average fitness: 6.2
+11 6.1     79 6.2
+Number of new children: 4
+
+Species 123    Species size: 4    Average fitness: 6.2
+10 6.2     16 6.2     17 6.2     18 6.3
+Number of new children: 4
+
+Species 130    Species size: 7    Average fitness: 6.1
+19 6.0     21 6.0     22 6.0     23 6.0     24 6.0
+87 6.2     89 6.2
+Number of new children: 4
+
+Species 131    Species size: 2    Average fitness: 6.0
+25 6.0     26 6.0
+Number of new children: 4
+
+Species 139    Species size: 8    Average fitness: 6.1
+27 7.7     28 7.7     29 6.1     30 0.0     31 7.7
+32 6.1     33 6.1     34 7.6
+Number of new children: 4
+
+Species 140    Species size: 1    Average fitness: 1.0
+99 1.0
+Number of new children: 1
+
+Species 141    Species size: 4    Average fitness: 5.4
+35 5.8     36 4.1     37 5.9     38 5.9
+Number of new children: 3
+
+Species 147    Species size: 4    Average fitness: 4.6
+39 6.2     40 6.2     41 0.0     42 6.1
+Number of new children: 3
+
+Species 156    Species size: 3    Average fitness: 6.0
+43 6.2     46 6.2     47 5.7
+Number of new children: 4
+
+Species 157    Species size: 2    Average fitness: 5.8
+49 5.8     50 5.8
+Number of new children: 4
+
+Species 165    Species size: 1    Average fitness: 4.4
+52 4.4
+Number of new children: 3
+
+Species 204    Species size: 4    Average fitness: 6.2
+54 6.2     55 6.2     56 6.3     57 6.3
+Number of new children: 4
+
+Species 206    Species size: 6    Average fitness: 4.7
+58 5.7     59 5.7     61 5.8     93 5.2     94 5.8
+95 0.0
+Number of new children: 3
+
+Species 207    Species size: 6    Average fitness: 6.1
+62 6.2     63 5.8     64 6.2     65 6.3     96 6.2
+97 6.2
+Number of new children: 4
+
+Species 208    Species size: 4    Average fitness: 6.2
+66 6.2     67 6.2     68 6.2     69 6.2
+Number of new children: 4
+
+Species 211    Species size: 3    Average fitness: 6.2
+8 6.2     13 6.1     14 6.2
+Number of new children: 4
+
+Species 212    Species size: 4    Average fitness: 6.2
+82 6.2     83 6.2     84 6.2     85 6.2
+Number of new children: 4
+
+Species 213    Species size: 3    Average fitness: 6.2
+20 6.1     86 6.2     88 6.3
+Number of new children: 4
+
+Species 214    Species size: 3    Average fitness: 5.8
+90 5.8     91 5.8     92 5.8
+Number of new children: 4
+
+Species 216    Species size: 1    Average fitness: 6.2
+98 6.2
+Number of new children: 4
+
+Species 218    Species size: 1    Average fitness: 6.2
+44 6.2
+Number of new children: 4
+
+Species 219    Species size: 1    Average fitness: 0.0
+45 0.0
+Number of new children: 0
+
+Species 220    Species size: 1    Average fitness: 0.0
+48 0.0
+Number of new children: 0
+
+Species 221    Species size: 1    Average fitness: 4.4
+51 4.4
+Number of new children: 3
+
+Species 222    Species size: 1    Average fitness: 4.3
+53 4.3
+Number of new children: 2
+
+Species 223    Species size: 1    Average fitness: 5.8
+60 5.8
+Number of new children: 3
+
+Species 224    Species size: 1    Average fitness: 6.2
+80 6.2
+Number of new children: 3
+
+
+Generation 7
+
+Number of species: 31
+
+Average fitness of this generation: 5.8
+Highest fitness: 11.7 (species 225)
+
+Species 15    Species size: 3    Average fitness: 6.2
+0 6.2     2 6.2     3 6.2
+Number of new children: 4
+
+Species 112    Species size: 4    Average fitness: 6.1
+4 6.2     5 6.1     6 6.1     7 6.2
+Number of new children: 4
+
+Species 121    Species size: 10    Average fitness: 6.2
+8 6.2     10 6.2     11 6.2     12 6.2     13 6.2
+14 6.2     64 6.2     65 6.2     66 6.2     67 6.2
+Number of new children: 4
+
+Species 122    Species size: 1    Average fitness: 6.2
+9 6.2
+Number of new children: 4
+
+Species 123    Species size: 4    Average fitness: 6.2
+16 6.3     17 6.1     18 6.2     19 6.3
+Number of new children: 4
+
+Species 130    Species size: 7    Average fitness: 5.1
+20 5.2     21 0.0     22 6.2     23 6.0     72 6.2
+73 6.2     75 6.2
+Number of new children: 4
+
+Species 131    Species size: 4    Average fitness: 6.0
+24 6.0     25 6.0     26 5.9     27 6.0
+Number of new children: 4
+
+Species 139    Species size: 5    Average fitness: 4.8
+28 7.7     29 7.6     30 0.0     31 7.7     99 1.0
+Number of new children: 3
+
+Species 141    Species size: 3    Average fitness: 5.8
+32 5.8     33 5.8     34 5.9
+Number of new children: 3
+
+Species 147    Species size: 2    Average fitness: 6.2
+35 6.1     37 6.2
+Number of new children: 3
+
+Species 156    Species size: 8    Average fitness: 6.0
+39 6.2     40 6.2     41 6.2     43 5.0     45 5.8
+84 6.2     85 6.2     87 6.2
+Number of new children: 3
+
+Species 157    Species size: 2    Average fitness: 5.8
+42 5.8     44 5.7
+Number of new children: 3
+
+Species 165    Species size: 3    Average fitness: 4.4
+46 4.4     47 4.4     48 4.4
+Number of new children: 2
+
+Species 204    Species size: 4    Average fitness: 4.7
+49 0.0     50 6.2     51 6.2     52 6.3
+Number of new children: 3
+
+Species 206    Species size: 5    Average fitness: 5.8
+53 5.8     54 5.8     55 5.8     93 5.8     95 5.8
+Number of new children: 3
+
+Species 207    Species size: 5    Average fitness: 6.2
+56 6.2     57 6.2     58 6.1     59 6.2     83 6.3
+Number of new children: 3
+
+Species 208    Species size: 4    Average fitness: 6.2
+60 6.3     61 6.2     62 6.2     63 6.3
+Number of new children: 3
+
+Species 212    Species size: 3    Average fitness: 6.2
+68 6.2     70 6.2     71 6.2
+Number of new children: 3
+
+Species 213    Species size: 1    Average fitness: 6.2
+74 6.2
+Number of new children: 3
+
+Species 214    Species size: 4    Average fitness: 5.7
+76 5.8     77 5.4     78 5.8     79 5.8
+Number of new children: 3
+
+Species 216    Species size: 3    Average fitness: 6.3
+80 6.3     81 6.3     82 6.2
+Number of new children: 3
+
+Species 218    Species size: 2    Average fitness: 6.2
+38 6.2     86 6.2
+Number of new children: 3
+
+Species 221    Species size: 3    Average fitness: 4.2
+88 4.4     89 3.8     90 4.4
+Number of new children: 2
+
+Species 222    Species size: 2    Average fitness: 4.4
+91 4.4     92 4.4
+Number of new children: 2
+
+Species 223    Species size: 1    Average fitness: 6.1
+94 6.1
+Number of new children: 3
+
+Species 224    Species size: 2    Average fitness: 6.3
+96 6.3     97 6.3
+Number of new children: 3
+
+Species 225    Species size: 1    Average fitness: 11.7
+1 11.7
+Number of new children: 6
+
+Species 226    Species size: 1    Average fitness: 6.2
+15 6.2
+Number of new children: 3
+
+Species 227    Species size: 1    Average fitness: 6.3
+36 6.3
+Number of new children: 3
+
+Species 228    Species size: 1    Average fitness: 6.2
+69 6.2
+Number of new children: 3
+
+Species 229    Species size: 1    Average fitness: 6.3
+98 6.3
+Number of new children: 3
+
+
+Generation 8
+
+Number of species: 33
+
+Average fitness of this generation: 6.3
+Highest fitness: 13.0 (species 225)
+
+Species 15    Species size: 4    Average fitness: 6.2
+0 6.2     1 6.2     2 6.2     3 6.2
+Number of new children: 4
+
+Species 112    Species size: 4    Average fitness: 6.2
+4 6.2     5 6.3     6 6.2     7 6.3
+Number of new children: 3
+
+Species 121    Species size: 9    Average fitness: 6.2
+8 6.2     9 6.2     10 6.2     11 6.2     12 6.2
+13 6.2     14 6.2     15 6.3     18 6.2
+Number of new children: 3
+
+Species 123    Species size: 2    Average fitness: 6.2
+17 6.2     19 6.3
+Number of new children: 3
+
+Species 130    Species size: 3    Average fitness: 6.2
+20 6.2     21 6.2     60 6.3
+Number of new children: 3
+
+Species 131    Species size: 4    Average fitness: 5.9
+24 5.9     25 6.0     26 5.4     27 6.4
+Number of new children: 3
+
+Species 139    Species size: 1    Average fitness: 7.7
+30 7.7
+Number of new children: 4
+
+Species 141    Species size: 3    Average fitness: 5.8
+31 5.8     32 5.7     33 5.8
+Number of new children: 3
+
+Species 147    Species size: 5    Average fitness: 6.2
+34 6.2     35 6.2     36 6.3     90 6.3     92 6.2
+Number of new children: 3
+
+Species 156    Species size: 5    Average fitness: 6.2
+37 6.2     38 6.3     39 6.2     69 6.3     70 6.2
+Number of new children: 3
+
+Species 157    Species size: 3    Average fitness: 5.7
+40 5.8     41 5.7     42 5.7
+Number of new children: 3
+
+Species 165    Species size: 2    Average fitness: 4.4
+43 4.4     44 4.4
+Number of new children: 2
+
+Species 204    Species size: 3    Average fitness: 6.2
+45 6.2     46 6.2     47 6.2
+Number of new children: 3
+
+Species 206    Species size: 6    Average fitness: 5.9
+48 5.8     49 5.7     50 5.8     76 5.7     77 6.1
+78 6.2
+Number of new children: 3
+
+Species 207    Species size: 5    Average fitness: 5.0
+51 6.2     52 0.0     53 6.2     67 6.2     68 6.2
+Number of new children: 2
+
+Species 208    Species size: 3    Average fitness: 6.2
+54 6.1     55 6.2     56 6.2
+Number of new children: 3
+
+Species 212    Species size: 6    Average fitness: 6.2
+57 6.2     58 6.2     59 6.2     93 6.3     94 6.2
+95 6.2
+Number of new children: 3
+
+Species 213    Species size: 2    Average fitness: 6.2
+61 6.3     62 6.2
+Number of new children: 3
+
+Species 214    Species size: 3    Average fitness: 5.8
+63 5.8     64 5.8     65 5.8
+Number of new children: 3
+
+Species 216    Species size: 1    Average fitness: 6.3
+66 6.3
+Number of new children: 3
+
+Species 218    Species size: 1    Average fitness: 6.2
+71 6.2
+Number of new children: 3
+
+Species 221    Species size: 2    Average fitness: 4.4
+72 4.4     73 4.4
+Number of new children: 2
+
+Species 222    Species size: 2    Average fitness: 4.4
+74 4.4     75 4.4
+Number of new children: 2
+
+Species 224    Species size: 5    Average fitness: 6.2
+79 6.2     80 6.1     81 6.2     97 6.2     98 6.2
+Number of new children: 3
+
+Species 225    Species size: 5    Average fitness: 12.0
+82 11.7     83 13.0     84 11.8     86 11.8     99 11.7
+Number of new children: 6
+
+Species 226    Species size: 3    Average fitness: 6.2
+87 6.2     88 6.2     89 6.1
+Number of new children: 3
+
+Species 227    Species size: 1    Average fitness: 6.2
+91 6.2
+Number of new children: 3
+
+Species 229    Species size: 1    Average fitness: 6.2
+96 6.2
+Number of new children: 3
+
+Species 230    Species size: 1    Average fitness: 0.0
+16 0.0
+Number of new children: 0
+
+Species 231    Species size: 1    Average fitness: 6.3
+22 6.3
+Number of new children: 3
+
+Species 232    Species size: 1    Average fitness: 6.3
+23 6.3
+Number of new children: 3
+
+Species 233    Species size: 2    Average fitness: 6.9
+28 6.1     29 7.7
+Number of new children: 3
+
+Species 234    Species size: 1    Average fitness: 11.8
+85 11.8
+Number of new children: 6
+
+
+Generation 9
+
+Number of species: 29
+
+Average fitness of this generation: 6.5
+Highest fitness: 13.4 (species 225)
+
+Species 15    Species size: 4    Average fitness: 6.2
+0 6.2     1 6.2     2 6.2     3 6.2
+Number of new children: 4
+
+Species 112    Species size: 3    Average fitness: 6.2
+4 6.2     5 6.1     6 6.3
+Number of new children: 4
+
+Species 121    Species size: 5    Average fitness: 6.2
+7 6.2     8 6.2     9 6.2     10 6.2     12 6.2
+Number of new children: 4
+
+Species 123    Species size: 1    Average fitness: 6.2
+11 6.2
+Number of new children: 4
+
+Species 130    Species size: 8    Average fitness: 6.2
+13 6.1     14 6.3     15 6.2     51 6.2     52 6.2
+53 6.2     84 6.2     85 6.2
+Number of new children: 4
+
+Species 131    Species size: 3    Average fitness: 4.0
+16 6.0     17 6.0     18 0.0
+Number of new children: 2
+
+Species 139    Species size: 7    Average fitness: 7.7
+19 7.7     20 7.6     21 7.7     22 7.7     90 7.7
+91 7.7     92 7.7
+Number of new children: 4
+
+Species 141    Species size: 3    Average fitness: 5.8
+23 5.9     24 5.8     25 5.8
+Number of new children: 3
+
+Species 147    Species size: 6    Average fitness: 6.2
+26 6.2     27 6.2     28 6.2     78 6.3     79 6.2
+80 6.2
+Number of new children: 4
+
+Species 156    Species size: 5    Average fitness: 6.3
+29 6.2     30 6.2     31 6.3     60 6.3     62 6.3
+Number of new children: 4
+
+Species 157    Species size: 3    Average fitness: 5.6
+32 5.7     33 5.8     34 5.4
+Number of new children: 3
+
+Species 165    Species size: 2    Average fitness: 4.4
+35 4.4     36 4.4
+Number of new children: 3
+
+Species 204    Species size: 3    Average fitness: 6.3
+37 6.3     38 6.3     39 6.3
+Number of new children: 4
+
+Species 206    Species size: 1    Average fitness: 6.1
+42 6.1
+Number of new children: 4
+
+Species 207    Species size: 4    Average fitness: 6.2
+43 6.2     57 6.2     58 6.1     59 6.2
+Number of new children: 4
+
+Species 208    Species size: 3    Average fitness: 6.2
+45 6.2     46 6.2     47 6.2
+Number of new children: 4
+
+Species 212    Species size: 2    Average fitness: 6.2
+48 6.1     49 6.2
+Number of new children: 4
+
+Species 214    Species size: 3    Average fitness: 5.8
+54 5.8     55 5.8     56 5.8
+Number of new children: 3
+
+Species 216    Species size: 1    Average fitness: 6.2
+44 6.2
+Number of new children: 4
+
+Species 218    Species size: 1    Average fitness: 6.2
+61 6.2
+Number of new children: 4
+
+Species 221    Species size: 2    Average fitness: 4.4
+63 4.4     64 4.4
+Number of new children: 3
+
+Species 222    Species size: 2    Average fitness: 4.3
+65 4.3     66 4.3
+Number of new children: 2
+
+Species 224    Species size: 6    Average fitness: 6.2
+67 6.2     68 6.2     69 6.2     81 6.2     82 6.2
+83 6.2
+Number of new children: 4
+
+Species 225    Species size: 12    Average fitness: 10.5
+70 11.3     71 13.4     72 13.4     73 13.4     74 11.8
+93 11.3     94 11.7     95 0.0     96 11.7     97 13.4
+98 11.7     99 2.6
+Number of new children: 5
+
+Species 226    Species size: 3    Average fitness: 5.2
+75 6.1     76 6.1     77 3.4
+Number of new children: 2
+
+Species 231    Species size: 1    Average fitness: 6.2
+86 6.2
+Number of new children: 3
+
+Species 232    Species size: 3    Average fitness: 6.2
+87 6.2     88 6.2     89 6.2
+Number of new children: 3
+
+Species 235    Species size: 2    Average fitness: 3.1
+40 0.0     41 6.2
+Number of new children: 1
+
+Species 236    Species size: 1    Average fitness: 6.2
+50 6.2
+Number of new children: 3
+
+
+Generation 10
+
+Number of species: 32
+
+Average fitness of this generation: 6.1
+Highest fitness: 11.7 (species 225)
+
+Species 15    Species size: 3    Average fitness: 6.2
+0 6.2     2 6.2     3 6.2
+Number of new children: 4
+
+Species 112    Species size: 4    Average fitness: 6.2
+4 6.2     5 6.2     6 6.1     7 6.2
+Number of new children: 4
+
+Species 121    Species size: 7    Average fitness: 6.2
+8 6.2     9 6.2     10 6.2     11 6.3     12 6.2
+13 6.2     14 6.3
+Number of new children: 4
+
+Species 123    Species size: 1    Average fitness: 6.1
+15 6.1
+Number of new children: 4
+
+Species 130    Species size: 4    Average fitness: 4.7
+16 6.2     17 6.2     18 0.0     19 6.2
+Number of new children: 3
+
+Species 131    Species size: 2    Average fitness: 6.4
+20 6.0     21 6.8
+Number of new children: 3
+
+Species 139    Species size: 4    Average fitness: 7.6
+22 7.7     23 7.6     24 7.6     25 7.7
+Number of new children: 4
+
+Species 141    Species size: 3    Average fitness: 5.8
+26 5.8     27 5.8     28 5.9
+Number of new children: 3
+
+Species 147    Species size: 3    Average fitness: 6.2
+29 6.2     30 6.2     32 6.2
+Number of new children: 3
+
+Species 156    Species size: 6    Average fitness: 5.2
+34 6.2     35 6.3     36 6.2     70 6.2     72 6.2
+73 0.0
+Number of new children: 3
+
+Species 157    Species size: 3    Average fitness: 5.8
+37 5.8     38 5.8     39 5.8
+Number of new children: 3
+
+Species 165    Species size: 3    Average fitness: 4.4
+40 4.4     41 4.4     42 4.3
+Number of new children: 2
+
+Species 204    Species size: 4    Average fitness: 6.2
+43 6.2     44 6.1     45 6.3     46 6.2
+Number of new children: 3
+
+Species 206    Species size: 5    Average fitness: 6.1
+47 6.2     48 6.1     49 6.1     50 6.2     95 6.1
+Number of new children: 3
+
+Species 207    Species size: 8    Average fitness: 6.2
+51 6.3     52 6.2     53 6.2     54 6.2     66 6.2
+67 6.3     68 6.2     69 6.3
+Number of new children: 3
+
+Species 208    Species size: 4    Average fitness: 6.2
+55 6.3     56 6.2     57 6.2     58 6.3
+Number of new children: 3
+
+Species 212    Species size: 4    Average fitness: 6.2
+59 6.2     60 6.2     61 6.2     62 6.2
+Number of new children: 3
+
+Species 214    Species size: 2    Average fitness: 5.8
+63 5.8     65 5.8
+Number of new children: 3
+
+Species 218    Species size: 1    Average fitness: 6.2
+71 6.2
+Number of new children: 3
+
+Species 221    Species size: 3    Average fitness: 4.4
+74 4.4     75 4.4     76 4.3
+Number of new children: 2
+
+Species 222    Species size: 2    Average fitness: 4.3
+77 4.4     78 4.3
+Number of new children: 2
+
+Species 224    Species size: 3    Average fitness: 6.2
+79 6.2     80 6.2     81 6.2
+Number of new children: 3
+
+Species 225    Species size: 5    Average fitness: 8.7
+83 11.7     84 7.6     85 11.3     86 11.7     99 1.1
+Number of new children: 5
+
+Species 226    Species size: 2    Average fitness: 6.2
+87 6.2     88 6.2
+Number of new children: 3
+
+Species 231    Species size: 3    Average fitness: 6.2
+89 6.2     90 6.3     91 6.2
+Number of new children: 3
+
+Species 232    Species size: 3    Average fitness: 6.1
+92 6.1     93 6.2     94 6.1
+Number of new children: 3
+
+Species 236    Species size: 3    Average fitness: 6.2
+96 6.2     97 6.2     98 6.3
+Number of new children: 3
+
+Species 237    Species size: 1    Average fitness: 6.2
+1 6.2
+Number of new children: 3
+
+Species 238    Species size: 1    Average fitness: 5.8
+31 5.8
+Number of new children: 3
+
+Species 239    Species size: 1    Average fitness: 6.2
+33 6.2
+Number of new children: 3
+
+Species 240    Species size: 1    Average fitness: 5.8
+64 5.8
+Number of new children: 3
+
+Species 241    Species size: 1    Average fitness: 6.2
+82 6.2
+Number of new children: 3
+
+
+Generation 11
+
+Number of species: 33
+
+Average fitness of this generation: 6.3
+Highest fitness: 13.4 (species 225)
+
+Species 15    Species size: 4    Average fitness: 6.2
+0 6.2     1 6.2     2 6.2     3 6.3
+Number of new children: 4
+
+Species 112    Species size: 4    Average fitness: 6.1
+4 6.3     5 6.2     6 6.2     7 5.8
+Number of new children: 3
+
+Species 121    Species size: 1    Average fitness: 6.2
+10 6.2
+Number of new children: 3
+
+Species 123    Species size: 3    Average fitness: 5.9
+12 5.4     13 6.2     14 6.2
+Number of new children: 3
+
+Species 130    Species size: 3    Average fitness: 6.2
+16 6.1     17 6.3     18 6.1
+Number of new children: 3
+
+Species 131    Species size: 1    Average fitness: 5.4
+21 5.4
+Number of new children: 3
+
+Species 139    Species size: 4    Average fitness: 7.7
+22 7.7     23 7.7     24 7.6     25 7.7
+Number of new children: 4
+
+Species 141    Species size: 3    Average fitness: 5.8
+26 5.8     27 5.8     28 5.8
+Number of new children: 3
+
+Species 147    Species size: 6    Average fitness: 6.0
+29 6.2     30 6.3     31 6.2     87 5.8     88 5.8
+89 5.8
+Number of new children: 3
+
+Species 156    Species size: 5    Average fitness: 6.2
+32 6.2     33 6.2     34 6.2     59 6.2     60 6.2
+Number of new children: 3
+
+Species 157    Species size: 3    Average fitness: 5.8
+35 5.8     36 5.8     37 5.8
+Number of new children: 3
+
+Species 165    Species size: 2    Average fitness: 4.4
+38 4.4     39 4.4
+Number of new children: 2
+
+Species 204    Species size: 3    Average fitness: 5.9
+40 5.8     41 6.2     42 5.8
+Number of new children: 3
+
+Species 206    Species size: 3    Average fitness: 6.1
+43 6.2     44 6.1     45 6.1
+Number of new children: 3
+
+Species 207    Species size: 3    Average fitness: 6.2
+46 6.2     47 6.2     48 6.2
+Number of new children: 3
+
+Species 208    Species size: 3    Average fitness: 6.2
+49 6.2     50 6.3     51 6.2
+Number of new children: 3
+
+Species 212    Species size: 3    Average fitness: 6.2
+52 6.2     53 6.1     54 6.3
+Number of new children: 3
+
+Species 214    Species size: 6    Average fitness: 5.8
+55 5.8     56 5.8     57 5.7     93 5.8     94 5.8
+95 5.8
+Number of new children: 3
+
+Species 218    Species size: 1    Average fitness: 6.2
+58 6.2
+Number of new children: 3
+
+Species 221    Species size: 2    Average fitness: 4.4
+61 4.4     62 4.4
+Number of new children: 2
+
+Species 222    Species size: 2    Average fitness: 4.3
+63 4.4     64 4.3
+Number of new children: 2
+
+Species 224    Species size: 6    Average fitness: 6.2
+65 6.1     66 6.2     67 6.2     96 6.2     97 6.2
+98 6.2
+Number of new children: 3
+
+Species 225    Species size: 5    Average fitness: 10.2
+68 11.7     69 11.8     70 11.7     71 13.4     99 2.3
+Number of new children: 5
+
+Species 226    Species size: 3    Average fitness: 6.2
+72 6.1     73 6.2     74 6.2
+Number of new children: 3
+
+Species 231    Species size: 2    Average fitness: 6.2
+75 6.2     77 6.2
+Number of new children: 3
+
+Species 232    Species size: 3    Average fitness: 6.2
+78 6.2     79 6.2     80 6.2
+Number of new children: 3
+
+Species 236    Species size: 3    Average fitness: 6.2
+81 6.2     82 6.1     83 6.2
+Number of new children: 3
+
+Species 237    Species size: 3    Average fitness: 6.2
+84 6.2     85 6.2     86 6.2
+Number of new children: 3
+
+Species 239    Species size: 3    Average fitness: 6.3
+90 6.3     91 6.2     92 6.3
+Number of new children: 3
+
+Species 242    Species size: 3    Average fitness: 6.2
+8 6.2     9 6.2     11 6.2
+Number of new children: 3
+
+Species 243    Species size: 1    Average fitness: 6.3
+15 6.3
+Number of new children: 3
+
+Species 244    Species size: 2    Average fitness: 6.0
+19 6.0     20 6.0
+Number of new children: 3
+
+Species 245    Species size: 1    Average fitness: 6.2
+76 6.2
+Number of new children: 3
+
+
+Generation 12
+
+Number of species: 35
+
+Average fitness of this generation: 6.3
+Highest fitness: 13.4 (species 225)
+
+Species 15    Species size: 4    Average fitness: 6.2
+0 6.2     1 6.2     2 6.2     3 6.3
+Number of new children: 3
+
+Species 112    Species size: 3    Average fitness: 6.2
+4 6.2     5 6.3     6 6.2
+Number of new children: 3
+
+Species 121    Species size: 6    Average fitness: 6.2
+7 6.2     8 6.2     9 6.2     87 6.3     88 6.2
+89 6.2
+Number of new children: 3
+
+Species 123    Species size: 6    Average fitness: 6.2
+10 6.2     11 6.2     12 6.2     90 6.2     91 6.1
+92 6.2
+Number of new children: 3
+
+Species 130    Species size: 3    Average fitness: 6.2
+13 6.3     14 6.2     15 6.2
+Number of new children: 3
+
+Species 131    Species size: 3    Average fitness: 5.4
+16 5.4     17 5.4     18 5.3
+Number of new children: 2
+
+Species 139    Species size: 4    Average fitness: 7.7
+19 7.7     20 7.7     21 7.7     22 7.6
+Number of new children: 4
+
+Species 141    Species size: 3    Average fitness: 5.8
+23 5.8     24 5.7     25 5.9
+Number of new children: 3
+
+Species 147    Species size: 3    Average fitness: 6.2
+26 6.2     27 6.3     28 6.2
+Number of new children: 3
+
+Species 156    Species size: 4    Average fitness: 6.2
+29 6.2     30 6.2     31 6.2     56 6.2
+Number of new children: 3
+
+Species 157    Species size: 2    Average fitness: 5.8
+32 5.8     34 5.7
+Number of new children: 3
+
+Species 165    Species size: 2    Average fitness: 4.2
+35 4.4     36 4.0
+Number of new children: 2
+
+Species 206    Species size: 3    Average fitness: 6.2
+40 6.2     41 6.2     42 6.2
+Number of new children: 3
+
+Species 207    Species size: 3    Average fitness: 6.2
+43 6.2     44 6.1     45 6.2
+Number of new children: 3
+
+Species 208    Species size: 3    Average fitness: 6.2
+46 6.2     47 6.2     48 6.2
+Number of new children: 3
+
+Species 212    Species size: 3    Average fitness: 6.2
+49 6.3     50 6.2     51 6.2
+Number of new children: 3
+
+Species 214    Species size: 2    Average fitness: 5.8
+52 5.7     53 5.8
+Number of new children: 3
+
+Species 218    Species size: 2    Average fitness: 6.2
+55 6.2     57 6.1
+Number of new children: 3
+
+Species 221    Species size: 2    Average fitness: 4.3
+58 4.4     59 4.3
+Number of new children: 2
+
+Species 222    Species size: 2    Average fitness: 4.4
+60 4.4     61 4.4
+Number of new children: 2
+
+Species 224    Species size: 1    Average fitness: 6.1
+64 6.1
+Number of new children: 3
+
+Species 225    Species size: 4    Average fitness: 10.3
+65 11.7     66 13.4     67 13.4     99 2.7
+Number of new children: 5
+
+Species 226    Species size: 3    Average fitness: 6.2
+69 6.2     70 6.2     71 6.2
+Number of new children: 3
+
+Species 231    Species size: 3    Average fitness: 6.2
+72 6.2     73 6.2     74 6.2
+Number of new children: 3
+
+Species 232    Species size: 3    Average fitness: 6.2
+75 6.2     76 6.2     77 6.2
+Number of new children: 3
+
+Species 236    Species size: 3    Average fitness: 6.2
+78 6.2     79 6.2     80 6.2
+Number of new children: 3
+
+Species 237    Species size: 3    Average fitness: 6.2
+81 6.2     82 6.2     83 6.2
+Number of new children: 3
+
+Species 239    Species size: 3    Average fitness: 6.2
+84 6.2     85 6.2     86 6.1
+Number of new children: 3
+
+Species 244    Species size: 3    Average fitness: 6.0
+93 6.0     94 6.0     95 6.0
+Number of new children: 3
+
+Species 245    Species size: 3    Average fitness: 6.2
+96 6.3     97 6.2     98 6.2
+Number of new children: 2
+
+Species 246    Species size: 1    Average fitness: 5.8
+33 5.8
+Number of new children: 2
+
+Species 247    Species size: 3    Average fitness: 5.6
+37 6.2     38 4.4     39 6.2
+Number of new children: 2
+
+Species 248    Species size: 1    Average fitness: 5.8
+54 5.8
+Number of new children: 2
+
+Species 249    Species size: 2    Average fitness: 6.2
+62 6.1     63 6.2
+Number of new children: 2
+
+Species 250    Species size: 1    Average fitness: 11.7
+68 11.7
+Number of new children: 4
+
+
+Generation 13
+
+Number of species: 39
+
+Average fitness of this generation: 6.4
+Highest fitness: 13.4 (species 225)
+
+Species 15    Species size: 3    Average fitness: 6.2
+0 6.3     1 6.2     2 6.2
+Number of new children: 3
+
+Species 112    Species size: 3    Average fitness: 6.2
+3 6.3     4 6.1     5 6.2
+Number of new children: 3
+
+Species 121    Species size: 3    Average fitness: 6.3
+6 6.3     7 6.2     8 6.3
+Number of new children: 3
+
+Species 123    Species size: 2    Average fitness: 6.2
+10 6.1     11 6.2
+Number of new children: 3
+
+Species 130    Species size: 3    Average fitness: 6.3
+12 6.2     13 6.3     14 6.3
+Number of new children: 3
+
+Species 131    Species size: 2    Average fitness: 5.4
+15 5.4     16 5.4
+Number of new children: 2
+
+Species 139    Species size: 4    Average fitness: 7.7
+17 7.7     18 7.7     19 7.7     20 7.7
+Number of new children: 3
+
+Species 141    Species size: 3    Average fitness: 5.7
+21 5.8     22 5.4     23 5.8
+Number of new children: 2
+
+Species 147    Species size: 3    Average fitness: 6.1
+24 6.2     25 6.2     26 5.9
+Number of new children: 3
+
+Species 156    Species size: 2    Average fitness: 5.2
+28 4.3     29 6.2
+Number of new children: 2
+
+Species 157    Species size: 3    Average fitness: 5.8
+30 5.8     31 5.7     32 5.8
+Number of new children: 2
+
+Species 165    Species size: 2    Average fitness: 4.6
+33 4.7     34 4.6
+Number of new children: 2
+
+Species 206    Species size: 2    Average fitness: 6.2
+36 6.2     37 6.2
+Number of new children: 3
+
+Species 207    Species size: 2    Average fitness: 6.2
+38 6.2     39 6.2
+Number of new children: 3
+
+Species 208    Species size: 3    Average fitness: 6.1
+41 6.2     42 6.1     43 6.1
+Number of new children: 3
+
+Species 212    Species size: 3    Average fitness: 6.2
+44 6.2     45 6.2     46 6.2
+Number of new children: 3
+
+Species 214    Species size: 3    Average fitness: 5.8
+47 5.8     48 5.7     49 5.8
+Number of new children: 2
+
+Species 218    Species size: 3    Average fitness: 6.2
+50 6.3     51 6.1     52 6.2
+Number of new children: 3
+
+Species 221    Species size: 2    Average fitness: 2.2
+53 4.4     54 0.0
+Number of new children: 1
+
+Species 222    Species size: 2    Average fitness: 4.3
+55 4.2     56 4.4
+Number of new children: 2
+
+Species 224    Species size: 5    Average fitness: 6.2
+57 6.2     58 6.2     59 6.2     93 6.1     94 6.2
+Number of new children: 3
+
+Species 225    Species size: 5    Average fitness: 11.0
+60 13.4     61 13.4     62 11.7     63 13.3     99 3.3
+Number of new children: 5
+
+Species 226    Species size: 2    Average fitness: 6.2
+65 6.2     66 6.2
+Number of new children: 3
+
+Species 231    Species size: 3    Average fitness: 6.2
+67 6.2     68 6.3     69 6.1
+Number of new children: 3
+
+Species 232    Species size: 3    Average fitness: 6.2
+70 6.2     71 6.2     72 6.2
+Number of new children: 3
+
+Species 236    Species size: 3    Average fitness: 6.2
+73 6.3     74 6.2     75 6.2
+Number of new children: 3
+
+Species 237    Species size: 3    Average fitness: 6.2
+76 6.2     77 6.2     78 6.2
+Number of new children: 3
+
+Species 239    Species size: 3    Average fitness: 4.1
+79 6.2     80 6.2     81 0.0
+Number of new children: 2
+
+Species 244    Species size: 3    Average fitness: 6.0
+82 6.0     83 6.0     84 6.0
+Number of new children: 2
+
+Species 245    Species size: 2    Average fitness: 6.2
+85 6.2     86 6.2
+Number of new children: 3
+
+Species 246    Species size: 2    Average fitness: 5.8
+87 5.7     88 5.8
+Number of new children: 2
+
+Species 247    Species size: 2    Average fitness: 6.2
+89 6.3     90 6.1
+Number of new children: 2
+
+Species 248    Species size: 2    Average fitness: 5.8
+91 5.8     92 5.8
+Number of new children: 1
+
+Species 250    Species size: 4    Average fitness: 12.4
+95 13.4     96 13.4     97 11.3     98 11.7
+Number of new children: 4
+
+Species 251    Species size: 1    Average fitness: 6.3
+9 6.3
+Number of new children: 2
+
+Species 252    Species size: 1    Average fitness: 6.1
+27 6.1
+Number of new children: 2
+
+Species 253    Species size: 1    Average fitness: 6.2
+35 6.2
+Number of new children: 2
+
+Species 254    Species size: 1    Average fitness: 6.2
+40 6.2
+Number of new children: 2
+
+Species 255    Species size: 1    Average fitness: 6.2
+64 6.2
+Number of new children: 2
+
+
+Generation 14
+
+Number of species: 41
+
+Average fitness of this generation: 6.3
+Highest fitness: 13.4 (species 225)
+
+Species 15    Species size: 3    Average fitness: 4.2
+0 6.2     1 0.0     2 6.3
+Number of new children: 2
+
+Species 112    Species size: 3    Average fitness: 6.2
+3 6.2     4 6.2     5 6.3
+Number of new children: 3
+
+Species 121    Species size: 3    Average fitness: 6.2
+6 6.2     7 6.2     8 6.2
+Number of new children: 3
+
+Species 123    Species size: 5    Average fitness: 6.2
+9 6.2     10 6.3     11 6.2     89 6.2     90 6.2
+Number of new children: 3
+
+Species 130    Species size: 2    Average fitness: 6.2
+12 6.2     13 6.2
+Number of new children: 3
+
+Species 131    Species size: 2    Average fitness: 5.4
+15 5.4     16 5.4
+Number of new children: 2
+
+Species 139    Species size: 3    Average fitness: 7.1
+17 6.1     18 7.7     19 7.6
+Number of new children: 3
+
+Species 141    Species size: 2    Average fitness: 5.8
+20 5.8     21 5.8
+Number of new children: 2
+
+Species 147    Species size: 1    Average fitness: 6.3
+23 6.3
+Number of new children: 3
+
+Species 156    Species size: 4    Average fitness: 6.2
+25 6.3     26 6.3     91 6.2     92 6.2
+Number of new children: 3
+
+Species 157    Species size: 2    Average fitness: 5.8
+27 5.8     28 5.8
+Number of new children: 2
+
+Species 165    Species size: 2    Average fitness: 4.4
+29 4.2     30 4.7
+Number of new children: 2
+
+Species 206    Species size: 3    Average fitness: 4.1
+31 0.0     33 6.2     94 6.1
+Number of new children: 2
+
+Species 207    Species size: 3    Average fitness: 6.3
+36 6.2     95 6.3     96 6.3
+Number of new children: 3
+
+Species 208    Species size: 3    Average fitness: 6.3
+37 6.2     38 6.3     39 6.3
+Number of new children: 3
+
+Species 212    Species size: 3    Average fitness: 6.3
+40 6.3     41 6.2     42 6.3
+Number of new children: 3
+
+Species 214    Species size: 2    Average fitness: 5.8
+43 5.8     44 5.8
+Number of new children: 2
+
+Species 218    Species size: 3    Average fitness: 6.2
+45 6.2     46 6.1     47 6.3
+Number of new children: 3
+
+Species 221    Species size: 1    Average fitness: 4.4
+48 4.4
+Number of new children: 2
+
+Species 222    Species size: 2    Average fitness: 4.5
+49 4.4     50 4.6
+Number of new children: 2
+
+Species 224    Species size: 3    Average fitness: 6.2
+51 6.2     52 6.2     53 6.1
+Number of new children: 2
+
+Species 225    Species size: 5    Average fitness: 10.8
+54 13.4     55 13.4     56 13.4     57 10.9     99 2.7
+Number of new children: 4
+
+Species 226    Species size: 3    Average fitness: 6.2
+58 6.2     59 6.3     60 6.2
+Number of new children: 3
+
+Species 231    Species size: 3    Average fitness: 4.1
+61 6.2     62 0.0     63 6.2
+Number of new children: 2
+
+Species 232    Species size: 3    Average fitness: 6.2
+64 6.2     65 6.1     66 6.2
+Number of new children: 2
+
+Species 236    Species size: 3    Average fitness: 6.2
+67 6.2     68 6.2     69 6.2
+Number of new children: 3
+
+Species 237    Species size: 3    Average fitness: 6.3
+70 6.3     71 6.3     72 6.2
+Number of new children: 3
+
+Species 239    Species size: 2    Average fitness: 6.2
+73 6.2     74 6.2
+Number of new children: 3
+
+Species 244    Species size: 2    Average fitness: 6.0
+75 6.0     76 6.0
+Number of new children: 2
+
+Species 245    Species size: 3    Average fitness: 6.2
+77 6.2     78 6.2     79 6.3
+Number of new children: 3
+
+Species 246    Species size: 2    Average fitness: 5.8
+80 5.8     81 5.8
+Number of new children: 2
+
+Species 247    Species size: 2    Average fitness: 6.2
+82 6.1     83 6.2
+Number of new children: 2
+
+Species 248    Species size: 1    Average fitness: 5.8
+84 5.8
+Number of new children: 2
+
+Species 250    Species size: 4    Average fitness: 11.3
+85 13.3     86 13.4     87 5.2     88 13.4
+Number of new children: 4
+
+Species 253    Species size: 1    Average fitness: 6.2
+93 6.2
+Number of new children: 2
+
+Species 255    Species size: 2    Average fitness: 6.2
+97 6.3     98 6.2
+Number of new children: 2
+
+Species 256    Species size: 1    Average fitness: 6.2
+14 6.2
+Number of new children: 2
+
+Species 257    Species size: 2    Average fitness: 6.2
+22 6.2     24 6.2
+Number of new children: 2
+
+Species 258    Species size: 1    Average fitness: 6.2
+32 6.2
+Number of new children: 2
+
+Species 259    Species size: 1    Average fitness: 6.2
+34 6.2
+Number of new children: 2
+
+Species 260    Species size: 1    Average fitness: 3.2
+35 3.2
+Number of new children: 0
+
+
+Generation 15
+
+Number of species: 38
+
+Average fitness of this generation: 6.4
+Highest fitness: 13.4 (species 225)
+
+Species 15    Species size: 2    Average fitness: 6.2
+0 6.2     1 6.2
+Number of new children: 3
+
+Species 112    Species size: 3    Average fitness: 6.2
+2 6.2     3 6.2     4 6.2
+Number of new children: 3
+
+Species 121    Species size: 3    Average fitness: 6.2
+5 6.2     6 6.2     7 6.3
+Number of new children: 3
+
+Species 123    Species size: 3    Average fitness: 6.2
+8 6.2     9 6.2     10 6.2
+Number of new children: 3
+
+Species 130    Species size: 5    Average fitness: 6.2
+11 6.2     12 6.2     13 6.3     91 6.2     92 6.3
+Number of new children: 3
+
+Species 131    Species size: 2    Average fitness: 5.4
+14 5.4     15 5.4
+Number of new children: 2
+
+Species 139    Species size: 3    Average fitness: 7.5
+16 7.7     17 7.6     18 7.3
+Number of new children: 3
+
+Species 141    Species size: 2    Average fitness: 5.9
+19 5.9     20 5.8
+Number of new children: 2
+
+Species 147    Species size: 5    Average fitness: 6.2
+21 6.2     22 6.2     23 6.2     93 6.2     94 6.1
+Number of new children: 3
+
+Species 156    Species size: 3    Average fitness: 6.2
+24 6.2     25 6.2     26 6.2
+Number of new children: 3
+
+Species 157    Species size: 2    Average fitness: 5.8
+27 5.8     28 5.8
+Number of new children: 2
+
+Species 165    Species size: 2    Average fitness: 4.6
+29 4.6     30 4.6
+Number of new children: 2
+
+Species 206    Species size: 5    Average fitness: 6.2
+31 6.1     32 6.2     87 6.1     88 6.2     95 6.2
+Number of new children: 3
+
+Species 207    Species size: 3    Average fitness: 6.2
+33 6.2     34 6.2     35 6.2
+Number of new children: 3
+
+Species 208    Species size: 3    Average fitness: 6.2
+36 6.2     37 6.3     38 6.2
+Number of new children: 3
+
+Species 212    Species size: 3    Average fitness: 6.2
+39 6.2     40 6.3     41 6.2
+Number of new children: 3
+
+Species 214    Species size: 2    Average fitness: 5.8
+42 5.8     43 5.8
+Number of new children: 2
+
+Species 218    Species size: 3    Average fitness: 6.2
+44 6.3     45 6.2     46 6.2
+Number of new children: 3
+
+Species 221    Species size: 2    Average fitness: 4.3
+47 4.4     48 4.3
+Number of new children: 2
+
+Species 222    Species size: 2    Average fitness: 4.6
+49 4.7     50 4.6
+Number of new children: 2
+
+Species 224    Species size: 2    Average fitness: 6.2
+51 6.2     52 6.1
+Number of new children: 3
+
+Species 225    Species size: 4    Average fitness: 7.1
+53 0.0     54 12.3     55 13.4     99 2.7
+Number of new children: 3
+
+Species 226    Species size: 2    Average fitness: 6.2
+56 6.2     57 6.2
+Number of new children: 3
+
+Species 231    Species size: 2    Average fitness: 6.2
+59 6.1     60 6.2
+Number of new children: 3
+
+Species 232    Species size: 2    Average fitness: 6.2
+61 6.2     62 6.2
+Number of new children: 3
+
+Species 236    Species size: 3    Average fitness: 6.2
+63 6.2     64 6.2     65 6.2
+Number of new children: 3
+
+Species 237    Species size: 3    Average fitness: 6.2
+66 6.3     67 6.2     68 6.2
+Number of new children: 3
+
+Species 239    Species size: 3    Average fitness: 6.2
+69 6.2     70 6.2     71 6.2
+Number of new children: 3
+
+Species 244    Species size: 2    Average fitness: 6.0
+72 6.0     73 6.0
+Number of new children: 3
+
+Species 245    Species size: 3    Average fitness: 6.2
+74 6.2     75 6.3     76 6.2
+Number of new children: 3
+
+Species 246    Species size: 2    Average fitness: 5.8
+77 5.7     78 5.8
+Number of new children: 2
+
+Species 247    Species size: 2    Average fitness: 6.2
+79 6.2     80 6.2
+Number of new children: 2
+
+Species 248    Species size: 2    Average fitness: 5.8
+81 5.8     82 5.8
+Number of new children: 1
+
+Species 250    Species size: 4    Average fitness: 13.0
+83 11.7     84 13.4     85 13.4     86 13.4
+Number of new children: 4
+
+Species 255    Species size: 2    Average fitness: 6.2
+89 6.2     90 6.2
+Number of new children: 2
+
+Species 258    Species size: 1    Average fitness: 6.2
+96 6.2
+Number of new children: 2
+
+Species 259    Species size: 2    Average fitness: 6.2
+97 6.3     98 6.2
+Number of new children: 2
+
+Species 261    Species size: 1    Average fitness: 6.2
+58 6.2
+Number of new children: 2
+
+
