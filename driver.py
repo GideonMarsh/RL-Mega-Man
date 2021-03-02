@@ -289,6 +289,8 @@ try:
                 print('Fitness: ' + str(fit) + ' (time out)')
                 restartRun()
 
+        print('screen translated by ' + str(imageCheck.checkScreenTranslation(screenshot)))
+
         nextTick = nextTick + timedelta(microseconds=100000)
 
 

@@ -4,7 +4,22 @@
 import constants
 from PIL import Image
 from math import floor
+import numpy as np
+import scipy.signal
 
+# this method is from https://stackoverflow.com/questions/24768222/how-to-detect-a-shift-between-images
+def cross_image(im1, im2):
+   # get rid of the color channels by performing a grayscale transform
+   # the type cast into 'float' is to avoid overflows
+   im1_gray = np.sum(im1.astype('float'), axis=2)
+   im2_gray = np.sum(im2.astype('float'), axis=2)
+
+   # get rid of the averages, otherwise the results are not good
+   im1_gray -= np.mean(im1_gray)
+   im2_gray -= np.mean(im2_gray)
+
+   # calculate the correlation image; note the flipping of onw of the images
+   return scipy.signal.fftconvolve(im1_gray, im2_gray[::-1,::-1], mode='same')
 
 class ImageChecker:
     def __init__(self):
@@ -149,8 +164,51 @@ class ImageChecker:
                 hp = hp - 1
             else:
                 break
-        
+
         return hp
+
+    def checkScreenTranslation(self, newScreen):
+        try:
+            oldScreen = Image.open('images/lastScreenshot.png')
+
+            npix = newScreen.load()
+            opix = oldScreen.load()
+
+            w = (constants.XPIXELS * 2)
+            h = (constants.YPIXELS * 2)
+
+            xOffset = floor(oldScreen.width / w)
+            yOffset = floor(oldScreen.height / h)
+            xShift = floor((oldScreen.width % w) / 2)
+            yShift = floor((oldScreen.height % h) / 2)
+
+            newpix = list()
+            oldpix = list()
+            for j in range(h):
+                newlist = list()
+                oldlist = list()
+                for i in range(w):
+                    newlist.append(npix[(i * xOffset) + xShift,(j * yOffset) + yShift])
+                    oldlist.append(opix[(i * xOffset) + xShift,(j * yOffset) + yShift])
+                newpix.append(newlist)
+                oldpix.append(oldlist)
+
+            newArray = np.array(newpix, dtype=np.uint8)
+            oldArray = np.array(oldpix, dtype=np.uint8)
+
+            corr_img = cross_image(newArray, oldArray)
+            coords = np.unravel_index(np.argmax(corr_img), corr_img.shape)
+
+            translation = coords[1] - (w / 2)
+
+            if (translation <= 10 and translation >= -10):
+                newScreen.save('images/lastScreenshot.png')
+                return translation
+            return 0
+
+        except FileNotFoundError:
+            newScreen.save('images/lastScreenshot.png')
+            return 0
 '''
 def checkPixelLoops(p, cp, xo, yo, xs, ys, xp, yp):
     for i in range(xp):

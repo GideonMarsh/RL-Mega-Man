@@ -7,6 +7,9 @@ import constants
 from time import sleep
 from pynput.keyboard import Key, Listener
 from math import floor
+import numpy as np
+import scipy.signal
+from PIL import Image
 
 '''
 A driver program for capturing screenshots
@@ -37,29 +40,49 @@ grayimg = None
 
 continueGame = True
 
+def cross_image(im1, im2):
+   # get rid of the color channels by performing a grayscale transform
+   # the type cast into 'float' is to avoid overflows
+   im1_gray = np.sum(im1.astype('float'), axis=2)
+   im2_gray = np.sum(im2.astype('float'), axis=2)
+
+   # get rid of the averages, otherwise the results are not good
+   im1_gray -= np.mean(im1_gray)
+   im2_gray -= np.mean(im2_gray)
+
+   # calculate the correlation image; note the flipping of onw of the images
+   return scipy.signal.fftconvolve(im1_gray, im2_gray[::-1,::-1], mode='same')
+
 def on_press(key):
     '''
     print('{0} pressed'.format(key))
     '''
     if (key == Key.space):
 
-        pix = grayimg.load()
+        pix = screenshot.load()
 
-        xShift = 120
-        ycoords = [68,75,83,91,98,107,114,122,130,137,145,152,160,168,176,183,191,198,205,214,222,229,237,245,253,260,268,275]
+        xOffset = floor(screenshot.width / (constants.XPIXELS*2))
+        yOffset = floor(screenshot.height / (constants.YPIXELS*2))
+        xShift = floor((screenshot.width % (constants.XPIXELS*2)) / 2)
+        yShift = floor((screenshot.height % (constants.YPIXELS*2)) / 2)
 
-        for i in range(20):
-            for j in range(28):
-                pix[i + 140,ycoords[j]] = pix[i + xShift,ycoords[j]]
+        newpix = list()
+        for j in range(constants.YPIXELS*2):
+            newlist = list()
+            for i in range(constants.XPIXELS*2):
+                newlist.append(pix[(i * xOffset) + xShift,(j * yOffset) + yShift])
+            newpix.append(newlist)
 
-        hp = 0
-        for c in ycoords:
-            if pix[120,c] > 5:
-                hp = hp + 1
+        # Convert the pixels into an array using numpy
+        array = np.array(newpix, dtype=np.uint8)
 
-        print(hp)
+        # Use PIL to create an image from the new array of pixels
+        new_image = Image.fromarray(array)
+        new_image.save('images/new.png')
 
-        grayimg.save(screenshotName)
+
+        #screenshot.save(screenshotName)
+
 
 def on_release(key):
     '''
@@ -82,5 +105,26 @@ controller.loadSave()
 while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
     screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
     if (screenshot):
-        grayimg = screenshot.convert('L')
+        #grayimg = screenshot.convert('L')
+
+        pix = screenshot.load()
+
+        xOffset = floor(screenshot.width / (constants.XPIXELS*2))
+        yOffset = floor(screenshot.height / (constants.YPIXELS*2))
+        xShift = floor((screenshot.width % (constants.XPIXELS*2)) / 2)
+        yShift = floor((screenshot.height % (constants.YPIXELS*2)) / 2)
+
+        newpix = list()
+        for j in range(constants.YPIXELS*2):
+            newlist = list()
+            for i in range(constants.XPIXELS*2):
+                newlist.append(pix[(i * xOffset) + xShift,(j * yOffset) + yShift])
+            newpix.append(newlist)
+
+        # Convert the pixels into an array using numpy
+        array = np.array(newpix, dtype=np.uint8)
+        image = Image.open('images/new.png')
+        data = np.asarray(image)
+        corr_img = cross_image(array, data)
+        print(np.unravel_index(np.argmax(corr_img), corr_img.shape))
 keyListener.stop()
