@@ -52,7 +52,7 @@ class GeneticAlgorithmController:
     # assign fitness and set current brain to next brain
     # treat all negative fitness values as 0
     def assignFitness(self, fitness):
-        if (self.population[self.currentBrain].fitness < 0 or fitness < self.population[self.currentBrain].fitness):
+        if (fitness > self.population[self.currentBrain].fitness):
             if (fitness < 0):
                 self.population[self.currentBrain].fitness = 0
             else:

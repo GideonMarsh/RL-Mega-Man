@@ -127,7 +127,7 @@ def restartRun():
     newFitness = 0
 
     if (brains.doneWithGeneration()):
-        if (runNumber == 1):
+        if (runNumber == 3):
             runNumber = 1
             brains.setBestBrain()
             log.writeToLog(brains)
@@ -187,7 +187,7 @@ keyListener.start()
 ############################# program loop ##############################
 try:
     restartRun()
-    timeList = list()
+    #timeList = list()
     while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         # wait for the next tick
         while (datetime.now() < nextTick):
