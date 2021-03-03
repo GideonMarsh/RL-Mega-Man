@@ -175,8 +175,8 @@ class ImageChecker:
             npix = newScreen.load()
             opix = oldScreen.load()
 
-            w = floor(constants.XPIXELS * 1.5)
-            h = floor(constants.YPIXELS * 1.5)
+            w = floor(constants.XPIXELS * 2)
+            h = floor(constants.YPIXELS * 2)
 
             xOffset = floor(oldScreen.width / w)
             yOffset = floor(oldScreen.height / h)
@@ -212,7 +212,7 @@ class ImageChecker:
             try:
                 newScreen.save('images/lastScreenshot.png')
             except OSError:
-                pass
+                translation = 0
 
         return translation
 

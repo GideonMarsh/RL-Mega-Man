@@ -43,6 +43,10 @@ continueGame = True
 
 imagecount = 0
 
+firstRun = True
+
+fitness = 0
+
 def cross_image(im1, im2):
    # get rid of the color channels by performing a grayscale transform
    # the type cast into 'float' is to avoid overflows
@@ -99,7 +103,7 @@ def on_release(key):
         return False
     '''
     try:
-        if (key.char == 'w'):
+        if (key.char == 'w' or key.char == 't'):
             global continueGame
             continueGame = False
     except AttributeError:
@@ -113,7 +117,10 @@ counter = 0
 while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
     screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
     if (screenshot):
-
+        if firstRun:
+            screenshot.save('images/test.png')
+            firstRun = False
+        '''
         if counter == 20:
             screenshot.save('images/stitchtest_' + str(imagecount) + '.png')
             imagecount += 1
@@ -122,30 +129,85 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
             counter += 1
         '''
         #grayimg = screenshot.convert('L')
+        translation = 0
+        try:
+            oldScreen = Image.open('images/test.png')
 
-        pix = screenshot.load()
+            npix = screenshot.load()
+            opix = oldScreen.load()
 
-        xOffset = floor(screenshot.width / (constants.XPIXELS*2))
-        yOffset = floor(screenshot.height / (constants.YPIXELS*2))
-        xShift = floor((screenshot.width % (constants.XPIXELS*2)) / 2)
-        yShift = floor((screenshot.height % (constants.YPIXELS*2)) / 2)
+            w = floor(constants.XPIXELS * 2)
+            h = floor(constants.YPIXELS * 2)
 
-        newpix = list()
-        for j in range(constants.YPIXELS*2):
-            newlist = list()
-            for i in range(constants.XPIXELS*2):
-                newlist.append(pix[(i * xOffset) + xShift,(j * yOffset) + yShift])
-            newpix.append(newlist)
+            xOffset = floor(oldScreen.width / w)
+            yOffset = floor(oldScreen.height / h)
+            xShift = floor((oldScreen.width % w) / 2)
+            yShift = floor((oldScreen.height % h) / 2)
 
-        # Convert the pixels into an array using numpy
-        array = np.array(newpix, dtype=np.uint8)
-        image = Image.open('images/new.png')
-        data = np.asarray(image)
-        corr_img = cross_image(array, data)
-        print(np.unravel_index(np.argmax(corr_img), corr_img.shape))
+            newpix = list()
+            oldpix = list()
+            for j in range(h):
+                newlist = list()
+                oldlist = list()
+                for i in range(w):
+                    newlist.append(npix[(i * xOffset) + xShift,(j * yOffset) + yShift])
+                    oldlist.append(opix[(i * xOffset) + xShift,(j * yOffset) + yShift])
+                newpix.append(newlist)
+                oldpix.append(oldlist)
+
+            newArray = np.array(newpix, dtype=np.uint8)
+            oldArray = np.array(oldpix, dtype=np.uint8)
+
+            corr_img = cross_image(newArray, oldArray)
+            coords = np.unravel_index(np.argmax(corr_img), corr_img.shape)
+
+            translation = coords[1] - (w / 2)
+
+            if (translation >= 10 or translation <= -10):
+                translation = 0
+
+        except FileNotFoundError:
+            pass
+
+        if (translation != 0):
+            try:
+                screenshot.save('images/test.png')
+            except OSError:
+                translation = 0
+
+        fitness -= translation
         '''
-keyListener.stop()
+        try:
 
+            pix = screenshot.load()
+
+            xOffset = floor(screenshot.width / (constants.XPIXELS*2))
+            yOffset = floor(screenshot.height / (constants.YPIXELS*2))
+            xShift = floor((screenshot.width % (constants.XPIXELS*2)) / 2)
+            yShift = floor((screenshot.height % (constants.YPIXELS*2)) / 2)
+
+            newpix = list()
+            for j in range(constants.YPIXELS*2):
+                newlist = list()
+                for i in range(constants.XPIXELS*2):
+                    newlist.append(pix[(i * xOffset) + xShift,(j * yOffset) + yShift])
+                newpix.append(newlist)
+
+            # Convert the pixels into an array using numpy
+            array = np.array(newpix, dtype=np.uint8)
+
+            image = Image.open('images/new.png')
+            data = np.asarray(image)
+            corr_img = cross_image(array, data)
+            print(np.unravel_index(np.argmax(corr_img), corr_img.shape))
+        except FileNotFoundError:
+            pass
+        screenshot.save('images/new.png')
+        '''
+
+keyListener.stop()
+print('Fitness: ' + str(fitness))
+'''
 images = list()
 for i in range(imagecount):
     images.append(cv2.imread('images/stitchtest_' + str(i) + '.png'))
@@ -154,3 +216,4 @@ stitcher = cv2.Stitcher_create()
 (status, stitched) = stitcher.stitch(images, cv2.Stitcher_PANORAMA)
 print(status)
 cv2.imwrite('images/stitched.png', stitched)
+'''

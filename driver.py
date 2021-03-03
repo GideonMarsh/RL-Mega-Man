@@ -174,7 +174,7 @@ def restartRun():
 # call this whenever a run completes
 def endRun():
     global currentlyPlaying, newFitness
-    print('Fitness: ' + str(newFitness))
+    #print('Fitness: ' + str(newFitness))
     currentlyPlaying = False
     controller.cutoffInputs()
     controller.openMenu()
@@ -247,53 +247,60 @@ try:
             if (imageCheck.checkGameOver(grayimg)):
                 endRun()
                 # subtract the number of seconds the game over effect takes
-                fit = fitnessTracker.getFitness() * 2
-                fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
+                #fit = fitnessTracker.getFitness() * 2
+                #fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
+                fit = max(round(newFitness / 3) - fitnessPenaltySub, 0)
                 brains.assignFitness(fit)
-                #print('Fitness: ' + str(fit) + ' (game over)')
+                print('Fitness: ' + str(fit) + ' (game over)')
                 restartRun()
 
             # program completes the level
             if (imageCheck.checkLevelComplete(grayimg)):
                 endRun()
-                fit = ((constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()) * 2
-                fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
+                #fit = ((constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()) * 2
+                #fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
+                fit = max(round(newFitness / 3) - fitnessPenaltySub, 0)
                 brains.assignFitness(fit)
-                #print('Fitness: ' + str(fit) + ' (level complete)')
+                print('Fitness: ' + str(fit) + ' (level complete)')
                 restartRun()
 
             # program stops making progress
             if (checkProgress and imageCheck.checkNoProgress(grayimg)):
                 endRun()
-                fit = (fitnessTracker.getFitness() - (constants.PROGRESS_CHECK_TIMEOUT * 1.5)) * 2
-                fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
+                #fit = (fitnessTracker.getFitness() - (constants.PROGRESS_CHECK_TIMEOUT * 1.5)) * 2
+                #fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
+                fit = max(round(newFitness / 3) - fitnessPenaltySub, 0)
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
                 brains.assignFitness(fit)
-                #print('Fitness: ' + str(fit) + ' (no progress)')
+                print('Fitness: ' + str(fit) + ' (no progress)')
                 restartRun()
 
             # program stops controlling character
             if (controlTimer.timeUp() and imageCheck.checkNoControl(grayimg)):
                 endRun()
-                fit = (fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT) * 2
-                fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
+                #fit = (fitnessTracker.getFitness() - constants.CONTROL_TIMEOUT) * 2
+                #fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
+                fit = max(round(newFitness / 3) - fitnessPenaltySub, 0)
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
                 brains.assignFitness(fit)
-                #print('Fitness: ' + str(fit) + ' (no control)')
+                print('Fitness: ' + str(fit) + ' (no control)')
                 restartRun()
 
             # program times out
             if (globalTimer.timeUp()):
                 endRun()
-                fit = 0
+                #fit = 0
+                fit = max(round(newFitness / 3) - fitnessPenaltySub, 0)
                 brains.assignFitness(fit)
-                #print('Fitness: ' + str(fit) + ' (time out)')
+                print('Fitness: ' + str(fit) + ' (time out)')
                 restartRun()
 
         #print('screen translated by ' + str(imageCheck.checkScreenTranslation(screenshot)))
-        newFitness -= imageCheck.checkScreenTranslation(screenshot)
+        v = imageCheck.checkScreenTranslation(screenshot)
+        #print(v)
+        newFitness -= v#imageCheck.checkScreenTranslation(screenshot)
 
         nextTick = nextTick + timedelta(microseconds=100000)
 

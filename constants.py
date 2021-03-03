@@ -20,7 +20,7 @@ CONTROL_TIMEOUT = 6
 #The percentage of a checkpoint image that is allowed to not match
 IMAGE_ACCEPTABLE_ERROR = 0.01
 
-CONTROL_FITNESS_PENALTY = 0.3
+CONTROL_FITNESS_PENALTY = 0.1
 
 CONTROLLER_OUTPUTS = 6
 
