@@ -206,7 +206,7 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         '''
 
 keyListener.stop()
-print('Fitness: ' + str(fitness))
+print('Fitness: ' + str(round(fitness / 3)))
 '''
 images = list()
 for i in range(imagecount):
