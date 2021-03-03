@@ -10,6 +10,7 @@ from math import floor
 import numpy as np
 import scipy.signal
 from PIL import Image
+import cv2
 
 '''
 A driver program for capturing screenshots
@@ -40,6 +41,8 @@ grayimg = None
 
 continueGame = True
 
+imagecount = 0
+
 def cross_image(im1, im2):
    # get rid of the color channels by performing a grayscale transform
    # the type cast into 'float' is to avoid overflows
@@ -54,11 +57,13 @@ def cross_image(im1, im2):
    return scipy.signal.fftconvolve(im1_gray, im2_gray[::-1,::-1], mode='same')
 
 def on_press(key):
+    global imagecount
     '''
     print('{0} pressed'.format(key))
     '''
-    if (key == Key.space):
 
+    if (key == Key.space):
+        '''
         pix = screenshot.load()
 
         xOffset = floor(screenshot.width / (constants.XPIXELS*2))
@@ -79,9 +84,11 @@ def on_press(key):
         # Use PIL to create an image from the new array of pixels
         new_image = Image.fromarray(array)
         new_image.save('images/new.png')
-
+        '''
 
         #screenshot.save(screenshotName)
+        screenshot.save('images/stitchtest_' + str(imagecount) + '.png')
+        imagecount += 1
 
 
 def on_release(key):
@@ -102,9 +109,18 @@ keyListener = Listener(on_press=on_press,on_release=on_release)
 keyListener.start()
 
 controller.loadSave()
+counter = 0
 while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
     screenshot = screenshotter.takescreenshot(constants.WINDOWNAME, region)
     if (screenshot):
+
+        if counter == 20:
+            screenshot.save('images/stitchtest_' + str(imagecount) + '.png')
+            imagecount += 1
+            counter = 0
+        else:
+            counter += 1
+        '''
         #grayimg = screenshot.convert('L')
 
         pix = screenshot.load()
@@ -127,4 +143,14 @@ while (continueGame and not screenshotter.isProgramOver(constants.WINDOWNAME)):
         data = np.asarray(image)
         corr_img = cross_image(array, data)
         print(np.unravel_index(np.argmax(corr_img), corr_img.shape))
+        '''
 keyListener.stop()
+
+images = list()
+for i in range(imagecount):
+    images.append(cv2.imread('images/stitchtest_' + str(i) + '.png'))
+
+stitcher = cv2.Stitcher_create()
+(status, stitched) = stitcher.stitch(images, cv2.Stitcher_PANORAMA)
+print(status)
+cv2.imwrite('images/stitched.png', stitched)

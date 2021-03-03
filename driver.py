@@ -113,7 +113,7 @@ def on_release(key):
 
 # call this function before the start of every run
 def restartRun():
-    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken, fitnessPenaltySub, fitnessPenaltyMult, nextTick, runNumber
+    global globalTimer, currentlyPlaying, progressCheckTimer, checkProgress, firstImageTaken, controlTimer, controlImageTimer, controlImageTaken, fitnessPenaltySub, fitnessPenaltyMult, nextTick, runNumber, newFitness
     globalTimer.cancelTimer()
     progressCheckTimer.cancelTimer()
     controlTimer.cancelTimer()
@@ -124,9 +124,10 @@ def restartRun():
     controlImageTimer = fitness.RunTimer(2)
     fitnessPenaltySub = 0
     fitnessPenaltyMult = 1
+    newFitness = 0
 
     if (brains.doneWithGeneration()):
-        if (runNumber == 3):
+        if (runNumber == 1):
             runNumber = 1
             brains.setBestBrain()
             log.writeToLog(brains)
@@ -172,7 +173,8 @@ def restartRun():
 
 # call this whenever a run completes
 def endRun():
-    global currentlyPlaying
+    global currentlyPlaying, newFitness
+    print('Fitness: ' + str(newFitness))
     currentlyPlaying = False
     controller.cutoffInputs()
     controller.openMenu()
@@ -223,6 +225,7 @@ try:
 
             if (not firstImageTaken):
                 grayimg.save('images/last_checkpoint.png')
+                imageCheck.saveNewImage(screenshot)
                 firstImageTaken = True
 
             if (progressCheckTimer.timeUp()):
@@ -247,7 +250,7 @@ try:
                 fit = fitnessTracker.getFitness() * 2
                 fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
                 brains.assignFitness(fit)
-                print('Fitness: ' + str(fit) + ' (game over)')
+                #print('Fitness: ' + str(fit) + ' (game over)')
                 restartRun()
 
             # program completes the level
@@ -256,7 +259,7 @@ try:
                 fit = ((constants.TOTAL_TIMEOUT * 2) - fitnessTracker.getFitness()) * 2
                 fit = max((fit - fitnessPenaltySub) * fitnessPenaltyMult, 0)
                 brains.assignFitness(fit)
-                print('Fitness: ' + str(fit) + ' (level complete)')
+                #print('Fitness: ' + str(fit) + ' (level complete)')
                 restartRun()
 
             # program stops making progress
@@ -267,7 +270,7 @@ try:
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
                 brains.assignFitness(fit)
-                print('Fitness: ' + str(fit) + ' (no progress)')
+                #print('Fitness: ' + str(fit) + ' (no progress)')
                 restartRun()
 
             # program stops controlling character
@@ -278,7 +281,7 @@ try:
                 if (imageCheck.checkEarlyOut(grayimg)):
                     fit = 0
                 brains.assignFitness(fit)
-                print('Fitness: ' + str(fit) + ' (no control)')
+                #print('Fitness: ' + str(fit) + ' (no control)')
                 restartRun()
 
             # program times out
@@ -286,10 +289,11 @@ try:
                 endRun()
                 fit = 0
                 brains.assignFitness(fit)
-                print('Fitness: ' + str(fit) + ' (time out)')
+                #print('Fitness: ' + str(fit) + ' (time out)')
                 restartRun()
 
-        print('screen translated by ' + str(imageCheck.checkScreenTranslation(screenshot)))
+        #print('screen translated by ' + str(imageCheck.checkScreenTranslation(screenshot)))
+        newFitness -= imageCheck.checkScreenTranslation(screenshot)
 
         nextTick = nextTick + timedelta(microseconds=100000)
 

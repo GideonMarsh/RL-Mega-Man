@@ -168,14 +168,15 @@ class ImageChecker:
         return hp
 
     def checkScreenTranslation(self, newScreen):
+        translation = 0
         try:
             oldScreen = Image.open('images/lastScreenshot.png')
 
             npix = newScreen.load()
             opix = oldScreen.load()
 
-            w = (constants.XPIXELS * 2)
-            h = (constants.YPIXELS * 2)
+            w = floor(constants.XPIXELS * 1.5)
+            h = floor(constants.YPIXELS * 1.5)
 
             xOffset = floor(oldScreen.width / w)
             yOffset = floor(oldScreen.height / h)
@@ -201,14 +202,24 @@ class ImageChecker:
 
             translation = coords[1] - (w / 2)
 
-            if (translation <= 10 and translation >= -10):
-                newScreen.save('images/lastScreenshot.png')
-                return translation
-            return 0
+            if (translation >= 10 or translation <= -10):
+                translation = 0
 
         except FileNotFoundError:
-            newScreen.save('images/lastScreenshot.png')
-            return 0
+            pass
+
+        if (translation != 0):
+            try:
+                newScreen.save('images/lastScreenshot.png')
+            except OSError:
+                pass
+
+        return translation
+
+
+    def saveNewImage(self, newImage):
+        newImage.save('images/lastScreenshot.png')
+
 '''
 def checkPixelLoops(p, cp, xo, yo, xs, ys, xp, yp):
     for i in range(xp):
